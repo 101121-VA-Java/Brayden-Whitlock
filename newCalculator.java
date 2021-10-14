@@ -1,53 +1,58 @@
 public class newCalculator{
     public static void main(String[] args){
+        double w = java.lang.Math.random()*7;
         int sum = add(1,2);
         int sub = subtract(1,2);
         double mul = multiply(2,2);
         int rem = remander(5,4); 
-        String day = weekday("Monday");
-        String day2 = weekday("Tusday");
-        String day3 = weekday("Wednesday");
-        String day4 = weekday("Thursday");
-        String day5 = weekday("Friday");
-        String day6 = weekday("Saterday");
-        String day7 = weekday("Sunday");
-        String day8 = weekday("asdfd");
-        
+        // String day = weekday("Monday");
+        // String day2 = weekday("Tusday");
+        // String day3 = weekday("Wednesday");
+        // String day4 = weekday("Thursday");
+        // String day5 = weekday("Friday");
+        // String day6 = weekday("Saterday");
+        // String day7 = weekday("Sunday");
+        // String day8 = weekday("asdfd");
         String gre = greeting("Bob");
-        System.out.println(gre);
+        String[] dayColection = {"Monday", "Tusday", "Wednesday", "Thursday",
+                                "Friday", "Saterday","Sunday", "asdfd"};
+        
         countdown(10);
         System.out.println(sum);
         System.out.println(sub);
         System.out.println(mul);
         System.out.println(rem);
-        for (int i = 0; i < 7; i++)
-        { 
-            if(i == 0){
-                System.out.println(day8);
-            }
-            if(i == 1){
-                System.out.println(day);
-            }
-            if(i == 2){
-                System.out.println(day2);
-            }
-            if(i == 3){
-                System.out.println(day3);
-            }
-            if(i == 4){
-                System.out.println(day4);
-            }
-            if(i == 5){
-                System.out.println(day5);
-            }
-            if(i == 6){
-                System.out.println(day6);
-            }
-            if(i == 7){
-                System.out.println(day7);
-            }
+        System.out.println(gre);
+        System.out.println(weekday(dayColection[(int) w]));
 
-        }
+        // for (int i = 0; i < 7; i++)
+        // { 
+        //     if(i == 0){
+        //         System.out.println(day8);
+        //     }
+        //     if(i == 1){
+        //         System.out.println(day);
+        //     }
+        //     if(i == 2){
+        //         System.out.println(day2);
+        //     }
+        //     if(i == 3){
+        //         System.out.println(day3);
+        //     }
+        //     if(i == 4){
+        //         System.out.println(day4);
+        //     }
+        //     if(i == 5){
+        //         System.out.println(day5);
+        //     }
+        //     if(i == 6){
+        //         System.out.println(day6);
+        //     }
+        //     if(i == 7){
+        //         System.out.println(day7);
+        //     }
+
+        // }
 
     }
     public static int add(int a, int b){
