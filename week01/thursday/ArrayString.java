@@ -3,6 +3,9 @@ public class ArrayString{
         String[] macGroup = {"Brayden", "Kim", "Alex", "Gerardo", "Albert"};
         String[] reversed = reverseMacGroup(macGroup);
         for(int j =  0; j < macGroup.length; j++){
+            System.out.println("The names of the group are: " + macGroup[j]);
+        }
+        for(int j =  0; j < macGroup.length; j++){
             System.out.println("The names of the reversed group are: " + reversed[j]);
         }
     }
