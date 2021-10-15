@@ -8,5 +8,8 @@ public class Driver{
         System.out.println(ben.age);
         System.out.println(ben.hight);
         System.out.println(ben.isRightHanded);
+
+        System.out.println(ben.collected("Ring"));
+        ben.sleep();
     }
 }
