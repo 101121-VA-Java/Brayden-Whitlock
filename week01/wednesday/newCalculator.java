@@ -1,6 +1,6 @@
 public class newCalculator{
     public static void main(String[] args){
-        double w = java.lang.Math.random()*7;
+        double w = java.lang.Math.random()*8;
         int sum = add(1,2);
         int sub = subtract(1,2);
         double mul = multiply(2,2);

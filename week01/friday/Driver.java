@@ -12,12 +12,17 @@ public class Driver {
         System.out.println(p);
         User u = new User("David");
         System.out.println(u.sayMyName());
+        System.out.println(User.numberOfUser);
         User b = new User("Beyonce");
         System.out.println(b.sayMyName());
-        // System.out.println(u.name);
-        // setNameToKevin(u);
-        // System.out.println(u.name);
-        // System.out.println(u);
+        System.out.println(u.name);
+        setNameToKevin(u);
+        System.out.println(u.name);
+        System.out.println(u);
+        Driver.sayStatic();
+        System.out.println(User.numberOfUser);
+        System.out.println(u.numberOfUser);
+        User.printNumberOfUser();
 
         }
     public static void saySomething(){
@@ -32,5 +37,9 @@ public class Driver {
     public static void setNameToKevin(User u) {
         u.name = "Kevin";
         System.out.println(u.name);
+    }
+
+    public static void sayStatic(){
+        System.out.println("i am a static message");
     }
 }
