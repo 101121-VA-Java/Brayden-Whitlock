@@ -1,0 +1,15 @@
+Go line by line, and explain what's happening in each line.
+
+int score = 80; // A variable of type int and of name score is declared and is assigned a value of 80;
+
+String result;                                       // A variable of type String and of name result is declared
+
+if (score == 80) {                                  // an equals conditional comparison is made between a variable of type int and of name score and a value of 80
+	result = "You passed!";                    // A variable of type String and of name result is assigned the value of You passed!! 
+} else if (score > 80) {                           // a more than conditional comparison is made between a variable of type int and of name score and a value of 80 if the above if statement is false 
+	result = "You did great!";                // A variable of type String and of name result is assigned the value of You did great!
+} else {                                          // runs if the above if and else if statements are false
+	result = "You did not pass. Try again!"; // A variable of type String and of name result is assigned the value of You did not pass. Try again!
+}
+
+System.out.println(result);                      // A variable of type String and of name result with a value of You passed! is called to the System method of and the out method is called then the println method is called and the system takes in the string of the result and prints it out to the monitor 
