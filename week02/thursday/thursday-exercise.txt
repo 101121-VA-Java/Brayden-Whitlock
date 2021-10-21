@@ -1,0 +1,57 @@
+public static void main(String[] args) {                                         // set up a method named main with a access modifier of public a scope of 
+									     // static and a return type of void the method has the default parameter of type String array with a name of args;
+	
+	String[] foodTypes = getFoodTypes();				     // A variable of type String array and of name foodTypes is declared and is assigned a value of the return value 
+									     // of the method getFoodTypes();
+	String myType = foodTypes[2];					     // A variable of type String and of name myType is declared and is assigned a value of the third value in the foodTypes String array
+	String[] foodsOfMyType = getFoodsByType(myType);			     // A variable of type String array and of name foodsOfMyTypes is declared and is assigned a value of the return value 
+									     // of the method getFoodsByType() with the value of myType passed in as a parameter; 
+	
+	for (String food : foodsOfMyType) {				     // an advanced for conditional is performed that takes in the parameters of a variable of type String and of name food
+									     // and iterates over the values of foodsOfMyType setting food equal to that value; 
+		System.out.println(food);					     // prints the values that are a variable of type String and of name food;
+	}
+}
+
+public static String[] getFoodTypes() {					     // set up a getter method named getFoodTypes with a access modifier of public a scope of 
+									     // static and a return type of String Array the method has no parameters;
+	return foodTypes;						     // returns a value of type String array named foodTypes;
+}
+
+public static String[] getFoodsByType(String type) {                             // set up a method named getFoodsByType with a access modifier of public a scope of 
+									     // static and a return type of String Array the method has a parameter of type String with a name of type;
+	String[] foods = new String[3];					     // A variable of type String and of name food is declared and is assigned an empty String array of size 4;
+
+	switch(type) {							     // a switch conditional that takes in the parameters of a variable of type String and the name of type is called;
+	case "breakfast":						     // an equals conditional comparison is made between a variable of type string and of name type and a value of breakfast;
+		foods[0] = "pancakes";					     // the variable of type String array and of name food is assigned in the first array space a value of pancakes;
+		foods[1] = "cereal";					     // the variable of type String array and of name food is assigned in the second array space a value of cereal;
+		foods[2] = "omelette";					     // the variable of type String array and of name food is assigned in the third array space a value of omelette;
+		break;							     // the case statement ends; 
+	case "lunch":							     // an equals conditional comparison is made between a variable of type string and of name type and a value of lunch;
+		foods[0] = "sandwich";    				     // the variable of type String array and of name food is assigned in the first array space a value of sandwich;
+		foods[1] = "salad";					     // the variable of type String array and of name food is assigned in the second array space a value of salad;
+		foods[2] = "soup";   					     // the variable of type String array and of name food is assigned in the third array space a value of soup;
+		break;							     // the case statement ends;
+	case "dinner":							     // an equals conditional comparison is made between a variable of type string and of name type and a value of dinner;
+		foods[0] = "curry";                                             // the variable of type String array and of name food is assigned in the first array space a value of curry;
+		foods[1] = "stir fry";  					     // the variable of type String array and of name food is assigned in the second array space a value of stir fry;
+		foods[2] = "burger";					     // the variable of type String array and of name food is assigned in the third array space a value of burger;
+		break;							     // the case statement ends;
+	case "dessert":							     // an equals conditional comparison is made between a variable of type string and of name type and a value of dessert;
+		foods[0] = "cake";					     // the variable of type String array and of name food is assigned in the first array space a value of cake;
+		foods[1] = "ice cream";					     // the variable of type String array and of name food is assigned in the second array space a value of ice cream;
+		foods[2] = "candy";					     // the variable of type String array and of name food is assigned in the third array space a value of candy;
+		break;							     // the case statement ends;
+	case "snack":							     // an equals conditional comparison is made between a variable of type string and of name type and a value of snack;
+		foods[0] = "chips";					     // the variable of type String array and of name food is assigned in the first array space a value of chips;
+		foods[1] = "apple";					     // the variable of type String array and of name food is assigned in the second array space a value of apple;
+		foods[2] = "samosa";					     // the variable of type String array and of name food is assigned in the third array space a value of samosa;
+		break;							     // the case statement ends;
+	default:								     // if all other conditionals in the case statement fails then this one runs 
+		// add your own					 	     // nothing happens 
+		break;							     // the case statement ends;
+	}
+
+	return foods;							     // the variable of type String array and of name food is returned; 
+}
