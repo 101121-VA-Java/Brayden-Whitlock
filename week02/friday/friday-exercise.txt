@@ -1,0 +1,25 @@
+public class Food {							// set up a class named food with a access modifier of public a scope of static;
+	public String name;						// A variable of type String and of name name is declared;
+	public String type;						// A variable of type String and of name type is declared; 
+
+	public Food(String name, String type) {				// set up a constructor named Food has two parameters of type String named name and type;  
+		this.name = name;					// sets the local variable of name to the string name of the constructor;
+		this.type = type;					// sets the local variable of type to the string type of the constructor;
+	}
+
+	public void cook() {						// set up a method named cook with a access modifier of public and a return type of void; 
+		if (!name.contains("cooked")) {				// sets up a conditional that checks if the string name dosen't contain the string cooked 
+			name = "cooked " + name;				// makes a new string and makes it equal to cooked plus the value of the string name;
+		}
+	}
+}
+
+public class Main {							// set up a class named Main with a access modifier of public;
+	public static void main(String[] args) {				// set up a method named main with a access modifier of public a scope of 
+									// static and a return type of void the method has the default parameter of type String array with a name of args;
+		Food myFood = new Food("potato", "vegetable");		// makes a new object of food named myFood and gives it the permitters of potato and vegetable;
+		myFood.cook();						// called the cooked method on the object food;
+
+		System.out.println(myFood.name);				// prints out the myFood objects preamiter of name and prints out cooked potato;
+	}
+}
