@@ -1,9 +1,15 @@
 package com.revature.models;
 
-public class SmallAnimal {
+public class SmallAnimal extends Animal  {
 
 	public SmallAnimal() {
-		// TODO Auto-generated constructor stub
+		
+	}
+
+	@Override
+	public String whatDoesTheAnimalSay(String sound) {
+		sound = sound.toLowerCase();
+		return sound;
 	}
 
 }
