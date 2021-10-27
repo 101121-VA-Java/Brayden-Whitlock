@@ -1,43 +1,36 @@
 package com.revature.models;
 
-public class Customer {
+public class Employee {
+
+	// id will be assigned by the System
 	private int id;
 	private String name;
 	private String username;
 	private String password;
-	private String email;
-	private int cardNumber;
-	private Customer owner;
+	private Role role; // using an enum to store a specific value
+	private Employee manager;
 	
-	public Customer() {
+	public Employee() {
 		super();
 	}
 	
-	public Customer(String username, String password) {
-		super();
-		this.username = username;
-		this.password = password;
-	}
-
-	public Customer(String name, String username, String password, String email, int cardNumber) {
+	public Employee(String name, String username, String password) {
 		super();
 		this.name = name;
 		this.username = username;
 		this.password = password;
-		this.email = email;
-		this.cardNumber = cardNumber;
 	}
 
-	public Customer(int id, String name, String username, String password, String email, int cardNumber,
-			Customer owner) {
+
+
+	public Employee(int id, String name, String username, String password, Role role, Employee manager) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.username = username;
 		this.password = password;
-		this.email = email;
-		this.cardNumber = cardNumber;
-		this.owner = owner;
+		this.role = role;
+		this.manager = manager;
 	}
 
 	public int getId() {
@@ -72,40 +65,37 @@ public class Customer {
 		this.password = password;
 	}
 
-	public String getEmail() {
-		return email;
+	public Role getRole() {
+		return role;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setRole(Role role) {
+		this.role = role;
 	}
 
-	public int getCardNumber() {
-		return cardNumber;
+	public Employee getManager() {
+		return manager;
 	}
 
-	public void setCardNumber(int cardNumber) {
-		this.cardNumber = cardNumber;
+	public void setManager(Employee manager) {
+		this.manager = manager;
 	}
 
-	public Customer getOwner() {
-		return owner;
-	}
-
-	public void setOwner(Customer owner) {
-		this.owner = owner;
+	@Override
+	public String toString() {
+		return "Employee [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password + ", role="
+				+ role + ", manager=" + manager + "]";
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + cardNumber;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + id;
+		result = prime * result + ((manager == null) ? 0 : manager.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -118,30 +108,25 @@ public class Customer {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Customer other = (Customer) obj;
-		if (cardNumber != other.cardNumber)
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
+		Employee other = (Employee) obj;
 		if (id != other.id)
+			return false;
+		if (manager == null) {
+			if (other.manager != null)
+				return false;
+		} else if (!manager.equals(other.manager))
 			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (owner == null) {
-			if (other.owner != null)
-				return false;
-		} else if (!owner.equals(other.owner))
-			return false;
 		if (password == null) {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
+			return false;
+		if (role != other.role)
 			return false;
 		if (username == null) {
 			if (other.username != null)
@@ -150,17 +135,5 @@ public class Customer {
 			return false;
 		return true;
 	}
-
-	@Override
-	public String toString() {
-		return "Customer [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password
-				+ ", email=" + email + ", cardNumber=" + cardNumber + ", owner=" + owner + "]";
-	}
-
-
-
-
-	
-	
 	
 }

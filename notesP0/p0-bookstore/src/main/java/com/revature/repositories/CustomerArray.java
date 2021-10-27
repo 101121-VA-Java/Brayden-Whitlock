@@ -3,17 +3,17 @@ package com.revature.repositories;
 import com.revature.models.Customer;
 
 public class CustomerArray implements CustomerDao {
-	
-	private Customer[] customer;
+
+	private Customer[] customer = new Customer[0];
 
 	public CustomerArray() {
-		// TODO Auto-generated constructor stub
 	}
-	
+
 	public CustomerArray(Customer[] customer) {
 		super();
 		this.customer = customer;
 	}
+	
 
 	@Override
 	public Customer[] getAllCustomers() {
@@ -27,29 +27,34 @@ public class CustomerArray implements CustomerDao {
 
 	@Override
 	public int addCustomer(Customer c) {
-		// TODO Auto-generated method stub
 		Customer[] temp = new Customer[customer.length + 1];
 		int i = 0;
-		for(; i < customer.length; i++) {
+		for (; i < customer.length; i++) {
 			temp[i] = customer[i];
 		}
 		c.setId(i);
 		temp[i] = c;
 		customer = temp;
-		
+
 		return i;
 	}
 
 	@Override
 	public boolean editCustomer(Customer c) {
-		// TODO Auto-generated method stub
+
 		return false;
 	}
 
 	@Override
 	public boolean deleteCustomer(int id) {
-		// TODO Auto-generated method stub
+		Customer[] temp = new Customer[customer.length + 1];
+		for (int i = 0; i < customer.length; i++) {
+			temp[i] = customer[i];
+			if (customer[i].getId() == id) {
+				customer[i] = customer[customer.length - 1];
+				return true;
+			}
+		}
 		return false;
 	}
-
 }
