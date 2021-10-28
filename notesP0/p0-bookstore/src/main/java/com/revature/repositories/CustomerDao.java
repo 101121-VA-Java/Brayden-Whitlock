@@ -1,11 +1,13 @@
 package com.revature.repositories;
 
+import java.util.List;
+
 import com.revature.models.Customer;
 
-public interface CustomerDao {
-	Customer[] getAllCustomers();
-	Customer getCustomerById(int id);
-	int addCustomer(Customer c);
-	boolean editCustomer(Customer c);
-	boolean deleteCustomer(int id);
+public interface CustomerDao extends GenericDao<Customer>{
+	List<Customer> getAll();
+	Customer getById(int id);
+	int add(Customer c);
+	boolean edit(Customer c);
+	boolean deleteById(int id);
 }

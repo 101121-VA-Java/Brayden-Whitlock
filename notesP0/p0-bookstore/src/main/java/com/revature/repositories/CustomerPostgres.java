@@ -1,5 +1,7 @@
 package com.revature.repositories;
 
+import java.util.List;
+
 import com.revature.models.Customer;
 
 public class CustomerPostgres implements CustomerDao  {
@@ -9,33 +11,32 @@ public class CustomerPostgres implements CustomerDao  {
 	}
 
 	@Override
-	public Customer[] getAllCustomers() {
+	public List<Customer> getAll() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public Customer getCustomerById(int id) {
+	public Customer getById(int id) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public int addCustomer(Customer c) {
+	public int add(Customer c) {
 		// TODO Auto-generated method stub
 		return 0;
 	}
 
 	@Override
-	public boolean editCustomer(Customer c) {
+	public boolean edit(Customer c) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean deleteCustomer(int id) {
+	public boolean deleteById(int id) {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
 }

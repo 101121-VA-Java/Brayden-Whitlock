@@ -30,7 +30,7 @@ public class CustomerController {
 		scan.nextLine();
 
 		Customer newCustomer = new Customer(name, username, password, email, cardNumber);
-		cs.addCustomer(newCustomer);
+		cs.add(newCustomer);
 		System.out.println("Customer has been registered\n");
 	}
 
