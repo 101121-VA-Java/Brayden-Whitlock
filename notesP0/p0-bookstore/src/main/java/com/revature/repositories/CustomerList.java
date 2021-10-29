@@ -7,24 +7,24 @@ import com.revature.models.Customer;
 
 public class CustomerList implements CustomerDao {
 
-	public List<Customer> customer = new ArrayList<Customer>();
+	public List<Customer> customers = new ArrayList<Customer>();
 
 	public CustomerList() {
 	}
 
-	public CustomerList(List<Customer> customer) {
+	public CustomerList(List<Customer> customers) {
 		super();
-		this.customer = customer;
+		this.customers = customers;
 	}
 
 	@Override
 	public List<Customer> getAll() {
-		return this.customer;
+		return this.customers;
 	}
 
 	@Override
 	public Customer getById(int id) {
-		for (Customer c : customer) {
+		for (Customer c : customers) {
 			if (c.getId() == id) {
 				return c;
 			}
@@ -34,15 +34,15 @@ public class CustomerList implements CustomerDao {
 
 	@Override
 	public int add(Customer c) {
-		customer.add(c);
+		customers.add(c);
 		return c.getId();
 	}
 
 	@Override
 	public boolean edit(Customer c) {
-		for (Customer f : customer) {
+		for (Customer f : customers) {
 			if (f.getId() == c.getId() && !c.equals(f)) {
-				customer.set(c.getId(), c);
+				customers.set(c.getId(), c);
 				return true;
 			}
 		}

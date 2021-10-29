@@ -14,7 +14,7 @@ public class FrontController {
 	public void run() {
 		boolean run = true;
 		do{
-			System.out.println("Please select an option:");
+			System.out.println("Please select one of the following options:");
 			System.out.println("1: register");
 			System.out.println("2: login");
 			System.out.println("3: exit");

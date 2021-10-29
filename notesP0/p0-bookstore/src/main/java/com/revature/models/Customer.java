@@ -6,20 +6,21 @@ public class Customer {
 	private String username;
 	private String password;
 	private String email;
-	private int cardNumber;
+	private String cardNumber;
+	private boolean isEmployee;
 	private Customer owner;
-	
+
 	public Customer() {
 		super();
 	}
-	
+
 	public Customer(String username, String password) {
 		super();
 		this.username = username;
 		this.password = password;
 	}
 
-	public Customer(String name, String username, String password, String email, int cardNumber) {
+	public Customer(String name, String username, String password, String email, String cardNumber) {
 		super();
 		this.name = name;
 		this.username = username;
@@ -28,8 +29,8 @@ public class Customer {
 		this.cardNumber = cardNumber;
 	}
 
-	public Customer(int id, String name, String username, String password, String email, int cardNumber,
-			Customer owner) {
+	public Customer(int id, String name, String username, String password, String email, String cardNumber,
+			boolean isEmployee, Customer owner) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -37,6 +38,7 @@ public class Customer {
 		this.password = password;
 		this.email = email;
 		this.cardNumber = cardNumber;
+		this.isEmployee = isEmployee;
 		this.owner = owner;
 	}
 
@@ -80,12 +82,20 @@ public class Customer {
 		this.email = email;
 	}
 
-	public int getCardNumber() {
+	public String getCardNumber() {
 		return cardNumber;
 	}
 
-	public void setCardNumber(int cardNumber) {
+	public void setCardNumber(String cardNumber) {
 		this.cardNumber = cardNumber;
+	}
+
+	public boolean isEmployee() {
+		return isEmployee;
+	}
+
+	public void setEmployee(boolean isEmployee) {
+		this.isEmployee = isEmployee;
 	}
 
 	public Customer getOwner() {
@@ -100,9 +110,10 @@ public class Customer {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + cardNumber;
+		result = prime * result + ((cardNumber == null) ? 0 : cardNumber.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + id;
+		result = prime * result + (isEmployee ? 1231 : 1237);
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((owner == null) ? 0 : owner.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
@@ -119,7 +130,10 @@ public class Customer {
 		if (getClass() != obj.getClass())
 			return false;
 		Customer other = (Customer) obj;
-		if (cardNumber != other.cardNumber)
+		if (cardNumber == null) {
+			if (other.cardNumber != null)
+				return false;
+		} else if (!cardNumber.equals(other.cardNumber))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -127,6 +141,8 @@ public class Customer {
 		} else if (!email.equals(other.email))
 			return false;
 		if (id != other.id)
+			return false;
+		if (isEmployee != other.isEmployee)
 			return false;
 		if (name == null) {
 			if (other.name != null)
@@ -154,13 +170,8 @@ public class Customer {
 	@Override
 	public String toString() {
 		return "Customer [id=" + id + ", name=" + name + ", username=" + username + ", password=" + password
-				+ ", email=" + email + ", cardNumber=" + cardNumber + ", owner=" + owner + "]";
+				+ ", email=" + email + ", cardNumber=" + cardNumber + ", isEmployee=" + isEmployee + ", owner=" + owner
+				+ "]";
 	}
 
-
-
-
-	
-	
-	
 }

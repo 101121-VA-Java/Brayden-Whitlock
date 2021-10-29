@@ -4,34 +4,70 @@ import com.revature.services.CustomerService;
 
 import java.util.Scanner;
 
+import com.revature.exceptions.UsernameInUseException;
 import com.revature.models.Customer;
 
 public class CustomerController {
 
 	private CustomerService cs = new CustomerService();
-
-//	public void findCustomer() {
-//		try {
-//			Customer c = cs.
-//		}
-//	}
+	private UserMenuController umc = new UserMenuController();
 
 	public void registerCustomer(Scanner scan) {
 		System.out.println("Please enter a Name: ");
 		String name = scan.nextLine();
+		while (name.trim().length() < 3) {
+			System.out.println("Please enter a Name longer than 2 characters: ");
+			name = scan.nextLine();
+		}
 		System.out.println("Please enter a Username: ");
 		String username = scan.nextLine();
+		while (username.trim().length() < 3) {
+			System.out.println("Please enter a Username longer than 2 characters: ");
+			username = scan.nextLine();
+		}
 		System.out.println("Please enter a Password: ");
 		String password = scan.nextLine();
+		while (password.trim().length() < 4) {
+			System.out.println("Please enter a Password longer than 3 characters: ");
+			password = scan.nextLine();
+		}
 		System.out.println("Please enter a Email: ");
 		String email = scan.nextLine();
-		System.out.println("Please enter a CardNumber: ");
-		Integer cardNumber = scan.nextInt();
-		scan.nextLine();
+
+		System.out.println("Please enter a Card Number: ");
+		String cardNumber = scan.nextLine();
+		try {
+			while (cardNumber.trim().length() < 8) {
+				if (Integer.parseInt(cardNumber) < 9999999) {
+					System.out.println("Please enter a Card Number longer than 7 integers: ");
+					cardNumber = scan.nextLine();
+				}
+			}
+		} catch (Exception e) {
+			e.getStackTrace();
+			System.out.println(
+					"Please enter a Card Number longer than 7 integers and consists only of integers.\nPlease try again.\n");
+			return;
+		}
+//		while (cardNumber.trim().length() < 8 || Integer.parseInt(cardNumber) > 9999999) { 
+//			System.out.println("Please enter a Card Number longer than 7 integers and is a number: ");
+//			cardNumber = scan.nextLine();
+//		}
 
 		Customer newCustomer = new Customer(name, username, password, email, cardNumber);
-		cs.add(newCustomer);
-		System.out.println("Customer has been registered\n");
+
+		try {
+			cs.add(newCustomer);
+			if (cs.customerList(username, password).getId() == 0) { // if owner is logged in do this
+				System.out.println("Owner " + username + " has been registered!\n");
+			} else { // if customer is logged in do this
+				System.out.println("Customer " + username + " has been registered!\n");
+			}
+//			System.out.println("Customer has been registered\n");
+		} catch (UsernameInUseException e) {
+
+			System.out.println("Username is already in use.\nPlease try again.\n");
+		}
 	}
 
 	public void loginCustomer(Scanner scan) {
@@ -46,23 +82,19 @@ public class CustomerController {
 		boolean isLoggedIn = false;
 		if (cs.customerList(username, password) != null) {
 			isLoggedIn = true;
-			System.out.println("Customer " + username + " has been loged in!\n");
+			if (cs.customerList(username, password).getId() == 0) { // if owner is logged in do this
+				System.out.println("Owner " + username + " has been logged in!\n");
+				umc.OwnerMenu();
+			} else if (cs.customerList(username, password).isEmployee() == true) {
+				System.out.println("Employee " + username + " has been logged in!\n");
+				umc.EmployeeMenu();
+			} else { // if customer is logged in do this
+				System.out.println("Customer " + username + " has been logged in!\n");
+				umc.CustomerMenu();
+			}
 		}
 		if (!isLoggedIn) {
 			System.out.println("Wrong Username and Password...\n");
 		}
-
-//		Customer validCustomer = new Customer(username, password);
-//		if(cs.customerList(username, password) != null) {
-//			isLoggedIn = true;
-//			System.out.println("Customer " + validCustomer.getUsername() + " has been loged in!\n");
-//		}
-//		for (Customer all : cs.customerList()) {
-//			if (validCustomer.getUsername().equals(all.getUsername())
-//					&& validCustomer.getPassword().equals(all.getPassword())) {
-//				System.out.println("Customer " + validCustomer.getUsername() + " has been loged in\n");
-//				isLoggedIn = true;
-//			}
-//		}	
 	}
 }
