@@ -40,8 +40,17 @@ public class UserService {
 
 	}
 
-	public boolean addBook(Book b) { // good
-		return false;
+	public int addBook(Book b) { 
+		int i = 0;
+		for (Book all : bd.getAll()) {
+			if (all.getId() == i) {
+				i++;
+			}
+		}
+		b.setId(i);
+		b.setAvailable(true);
+		System.out.println(bd.toString());
+		return bd.add(b);
 
 	}
 

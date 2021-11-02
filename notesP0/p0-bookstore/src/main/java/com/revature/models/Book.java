@@ -14,6 +14,16 @@ public class Book {
 		super();
 	}
 
+	public Book(int vinNumber, String title, Genre genre, boolean isSoftCover, String author, double price) {
+		super();
+		this.vinNumber = vinNumber;
+		this.title = title;
+		this.genre = genre;
+		this.isSoftCover = isSoftCover;
+		this.author = author;
+		this.price = price;
+	}
+
 	public Book(int id, int vinNumber, String title, Genre genre, boolean isSoftCover, boolean isAvailable,
 			String author, double price) {
 		super();
@@ -148,4 +158,5 @@ public class Book {
 				+ ", isSoftCover=" + isSoftCover + ", isAvailable=" + isAvailable + ", author=" + author + ", price="
 				+ price + "]";
 	}
+
 }
