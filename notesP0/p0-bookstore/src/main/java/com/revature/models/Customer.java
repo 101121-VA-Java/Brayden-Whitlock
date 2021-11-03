@@ -28,6 +28,22 @@ public class Customer {
 		this.email = email;
 		this.cardNumber = cardNumber;
 	}
+	
+	
+
+	
+
+	public Customer(int id, String name, String username, String password, String email, String cardNumber,
+			boolean isEmployee) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.username = username;
+		this.password = password;
+		this.email = email;
+		this.cardNumber = cardNumber;
+		this.isEmployee = isEmployee;
+	}
 
 	public Customer(int id, String name, String username, String password, String email, String cardNumber,
 			boolean isEmployee, Customer owner) {
@@ -41,6 +57,7 @@ public class Customer {
 		this.isEmployee = isEmployee;
 		this.owner = owner;
 	}
+
 
 	public int getId() {
 		return id;

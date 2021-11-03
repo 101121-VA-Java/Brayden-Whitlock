@@ -2,13 +2,20 @@ package com.revature.controllers;
 
 import java.util.Scanner;
 
+import com.revature.exceptions.UsernameInUseException;
 import com.revature.models.Book;
+import com.revature.models.Customer;
 import com.revature.models.Genre;
+import com.revature.repositories.CustomerDao;
+import com.revature.repositories.CustomerPostgres;
+import com.revature.services.CustomerService;
 import com.revature.services.UserService;
 
 public class UserMenuController {
 	private Scanner sc;
 	private UserService us;
+	private CustomerDao cd = new CustomerPostgres();
+	private CustomerService cs = new CustomerService();
 
 	public UserMenuController() {
 		sc = new Scanner(System.in);
@@ -56,7 +63,6 @@ public class UserMenuController {
 				 * id, title, vin number, genra, isSoftCover, isAvalible, author and expected
 				 * minimum price with .toString
 				 */
-				us.viewBook(0);
 				break;
 			case "3":
 				/*
@@ -71,7 +77,7 @@ public class UserMenuController {
 				 * to look at books with view book or view all books. or set the new offer to be
 				 * available in view book and view all books
 				 */
-				us.newOffer(0);
+				us.newOffer(0, 0);
 				break;
 			case "5":
 				/*
@@ -139,14 +145,26 @@ public class UserMenuController {
 				 * id, title, vin number, genra, isSoftCover, isAvalible, author and expected
 				 * minimum price with .toString
 				 */
-				us.viewBook(0);
+				System.out.println("Please enter a vinNumber: ");
+				Integer vin = Integer.valueOf(sc.nextLine());
+				int i = 0;
+				for(Book all : us.viewAllBooks()) {
+					if(us.viewAllBooks().get(i).getVinNumber() == vin) {
+						System.out.println("Book # " + i + " :" + all);
+					}
+					i++;
+				}
 				break;
 			case "3":
 				/*
 				 * get a list of all the books and print the book title, vin number, genra,
 				 * isSoftCover, isAvalible, author and expected minimum price with .toString
 				 */
-				us.viewAllBooks();
+				int y = 0;
+				for(Book all : us.viewAllBooks()) {
+					y++;
+					System.out.println("Book # " + y + " :" + all);
+				}
 				break;
 			case "4":
 				/*
@@ -154,7 +172,17 @@ public class UserMenuController {
 				 * to look at books with view book or view all books. or set the new offer to be
 				 * available in view book and view all books
 				 */
-				us.newOffer(0);
+				int z = 0;
+				for(Book all : us.viewAllBooks()) {
+					z++;
+					System.out.println("Book # " + z + " :" + all);
+				}
+				System.out.println("Please enter the id of the book desired: ");
+				Integer id1 = Integer.valueOf(sc.nextLine());
+				System.out.println("Please enter the potential price of the book desired: ");
+				Double price1 = Double.valueOf(sc.nextLine());
+				us.newOffer(id1, price1);
+				System.out.println("Your submition has been logged please waight for aproval");
 				break;
 			case "5":
 				/*
@@ -177,8 +205,8 @@ public class UserMenuController {
 //				private double price;        !
 
 				System.out.println("Please enter a vinNumber: ");
-				String vin = sc.nextLine();
-				int vinNumber = Integer.parseInt(vin);
+				String vin1 = sc.nextLine();
+				int vinNumber = Integer.parseInt(vin1);
 				System.out.println("Please enter a title: ");
 				String title = sc.nextLine();
 				System.out.println("Please chooes a genre please type 1-14: "); // find out how to use an enum
@@ -304,6 +332,61 @@ public class UserMenuController {
 				 * pass in an id number of a Customer object and change the flag of the
 				 * isEmployee boolean to true.
 				 */
+				System.out.println("Please enter the id of the customer you want to edit: ");
+				int idToBeEdited = Integer.parseInt(sc.nextLine());
+				
+				
+				
+				System.out.println("Please enter a new Name: ");
+				String name = sc.nextLine();
+				while (name.trim().length() < 3) {
+					System.out.println("Please enter a Name longer than 2 characters: ");
+					name = sc.nextLine();
+				}
+				System.out.println("Please enter a new Username: ");
+				String username = sc.nextLine();
+				while (username.trim().length() < 3) {
+					System.out.println("Please enter a Username longer than 2 characters: ");
+					username = sc.nextLine();
+				}
+				System.out.println("Please enter a new Password: ");
+				String password = sc.nextLine();
+				while (password.trim().length() < 4) {
+					System.out.println("Please enter a Password longer than 3 characters: ");
+					password = sc.nextLine();
+				}
+				System.out.println("Please enter a new Email: ");
+				String email = sc.nextLine();
+				
+				System.out.println("Is this customer an employee: ");
+				String testIsEmployee = sc.nextLine();
+				Boolean isEmployee;
+				if(testIsEmployee.trim().toLowerCase() == "y" || testIsEmployee.trim().toLowerCase() == "yes") {
+					isEmployee = true;
+				}
+				else {
+					isEmployee = false;
+				}
+
+				System.out.println("Please enter a new Card Number: ");
+				String cardNumber = sc.nextLine();
+				try {
+					while (cardNumber.trim().length() < 8) {
+						if (Integer.parseInt(cardNumber) < 9999999) {
+							System.out.println("Please enter a Card Number longer than 7 integers: ");
+							cardNumber = sc.nextLine();
+						}
+					}
+				} catch (Exception e) {
+					e.getStackTrace();
+					System.out.println(
+							"Please enter a Card Number longer than 7 integers and consists only of integers.\nPlease try again.\n");
+					return;
+				}
+				Customer newCustomer = new Customer(idToBeEdited, name, username, password, email, cardNumber, isEmployee);
+				
+				us.editCustomers(newCustomer);
+				
 				break;
 			case "13":
 				run = false;
@@ -359,11 +442,11 @@ public class UserMenuController {
 				break;
 			case "2":
 				/*
-				 * make an int input of vin number with sanner and replace 0 then print the book
-				 * id, title, vin number, genra, isSoftCover, isAvalible, author and expected
+				 * make an int input of vin number with scanner and replace 0 then print the book
+				 * id, title, vin number, genre, isSoftCover, isAvalible, author and expected
 				 * minimum price with .toString
 				 */
-				us.viewBook(0);
+				
 				break;
 			case "3":
 				/*
@@ -378,7 +461,7 @@ public class UserMenuController {
 				 * to look at books with view book or view all books. or set the new offer to be
 				 * available in view book and view all books
 				 */
-				us.newOffer(0);
+				us.newOffer(0, 0);
 				break;
 			case "5":
 				/*

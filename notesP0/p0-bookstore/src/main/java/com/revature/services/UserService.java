@@ -1,11 +1,14 @@
 package com.revature.services;
 
+import java.util.List;
+
 import com.revature.models.Book;
 import com.revature.models.Customer;
 import com.revature.repositories.BookDao;
 import com.revature.repositories.BookList;
 import com.revature.repositories.CustomerDao;
 import com.revature.repositories.CustomerList;
+import com.revature.repositories.CustomerPostgres;
 
 public class UserService {
 
@@ -22,17 +25,14 @@ public class UserService {
 	public boolean newPayment(double payment) {
 		return false;
 	}
-
-	public Book viewBook(int vinNumber) {
-		return null;
-	}
 	
-	public Book viewAllBooks() { // list of books is the return type
-		return null;
+	public List<Book> viewAllBooks() { // list of books is the return type
+		List<Book> books = bd.getAll();
+		return books;
 		
 	}
 
-	public double newOffer(double offer) {
+	public double newOffer(int id, double offer) {
 		return offer;
 	}
 
@@ -77,7 +77,11 @@ public class UserService {
 
 	}
 
-	public Customer addEmployee(int id) {
+	public Customer editCustomers(Customer c) {
+		CustomerPostgres cp = new CustomerPostgres();
+		cp.edit(c);
+		
+		
 		return null;
 	}
 }

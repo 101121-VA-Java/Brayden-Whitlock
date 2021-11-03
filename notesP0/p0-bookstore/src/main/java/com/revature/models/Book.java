@@ -9,6 +9,7 @@ public class Book {
 	private boolean isAvailable;
 	private String author;
 	private double price;
+	private Customer newOwner;
 
 	public Book() {
 		super();
@@ -25,7 +26,7 @@ public class Book {
 	}
 
 	public Book(int id, int vinNumber, String title, Genre genre, boolean isSoftCover, boolean isAvailable,
-			String author, double price) {
+			String author, double price, Customer newOwner) {
 		super();
 		this.id = id;
 		this.vinNumber = vinNumber;
@@ -35,6 +36,7 @@ public class Book {
 		this.isAvailable = isAvailable;
 		this.author = author;
 		this.price = price;
+		this.newOwner = newOwner;
 	}
 
 	public int getId() {
@@ -101,6 +103,14 @@ public class Book {
 		this.price = price;
 	}
 
+	public Customer getNewOwner() {
+		return newOwner;
+	}
+
+	public void setNewOwner(Customer newOwner) {
+		this.newOwner = newOwner;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -110,6 +120,7 @@ public class Book {
 		result = prime * result + id;
 		result = prime * result + (isAvailable ? 1231 : 1237);
 		result = prime * result + (isSoftCover ? 1231 : 1237);
+		result = prime * result + ((newOwner == null) ? 0 : newOwner.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(price);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -140,6 +151,11 @@ public class Book {
 			return false;
 		if (isSoftCover != other.isSoftCover)
 			return false;
+		if (newOwner == null) {
+			if (other.newOwner != null)
+				return false;
+		} else if (!newOwner.equals(other.newOwner))
+			return false;
 		if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
 			return false;
 		if (title == null) {
@@ -156,7 +172,6 @@ public class Book {
 	public String toString() {
 		return "Book [id=" + id + ", vinNumber=" + vinNumber + ", title=" + title + ", genre=" + genre
 				+ ", isSoftCover=" + isSoftCover + ", isAvailable=" + isAvailable + ", author=" + author + ", price="
-				+ price + "]";
+				+ price + ", newOwner=" + newOwner + "]";
 	}
-
 }
