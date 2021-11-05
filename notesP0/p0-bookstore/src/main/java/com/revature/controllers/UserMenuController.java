@@ -141,18 +141,23 @@ public class UserMenuController {
 				break;
 			case "2":
 				/*
-				 * make an int input of vin number with sanner and replace 0 then print the books
-				 * id, title, vin number, genra, isSoftCover, isAvalible, author and expected
-				 * minimum price with .toString
+				 * make an int input of vin number with sanner and replace 0 then print the
+				 * books id, title, vin number, genra, isSoftCover, isAvalible, author and
+				 * expected minimum price with .toString
 				 */
 				System.out.println("Please enter a vinNumber: ");
 				Integer vin = Integer.valueOf(sc.nextLine());
 				int i = 0;
-				for(Book all : us.viewAllBooks()) {
-					if(us.viewAllBooks().get(i).getVinNumber() == vin) {
-						System.out.println("Book # " + i + " :" + all);
+				try {
+					for (Book all : us.viewAllBooks()) {
+						i++;
+						if (all.getVinNumber() == vin) {
+							System.out.println("Book # " + i + " :" + all);
+						}
+						
 					}
-					i++;
+				} catch (Exception e) {
+					break;
 				}
 				break;
 			case "3":
@@ -161,7 +166,7 @@ public class UserMenuController {
 				 * isSoftCover, isAvalible, author and expected minimum price with .toString
 				 */
 				int y = 0;
-				for(Book all : us.viewAllBooks()) {
+				for (Book all : us.viewAllBooks()) {
 					y++;
 					System.out.println("Book # " + y + " :" + all);
 				}
@@ -173,7 +178,7 @@ public class UserMenuController {
 				 * available in view book and view all books
 				 */
 				int z = 0;
-				for(Book all : us.viewAllBooks()) {
+				for (Book all : us.viewAllBooks()) {
 					z++;
 					System.out.println("Book # " + z + " :" + all);
 				}
@@ -210,21 +215,11 @@ public class UserMenuController {
 				System.out.println("Please enter a title: ");
 				String title = sc.nextLine();
 				System.out.println("Please chooes a genre please type 1-14: "); // find out how to use an enum
-				System.out.println(" 1. LITERARY_FICTION\n"
-						+ " 2. MYSTERY\n"
-						+ " 3. THRILLER\n"
-						+ " 4. HORRER\n"
-						+ " 5. HISTORICAL\n"
-						+ " 6. ROMANCE\n"
-						+ " 7. WESTERN\n"
-						+ " 8. BILDUNGSROMAN\n"
-						+ " 9. SPECULATIVE_FICTION\n"
-						+ "10. SCIENCE_FICTION\n"
-						+ "11. FANTASY\n"
-						+ "12. DYSTOPIAN\n"
-						+ "13. MAGICAL_REALISM\n"
-						+ "14. REALIST_LITERATURE\n");
-				String tempGenre = sc.nextLine(); 
+				System.out.println(" 1. LITERARY_FICTION\n" + " 2. MYSTERY\n" + " 3. THRILLER\n" + " 4. HORRER\n"
+						+ " 5. HISTORICAL\n" + " 6. ROMANCE\n" + " 7. WESTERN\n" + " 8. BILDUNGSROMAN\n"
+						+ " 9. SPECULATIVE_FICTION\n" + "10. SCIENCE_FICTION\n" + "11. FANTASY\n" + "12. DYSTOPIAN\n"
+						+ "13. MAGICAL_REALISM\n" + "14. REALIST_LITERATURE\n");
+				String tempGenre = sc.nextLine();
 				Genre genre = null;
 				switch (tempGenre) {
 				case "1":
@@ -237,7 +232,7 @@ public class UserMenuController {
 					genre = Genre.THRILLER;
 					break;
 				case "4":
-					genre = Genre.HORRER;
+					genre = Genre.HORROR;
 					break;
 				case "5":
 					genre = Genre.HISTORICAL;
@@ -270,24 +265,23 @@ public class UserMenuController {
 					genre = Genre.REALIST_LITERATURE;
 					break;
 				}
-				
+
 				System.out.println("Please enter a if soft cover y/n: ");
 				String SoftCover = sc.nextLine();
 				Boolean isSoftCover;
-				if(SoftCover.trim().toLowerCase() == "y" || SoftCover.trim().toLowerCase() == "yes") {
+				if (SoftCover.trim().toLowerCase() == "y" || SoftCover.trim().toLowerCase() == "yes") {
 					isSoftCover = true;
-				}
-				else {
+				} else {
 					isSoftCover = false;
 				}
-				//Boolean isAvalible = true;        // set in user service---
+				// Boolean isAvalible = true; // set in user service---
 				System.out.println("Please enter Author: ");
 				String author = sc.nextLine();
 				System.out.println("Please enter minimum price: ");
 				String minPrice = sc.nextLine();
 				double price = Double.parseDouble(minPrice);
 				Book newBook = new Book(vinNumber, title, genre, isSoftCover, author, price);
-				
+
 				us.addBook(newBook);
 				break;
 			case "7":
@@ -334,9 +328,7 @@ public class UserMenuController {
 				 */
 				System.out.println("Please enter the id of the customer you want to edit: ");
 				int idToBeEdited = Integer.parseInt(sc.nextLine());
-				
-				
-				
+
 				System.out.println("Please enter a new Name: ");
 				String name = sc.nextLine();
 				while (name.trim().length() < 3) {
@@ -357,14 +349,13 @@ public class UserMenuController {
 				}
 				System.out.println("Please enter a new Email: ");
 				String email = sc.nextLine();
-				
+
 				System.out.println("Is this customer an employee: ");
 				String testIsEmployee = sc.nextLine();
 				Boolean isEmployee;
-				if(testIsEmployee.trim().toLowerCase() == "y" || testIsEmployee.trim().toLowerCase() == "yes") {
+				if (testIsEmployee.trim().toLowerCase() == "y" || testIsEmployee.trim().toLowerCase() == "yes") {
 					isEmployee = true;
-				}
-				else {
+				} else {
 					isEmployee = false;
 				}
 
@@ -383,10 +374,11 @@ public class UserMenuController {
 							"Please enter a Card Number longer than 7 integers and consists only of integers.\nPlease try again.\n");
 					return;
 				}
-				Customer newCustomer = new Customer(idToBeEdited, name, username, password, email, cardNumber, isEmployee);
-				
+				Customer newCustomer = new Customer(idToBeEdited, name, username, password, email, cardNumber,
+						isEmployee);
+
 				us.editCustomers(newCustomer);
-				
+
 				break;
 			case "13":
 				run = false;
@@ -442,11 +434,11 @@ public class UserMenuController {
 				break;
 			case "2":
 				/*
-				 * make an int input of vin number with scanner and replace 0 then print the book
-				 * id, title, vin number, genre, isSoftCover, isAvalible, author and expected
-				 * minimum price with .toString
+				 * make an int input of vin number with scanner and replace 0 then print the
+				 * book id, title, vin number, genre, isSoftCover, isAvalible, author and
+				 * expected minimum price with .toString
 				 */
-				
+
 				break;
 			case "3":
 				/*

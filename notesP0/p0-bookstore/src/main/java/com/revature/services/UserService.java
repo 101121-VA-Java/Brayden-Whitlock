@@ -5,9 +5,10 @@ import java.util.List;
 import com.revature.models.Book;
 import com.revature.models.Customer;
 import com.revature.repositories.BookDao;
-import com.revature.repositories.BookList;
+//import com.revature.repositories.BookList;
+import com.revature.repositories.BookPostgres;
 import com.revature.repositories.CustomerDao;
-import com.revature.repositories.CustomerList;
+//import com.revature.repositories.CustomerList;
 import com.revature.repositories.CustomerPostgres;
 
 public class UserService {
@@ -19,8 +20,10 @@ public class UserService {
 	 * 13. view all items
 	 */
 
-	private CustomerDao cd = new CustomerList();
-	private BookDao bd = new BookList();
+//	private CustomerDao cd = new CustomerList();
+	private CustomerDao cd = new CustomerPostgres();
+	private BookDao bd = new BookPostgres();
+//	private BookDao bd = new BookPostgres;
 
 	public boolean newPayment(double payment) {
 		return false;
@@ -33,6 +36,7 @@ public class UserService {
 	}
 
 	public double newOffer(int id, double offer) {
+		//make a list in the database with the id of the book and the id of the customer as well as the potential price of the book 
 		return offer;
 	}
 

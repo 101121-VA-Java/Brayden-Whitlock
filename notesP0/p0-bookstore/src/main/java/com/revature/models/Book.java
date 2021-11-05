@@ -5,6 +5,7 @@ public class Book {
 	private int vinNumber;
 	private String title;
 	private Genre genre;
+//	private String genre;
 	private boolean isSoftCover;
 	private boolean isAvailable;
 	private String author;
@@ -17,6 +18,19 @@ public class Book {
 
 	public Book(int vinNumber, String title, Genre genre, boolean isSoftCover, String author, double price) {
 		super();
+		this.vinNumber = vinNumber;
+		this.title = title;
+		this.genre = genre;
+		this.isSoftCover = isSoftCover;
+		this.author = author;
+		this.price = price;
+	}
+
+	
+	
+	public Book(int id, int vinNumber, String title, Genre genre, boolean isSoftCover, String author, double price) {
+		super();
+		this.id = id;
 		this.vinNumber = vinNumber;
 		this.title = title;
 		this.genre = genre;

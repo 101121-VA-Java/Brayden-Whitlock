@@ -58,12 +58,11 @@ public class CustomerController {
 
 		try {
 			cs.add(newCustomer);
-			if (cs.customerList(username, password).getId() == 0) { // if owner is logged in do this
+			if (cs.specificCustomer(username, password).getId() == 1) { // if owner is logged in do this
 				System.out.println("Owner " + username + " has been registered!\n");
 			} else { // if customer is logged in do this
 				System.out.println("Customer " + username + " has been registered!\n");
-			}
-//			System.out.println("Customer has been registered\n");
+			}	
 		} catch (UsernameInUseException e) {
 
 			System.out.println("Username is already in use.\nPlease try again.\n");
@@ -80,12 +79,13 @@ public class CustomerController {
 		 * the same index in the array of customer
 		 */
 		boolean isLoggedIn = false;
-		if (cs.customerList(username, password) != null) {
+		cs.specificCustomer(username, password);
+		if (cs.specificCustomer(username, password) != null) {
 			isLoggedIn = true;
-			if (cs.customerList(username, password).getId() == 0) { // if owner is logged in do this
+			if (cs.specificCustomer(username, password).getId() == 1) { // if owner is logged in do this
 				System.out.println("Owner " + username + " has been logged in!\n");
 				umc.OwnerMenu();
-			} else if (cs.customerList(username, password).isEmployee() == true) {
+			} else if (cs.specificCustomer(username, password).isEmployee() == true) {
 				System.out.println("Employee " + username + " has been logged in!\n");
 				umc.EmployeeMenu();
 			} else { // if customer is logged in do this
