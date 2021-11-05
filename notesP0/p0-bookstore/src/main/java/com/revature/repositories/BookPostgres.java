@@ -15,7 +15,7 @@ import com.revature.models.Genre;
 import com.revature.util.ConnectionUtil;
 
 public class BookPostgres implements BookDao {
-	List<Book> books = new ArrayList<>();
+	
 
 	public BookPostgres() {
 		// TODO Auto-generated constructor stub
@@ -23,6 +23,7 @@ public class BookPostgres implements BookDao {
 
 	@Override
 	public List<Book> getAll() {
+		List<Book> books = new ArrayList<>();
 		String sql = "select * from books;";
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			Statement s = con.createStatement();
@@ -33,10 +34,10 @@ public class BookPostgres implements BookDao {
 				int b_vinNumber = rs.getInt("b_vinNumber");
 				String b_title = rs.getString("b_title");
 				Boolean b_isSoftCover = rs.getBoolean("b_isSoftCover");
-//				Boolean b_isAvailable = rs.getBoolean("b_isAvailable");
+				Boolean b_isAvailable = rs.getBoolean("b_isAvailable");
 				String b_author = rs.getString("b_author");
 				double b_price = rs.getDouble("b_price");
-//				int b_newOwner = rs.getInt("b_newOwner");
+				int b_newOwner = rs.getInt("b_newOwner");
 				Genre b_genre = null;
 				switch (rs.getString("b_genre")) {
 				case "LITERARY_FICTION":
@@ -84,8 +85,8 @@ public class BookPostgres implements BookDao {
 				}
 
 				Book newBook = new Book(b_id, b_vinNumber, b_title,
-						b_genre, b_isSoftCover, b_author,
-						b_price);
+						b_genre, b_isSoftCover, b_isAvailable, b_author,
+						b_price, new Customer(b_newOwner));
 				books.add(newBook);
 			}
 		} catch (SQLException | IOException e) {
@@ -184,7 +185,7 @@ public class BookPostgres implements BookDao {
 	public int add(Book c) {
 		int genId = -1;
 		String sql = "insert into books (b_vinNumber, b_title, b_genre,"
-				+ "b_isSoftCover, b_isAvailable, b_author, b_price, b_newOwner"
+				+ "b_isSoftCover, b_isAvailable, b_author, b_price, b_newOwner) "
 				+ "values (?, ?, ?, ?, ?, ?, ?, ?) returning b_id;";
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -230,7 +231,7 @@ public class BookPostgres implements BookDao {
 			int rowsChanged = -1;
 			ps.setInt(1, c.getVinNumber());
 			ps.setString(2, c.getTitle());
-			ps.getString(3, c.getGenre());
+			ps.setString(3, c.getGenre().toString());
 			ps.setBoolean(4, c.isSoftCover());
 			ps.setBoolean(5, c.isAvailable());
 			ps.setString(6, c.getAuthor());
@@ -254,7 +255,7 @@ public class BookPostgres implements BookDao {
 
 	@Override
 	public boolean deleteById(int id) {
-		String sql = "delete from books where c_id = ?;";
+		String sql = "delete from books where b_id = ?;";
 		int rowsChanged = -1;
 		try (Connection con = ConnectionUtil.getConnectionFromFile();) {
 			PreparedStatement ps = con.prepareStatement(sql);

@@ -17,6 +17,7 @@ public class UserMenuController {
 	private CustomerDao cd = new CustomerPostgres();
 	private CustomerService cs = new CustomerService();
 
+
 	public UserMenuController() {
 		sc = new Scanner(System.in);
 		us = new UserService();
@@ -124,6 +125,25 @@ public class UserMenuController {
 
 			String choice = sc.nextLine();
 
+			
+			/*
+			 * 1.
+			 * 2. done 
+			 * 3. done
+			 * 4. 
+			 * 5.
+			 * 6.
+			 * 7.
+			 * 8.
+			 * 9.
+			 * 10.
+			 * 11.
+			 * 12.
+			 * 
+			 */
+			
+			
+			
 			switch (choice) {
 			case "1":
 				/*
@@ -289,7 +309,20 @@ public class UserMenuController {
 				 * remove a book based on an input id (see if i can figure out how to remove a
 				 * title/vin number and not just a single book) -bonus
 				 */
-				us.removeBook(null);
+				System.out.println("Please enter the id number of the book to be deleted: ");
+				Integer idNumber = Integer.valueOf(sc.nextLine());
+				int w = 0;
+				try {
+					for (Book all : us.viewAllBooks()) {
+						w++;
+						if (all.getId() == idNumber) {
+							us.removeBook(all);
+							System.out.println("Book # " + w + " :" + all + "\n was deleted.");
+						}	
+					}
+				} catch (Exception e) {
+					break;
+				}
 				break;
 			case "8":
 				/*

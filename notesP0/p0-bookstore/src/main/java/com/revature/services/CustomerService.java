@@ -25,15 +25,12 @@ public class CustomerService {
 	}
 
 	public Customer specificCustomer(String username, String password) {
-//		int i = 0;
-		int i = 1;
 		Customer validCustomer = new Customer(username, password);
 		for (Customer all : cd.getAll()) {
 			if (validCustomer.getUsername().equals(all.getUsername())
 					&& validCustomer.getPassword().equals(all.getPassword())) {
-				return cd.getById(i);
+				return all;
 			}
-			i++;
 		}
 		return null;
 	}

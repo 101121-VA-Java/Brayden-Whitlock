@@ -89,8 +89,6 @@ public class CustomerPostgres implements CustomerDao {
 			ps.setString(3, c.getPassword());
 			ps.setString(4, c.getEmail());
 			ps.setString(5, c.getCardNumber());
-//			ps.setBoolean(6, c.isEmployee());
-//			ps.setInt(7, c.getOwner().getId());
 
 			ResultSet rs = ps.executeQuery();
 

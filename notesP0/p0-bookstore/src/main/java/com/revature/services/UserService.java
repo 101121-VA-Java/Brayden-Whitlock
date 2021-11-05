@@ -28,15 +28,16 @@ public class UserService {
 	public boolean newPayment(double payment) {
 		return false;
 	}
-	
+
 	public List<Book> viewAllBooks() { // list of books is the return type
-		List<Book> books = bd.getAll();
+		List<Book> books = null;
+		books = bd.getAll();
 		return books;
-		
 	}
 
 	public double newOffer(int id, double offer) {
-		//make a list in the database with the id of the book and the id of the customer as well as the potential price of the book 
+		// make a list in the database with the id of the book and the id of the
+		// customer as well as the potential price of the book
 		return offer;
 	}
 
@@ -44,23 +45,19 @@ public class UserService {
 
 	}
 
-	public int addBook(Book b) { 
-		int i = 0;
-		for (Book all : bd.getAll()) {
-			if (all.getId() == i) {
-				i++;
-			}
-		}
-		b.setId(i);
+	public int addBook(Book b) {
 		b.setAvailable(true);
-		System.out.println(bd.toString());
+		b.setNewOwner(cd.getById(1));
+//		System.out.println(bd.toString());
 		return bd.add(b);
 
 	}
 
 	public boolean removeBook(Book b) { // good
+		if (b.getId() != 1) {
+			return bd.deleteById(b.getId());
+		}
 		return false;
-
 	}
 
 	public boolean reviewOffer() { // pass in whatever is saving the offers
@@ -73,7 +70,7 @@ public class UserService {
 	}
 
 	public boolean editBook(Book b) { //
-		return false; 
+		return false;
 
 	}
 
@@ -82,10 +79,7 @@ public class UserService {
 	}
 
 	public Customer editCustomers(Customer c) {
-		CustomerPostgres cp = new CustomerPostgres();
-		cp.edit(c);
-		
-		
+		cd.edit(c);
 		return null;
 	}
 }
