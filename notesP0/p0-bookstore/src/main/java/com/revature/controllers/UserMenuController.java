@@ -1,11 +1,14 @@
 package com.revature.controllers;
 
+import java.util.List;
 import java.util.Scanner;
 
-import com.revature.exceptions.UsernameInUseException;
 import com.revature.models.Book;
+import com.revature.models.BooksToCustomer;
 import com.revature.models.Customer;
 import com.revature.models.Genre;
+import com.revature.repositories.BookDao;
+import com.revature.repositories.BookPostgres;
 import com.revature.repositories.CustomerDao;
 import com.revature.repositories.CustomerPostgres;
 import com.revature.services.CustomerService;
@@ -15,8 +18,8 @@ public class UserMenuController {
 	private Scanner sc;
 	private UserService us;
 	private CustomerDao cd = new CustomerPostgres();
+	private BookDao bd = new BookPostgres();
 	private CustomerService cs = new CustomerService();
-
 
 	public UserMenuController() {
 		sc = new Scanner(System.in);
@@ -39,7 +42,8 @@ public class UserMenuController {
 			System.out.println("3: view all items");
 			System.out.println("4: make an offer");
 			System.out.println("5: view remaining payments");
-			System.out.println("6: log out");
+			System.out.println("6: view owned items"); 
+			System.out.println("7: log out");
 
 			String choice = sc.nextLine();
 
@@ -78,7 +82,7 @@ public class UserMenuController {
 				 * to look at books with view book or view all books. or set the new offer to be
 				 * available in view book and view all books
 				 */
-				us.newOffer(0, 0);
+				us.newOffer(0, 0, 0);
 				break;
 			case "5":
 				/*
@@ -86,9 +90,11 @@ public class UserMenuController {
 				 * the books yet to be payed for display these amounts to the user with
 				 * .toString
 				 */
-				us.viewOtherPayments();
+//				us.viewOtherPayments(0);
 				break;
 			case "6":
+				break;
+			case "7":
 				run = false;
 				break;
 			default:
@@ -114,36 +120,23 @@ public class UserMenuController {
 			System.out.println("3: view all items");
 			System.out.println("4: make an offer");
 			System.out.println("5: view remaining payments");
-			System.out.println("6: add items");
-			System.out.println("7: delete items");
-			System.out.println("8: accept/reject offer");
-			System.out.println("9: view all payments");
-			System.out.println("10: edit items");
-			System.out.println("11: view sales history");
-			System.out.println("12: add employees");
-			System.out.println("13: log out");
+			System.out.println("6: view owned items"); 
+			System.out.println("7: add items");
+			System.out.println("8: delete items");
+			System.out.println("9: accept/reject offer");
+			System.out.println("10: view all payments");
+			System.out.println("11: edit items");
+			System.out.println("12: view sales history");
+			System.out.println("13: add employees");
+			System.out.println("14: log out");
 
 			String choice = sc.nextLine();
 
-			
 			/*
-			 * 1.
-			 * 2. done 
-			 * 3. done
-			 * 4. 
-			 * 5.
-			 * 6.
-			 * 7.
-			 * 8.
-			 * 9.
-			 * 10.
-			 * 11.
-			 * 12.
+			 * 1. 2. done 3. done 4. 5. 6.done 7.done 8. 9. 10. 11. 12.
 			 * 
 			 */
-			
-			
-			
+
 			switch (choice) {
 			case "1":
 				/*
@@ -174,7 +167,7 @@ public class UserMenuController {
 						if (all.getVinNumber() == vin) {
 							System.out.println("Book # " + i + " :" + all);
 						}
-						
+
 					}
 				} catch (Exception e) {
 					break;
@@ -202,11 +195,25 @@ public class UserMenuController {
 					z++;
 					System.out.println("Book # " + z + " :" + all);
 				}
-				System.out.println("Please enter the id of the book desired: ");
+
+				System.out.println("\nPlease enter the id of the book desired: ");
 				Integer id1 = Integer.valueOf(sc.nextLine());
 				System.out.println("Please enter the potential price of the book desired: ");
 				Double price1 = Double.valueOf(sc.nextLine());
-				us.newOffer(id1, price1);
+				System.out.println("Please enter your Username: ");
+				String username1 = sc.nextLine();
+				System.out.println("Please enter your Password: ");
+				String password1 = sc.nextLine();
+//				Customer validCustomer = new Customer(username1, password1);
+				int id2 = 0;
+//				for (Customer all : cd.getAll()) {
+//					if (validCustomer.getUsername().equals(all.getUsername())
+//							&& validCustomer.getPassword().equals(all.getPassword())) {
+//						id2 = all.getId();
+//					}
+//				}
+				id2 = cs.specificCustomer(username1, password1).getId();
+				us.newOffer(id1, price1, id2);
 				System.out.println("Your submition has been logged please waight for aproval");
 				break;
 			case "5":
@@ -215,9 +222,34 @@ public class UserMenuController {
 				 * the books yet to be payed for display these amounts to the user with
 				 * .toString
 				 */
-				us.viewOtherPayments();
+				int id4 = 0;
+				do {
+					System.out.println("Please enter your Username: ");
+					String username2 = sc.nextLine();
+					System.out.println("Please enter your Password: ");
+					String password2 = sc.nextLine();
+					id4 = cs.specificCustomer(username2, password2).getId();
+					double totalPrice = 0;
+					if (id4 != 0) {
+						for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+							if (all.getC_id() == id4) {
+								System.out.println("You have : $" + all.getB_price() + " Left to pay for "
+										+ bd.getById(all.getB_id()).getTitle());
+								totalPrice += all.getB_price();
+							}
+						}
+						System.out.println("Your total is : $" + totalPrice);  
+					} else {
+						System.out.println("Wrong Username or Password");
+					}
+				} while (id4 == 0);
 				break;
+				
 			case "6":
+				us.viewOwnedItems();
+				break;
+			
+			case "7":
 				/*
 				 * use a scanner to input the necessary info to make a book.
 				 */
@@ -304,7 +336,7 @@ public class UserMenuController {
 
 				us.addBook(newBook);
 				break;
-			case "7":
+			case "8":
 				/*
 				 * remove a book based on an input id (see if i can figure out how to remove a
 				 * title/vin number and not just a single book) -bonus
@@ -318,43 +350,146 @@ public class UserMenuController {
 						if (all.getId() == idNumber) {
 							us.removeBook(all);
 							System.out.println("Book # " + w + " :" + all + "\n was deleted.");
-						}	
+						}
 					}
 				} catch (Exception e) {
 					break;
 				}
 				break;
-			case "8":
+			case "9":
 				/*
 				 * get a list of offers that has the id of the person sending the request and
 				 * there offers and say if it is accepted or rejected. assign the id of that
 				 * book to the id of the customer/owner/employee this will need a lot of work.
 				 */
-				us.reviewOffer();
+				for (Book all : us.viewAllBooks()) {
+					System.out.println(all);
+				}
+				for (BooksToCustomer all : us.viewAllOffers()) {
+					System.out.println("\nOffer id# : " + all.getbooks_to_customer_id());
+					System.out.println("Wanted book title : " + bd.getById(all.getB_id()).getTitle()); // may need some
+																										// work to fix
+																										// the id
+					System.out.println("Customer desiring book : " + cd.getById(all.getC_id()).getName());
+					if (all.isB_price_accepted()) {
+						System.out.println("The price of this book is : $" + all.getB_price());
+						System.out.println("This offer has been accepted.");
+					} else {
+						System.out.println("The potential price of this book is : $" + all.getB_price());
+						System.out.println("This offer has not yet been accepted.");
+					}
+
+				}
+				System.out.println("\nPlease enter the id number of the request you would like to accept.");
+				Integer idNumberOfRequest = Integer.valueOf(sc.nextLine());
+				us.reviewOffer(idNumberOfRequest);
+				System.out.println("The request has been accepted.");
 				break;
-			case "9":
+			case "10":
 				/*
 				 * print a list of all payments made by the user and what it was payed to id,
 				 * title, and vin number and remaining balance on these books
 				 */
 				us.reviewAllPayments();
 				break;
-			case "10":
+			case "11":
 				/*
 				 * use a scanner to input the necessary info to make a book send in the id of
 				 * the book to be changed and edit it send back true if successful
 				 */
-				us.editBook(null);
+				System.out.println("Please enter the id of the book you want to edit: ");
+				String newestId = sc.nextLine();
+				int id3 = Integer.parseInt(newestId);
+				System.out.println("Please enter an updated vinNumber: ");
+				String vin2 = sc.nextLine();
+				int vinNumber1 = Integer.parseInt(vin2);
+				System.out.println("Please enter an updated title: ");
+				String title1 = sc.nextLine();
+				System.out.println("Please chooes an updated genre please type #1-14: "); // find out how to use an enum
+				System.out.println(" 1. LITERARY_FICTION\n" + " 2. MYSTERY\n" + " 3. THRILLER\n" + " 4. HORRER\n"
+						+ " 5. HISTORICAL\n" + " 6. ROMANCE\n" + " 7. WESTERN\n" + " 8. BILDUNGSROMAN\n"
+						+ " 9. SPECULATIVE_FICTION\n" + "10. SCIENCE_FICTION\n" + "11. FANTASY\n" + "12. DYSTOPIAN\n"
+						+ "13. MAGICAL_REALISM\n" + "14. REALIST_LITERATURE\n");
+				String tempGenre1 = sc.nextLine();
+				Genre genre1 = null;
+				switch (tempGenre1) {
+				case "1":
+					genre1 = Genre.LITERARY_FICTION;
+					break;
+				case "2":
+					genre1 = Genre.MYSTERY;
+					break;
+				case "3":
+					genre1 = Genre.THRILLER;
+					break;
+				case "4":
+					genre1 = Genre.HORROR;
+					break;
+				case "5":
+					genre1 = Genre.HISTORICAL;
+					break;
+				case "6":
+					genre1 = Genre.ROMANCE;
+					break;
+				case "7":
+					genre1 = Genre.WESTERN;
+					break;
+				case "8":
+					genre1 = Genre.BILDUNGSROMAN;
+					break;
+				case "9":
+					genre1 = Genre.SPECULATIVE_FICTION;
+					break;
+				case "10":
+					genre1 = Genre.SCIENCE_FICTION;
+					break;
+				case "11":
+					genre1 = Genre.FANTASY;
+					break;
+				case "12":
+					genre1 = Genre.DYSTOPIAN;
+					break;
+				case "13":
+					genre1 = Genre.MAGICAL_REALISM;
+					break;
+				case "14":
+					genre1 = Genre.REALIST_LITERATURE;
+					break;
+				}
 
+				System.out.println("Please enter a if soft cover y/n: ");
+				String SoftCover1 = sc.nextLine();
+				Boolean isSoftCover1;
+				if (SoftCover1.trim().toLowerCase() == "y" || SoftCover1.trim().toLowerCase() == "yes") {
+					isSoftCover1 = true;
+				} else {
+					isSoftCover1 = false;
+				}
+				System.out.println("Please enter if available: ");
+				String available = sc.nextLine();
+				Boolean isAvailable;
+				if (available.trim().toLowerCase() == "y" || available.trim().toLowerCase() == "yes") {
+					isAvailable = true;
+				} else {
+					isAvailable = false;
+				}
+				// set in user service---
+				System.out.println("Please enter Author: ");
+				String author1 = sc.nextLine();
+				System.out.println("Please enter minimum price: ");
+				String minPrice1 = sc.nextLine();
+				double price3 = Double.parseDouble(minPrice1);
+				Book newBook1 = new Book(id3, vinNumber1, title1, genre1, isSoftCover1, isAvailable, author1, price3);
+				us.editBook(newBook1);
 				break;
-			case "11":
+			case "12":
 				/*
 				 * print a list of all payments made by all users and what it was payed to id,
 				 * title, and vin number and remaining balance on these books
 				 */
 				us.reviewAllPayments();
 				break;
-			case "12":
+			case "13":
 				/*
 				 * pass in an id number of a Customer object and change the flag of the
 				 * isEmployee boolean to true.
@@ -362,28 +497,7 @@ public class UserMenuController {
 				System.out.println("Please enter the id of the customer you want to edit: ");
 				int idToBeEdited = Integer.parseInt(sc.nextLine());
 
-				System.out.println("Please enter a new Name: ");
-				String name = sc.nextLine();
-				while (name.trim().length() < 3) {
-					System.out.println("Please enter a Name longer than 2 characters: ");
-					name = sc.nextLine();
-				}
-				System.out.println("Please enter a new Username: ");
-				String username = sc.nextLine();
-				while (username.trim().length() < 3) {
-					System.out.println("Please enter a Username longer than 2 characters: ");
-					username = sc.nextLine();
-				}
-				System.out.println("Please enter a new Password: ");
-				String password = sc.nextLine();
-				while (password.trim().length() < 4) {
-					System.out.println("Please enter a Password longer than 3 characters: ");
-					password = sc.nextLine();
-				}
-				System.out.println("Please enter a new Email: ");
-				String email = sc.nextLine();
-
-				System.out.println("Is this customer an employee: ");
+				System.out.println("Is this customer a new employee enter yes or no: ");
 				String testIsEmployee = sc.nextLine();
 				Boolean isEmployee;
 				if (testIsEmployee.trim().toLowerCase() == "y" || testIsEmployee.trim().toLowerCase() == "yes") {
@@ -391,29 +505,10 @@ public class UserMenuController {
 				} else {
 					isEmployee = false;
 				}
-
-				System.out.println("Please enter a new Card Number: ");
-				String cardNumber = sc.nextLine();
-				try {
-					while (cardNumber.trim().length() < 8) {
-						if (Integer.parseInt(cardNumber) < 9999999) {
-							System.out.println("Please enter a Card Number longer than 7 integers: ");
-							cardNumber = sc.nextLine();
-						}
-					}
-				} catch (Exception e) {
-					e.getStackTrace();
-					System.out.println(
-							"Please enter a Card Number longer than 7 integers and consists only of integers.\nPlease try again.\n");
-					return;
-				}
-				Customer newCustomer = new Customer(idToBeEdited, name, username, password, email, cardNumber,
-						isEmployee);
-
+				Customer newCustomer = new Customer(idToBeEdited, isEmployee);
 				us.editCustomers(newCustomer);
-
 				break;
-			case "13":
+			case "14":
 				run = false;
 				break;
 			default:
@@ -440,13 +535,14 @@ public class UserMenuController {
 			System.out.println("3: view all items");
 			System.out.println("4: make an offer");
 			System.out.println("5: view remaining payments");
-			System.out.println("6: add items");
-			System.out.println("7: delete items");
-			System.out.println("8: accept/reject offer");
-			System.out.println("9: view all payments");
-			System.out.println("10: edit items");
-			System.out.println("11: view sales history");
-			System.out.println("12: log out");
+			System.out.println("6: view owned items"); 
+			System.out.println("7: add items");
+			System.out.println("8: delete items");
+			System.out.println("9: accept/reject offer");
+			System.out.println("10: view all payments");
+			System.out.println("11: edit items");
+			System.out.println("12: view sales history");
+			System.out.println("13: log out");
 
 			String choice = sc.nextLine();
 
@@ -486,7 +582,7 @@ public class UserMenuController {
 				 * to look at books with view book or view all books. or set the new offer to be
 				 * available in view book and view all books
 				 */
-				us.newOffer(0, 0);
+				us.newOffer(0, 0, 0);
 				break;
 			case "5":
 				/*
@@ -494,37 +590,39 @@ public class UserMenuController {
 				 * the books yet to be payed for display these amounts to the user with
 				 * .toString
 				 */
-				us.viewOtherPayments();
+//				us.viewOtherPayments(0);
 				break;
 			case "6":
+				break;
+			case "7":
 				/*
 				 * use a scanner to input the necessary info to make a book.
 				 */
 				us.addBook(null);
 				break;
-			case "7":
+			case "8":
 				/*
 				 * remove a book based on an input id (see if i can figure out how to remove a
 				 * title/vin number and not just a single book) -bonus
 				 */
 				us.removeBook(null);
 				break;
-			case "8":
+			case "9":
 				/*
 				 * get a list of offers that has the id of the person sending the request and
 				 * there offers and say if it is accepted or rejected. assign the id of that
 				 * book to the id of the customer/owner/employee this will need a lot of work.
 				 */
-				us.reviewOffer();
+				us.reviewOffer(0);
 				break;
-			case "9":
+			case "10":
 				/*
 				 * print a list of all payments made by the user and what it was payed to id,
 				 * title, and vin number and remaining balance on these books
 				 */
 				us.reviewAllPayments();
 				break;
-			case "10":
+			case "11":
 				/*
 				 * use a scanner to input the necessary info to make a book send in the id of
 				 * the book to be changed and edit it send back true if successful
@@ -532,14 +630,14 @@ public class UserMenuController {
 				us.editBook(null);
 
 				break;
-			case "11":
+			case "12":
 				/*
 				 * print a list of all payments made by all users and what it was payed to id,
 				 * title, and vin number and remaining balance on these books
 				 */
 				us.reviewAllPayments();
 				break;
-			case "12":
+			case "13":
 				run = false;
 				break;
 			default:

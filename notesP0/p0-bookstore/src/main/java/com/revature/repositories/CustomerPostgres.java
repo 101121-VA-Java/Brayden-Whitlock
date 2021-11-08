@@ -13,7 +13,7 @@ import com.revature.models.Customer;
 import com.revature.util.ConnectionUtil;
 
 public class CustomerPostgres implements CustomerDao {
-	List<Customer> customers = new ArrayList<>();
+//	List<Customer> customers = new ArrayList<>();
 
 	public CustomerPostgres() {
 		// TODO Auto-generated constructor stub
@@ -21,6 +21,7 @@ public class CustomerPostgres implements CustomerDao {
 
 	@Override
 	public List<Customer> getAll() {
+		List<Customer> customers = new ArrayList<>();
 		String sql = "select * from customers;";
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			Statement s = con.createStatement();
@@ -105,10 +106,9 @@ public class CustomerPostgres implements CustomerDao {
 
 	@Override
 	public boolean edit(Customer c) {
-
 		String sql = "update customers set c_name = ?, c_username = ?,"
-				+ " c_password = ?, c_email = ?, c_cardNumber = ?, " + "c_isEmployee = ? where c_id = ?;";
-
+				+ " c_password = ?, c_email = ?, c_cardNumber = ?," 
+				+ " c_isEmployee = ? where c_id = ?;";
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 			int rowsChanged = -1;
@@ -135,7 +135,7 @@ public class CustomerPostgres implements CustomerDao {
 
 	@Override
 	public boolean deleteById(int id) {
-		String sql = "delete from customres where c_id = ?;";
+		String sql = "delete from customers where c_id = ?;";
 		int rowsChanged = -1;
 		try (Connection con = ConnectionUtil.getConnectionFromFile();) {
 			PreparedStatement ps = con.prepareStatement(sql);

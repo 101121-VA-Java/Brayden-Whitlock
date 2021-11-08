@@ -39,6 +39,22 @@ public class Book {
 		this.price = price;
 	}
 
+	
+	
+	
+	public Book(int id, int vinNumber, String title, Genre genre, boolean isSoftCover, boolean isAvailable,
+			String author, double price) {
+		super();
+		this.id = id;
+		this.vinNumber = vinNumber;
+		this.title = title;
+		this.genre = genre;
+		this.isSoftCover = isSoftCover;
+		this.isAvailable = isAvailable;
+		this.author = author;
+		this.price = price;
+	}
+
 	public Book(int id, int vinNumber, String title, Genre genre, boolean isSoftCover, boolean isAvailable,
 			String author, double price, Customer newOwner) {
 		super();

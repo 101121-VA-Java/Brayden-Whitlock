@@ -3,6 +3,7 @@ package com.revature.services;
 import java.util.List;
 
 import com.revature.models.Book;
+import com.revature.models.BooksToCustomer;
 import com.revature.models.Customer;
 import com.revature.repositories.BookDao;
 //import com.revature.repositories.BookList;
@@ -29,23 +30,30 @@ public class UserService {
 		return false;
 	}
 
+	public List<BooksToCustomer> viewAllOffers() {
+		List<BooksToCustomer> booksToCustomer = null;
+		booksToCustomer = bd.getAllBooksToCustomer();
+		return booksToCustomer;
+	}
+
 	public List<Book> viewAllBooks() { // list of books is the return type
 		List<Book> books = null;
 		books = bd.getAll();
 		return books;
 	}
 
-	public double newOffer(int id, double offer) {
+	public boolean newOffer(int bookId, double offer, int myId) {
 		// make a list in the database with the id of the book and the id of the
 		// customer as well as the potential price of the book
-		return offer;
+		return bd.newOffer(bookId, offer, myId);
 	}
-
-	public void viewOtherPayments() { // return list of Book.payments
-
+	
+	public void viewOwnedItems() {
+		
 	}
-
+	
 	public int addBook(Book b) {
+
 		b.setAvailable(true);
 		b.setNewOwner(cd.getById(1));
 //		System.out.println(bd.toString());
@@ -60,18 +68,24 @@ public class UserService {
 		return false;
 	}
 
-	public boolean reviewOffer() { // pass in whatever is saving the offers
-		return false;
-
+	public boolean reviewOffer(int requestId) { // pass in whatever is saving the offers
+		BooksToCustomer newBookToCustomer = bd.getBooksToCustomerById(requestId);
+		newBookToCustomer.setB_price_accepted(true);
+		if (bd.editBooksToCustomer(newBookToCustomer)) {
+			bd.deleteBooksToCustomerByBookId(newBookToCustomer.getB_id());
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	public void reviewAllPayments() { // return list of payments
 
 	}
 
-	public boolean editBook(Book b) { //
-		return false;
-
+	public boolean editBook(Book b) {
+		b.setNewOwner(cd.getById(1));
+		return bd.edit(b);
 	}
 
 	public void salesHistory() { // return list of sales
@@ -79,7 +93,9 @@ public class UserService {
 	}
 
 	public Customer editCustomers(Customer c) {
-		cd.edit(c);
+		Customer newEmployee = cd.getById(c.getId());
+		newEmployee.setEmployee(true);
+		cd.edit(newEmployee);
 		return null;
 	}
 }

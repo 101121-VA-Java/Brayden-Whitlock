@@ -24,6 +24,12 @@ public class Customer {
 		this.username = username;
 		this.password = password;
 	}
+	
+	public Customer(int id, boolean isEmployee) {
+		super();
+		this.id = id;
+		this.isEmployee = isEmployee;
+	}
 
 	public Customer(String name, String username, String password, String email, String cardNumber) {
 		super();
