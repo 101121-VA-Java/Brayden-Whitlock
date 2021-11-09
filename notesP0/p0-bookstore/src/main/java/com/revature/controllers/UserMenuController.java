@@ -179,15 +179,15 @@ public class UserMenuController {
 		do {
 
 			System.out.println("Please select one of the following options:");
-			System.out.println("1: make payments");
-			System.out.println("2: view item by vin");
-			System.out.println("3: view all items");
-			System.out.println("4: make an offer");
-			System.out.println("5: view remaining payments");
-			System.out.println("6: view owned items");
-			System.out.println("7: add items");
-			System.out.println("8: delete items");
-			System.out.println("9: accept/reject offer");
+			System.out.println(" 1: make payments");
+			System.out.println(" 2: view item by vin");
+			System.out.println(" 3: view all items");
+			System.out.println(" 4: make an offer");
+			System.out.println(" 5: view remaining payments");
+			System.out.println(" 6: view owned items");
+			System.out.println(" 7: add items");
+			System.out.println(" 8: delete items");
+			System.out.println(" 9: accept/reject offer");
 			System.out.println("10: view all payments");
 			System.out.println("11: edit items");
 			System.out.println("12: view sales history");
@@ -216,52 +216,55 @@ public class UserMenuController {
 				 */
 				int id5 = 0;
 				do {
-					System.out.println("Please enter your Username: ");
-					String username5 = sc.nextLine();
-					System.out.println("Please enter your Password: ");
-					String password5 = sc.nextLine();
-					id5 = cs.specificCustomer(username5, password5).getId();
-					double totalPrice1 = 0;
-					if (id5 != 0) {
-						for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
-							if (all.getC_id() == id5 && bd.getById(all.getB_id()).isAvailable() == true
-									&& all.isB_price_accepted()) {
-								System.out.println("You have : $" + all.getB_price() + " Left to pay for "
-										+ bd.getById(all.getB_id()).getTitle());
-								totalPrice1 += all.getB_price();
-							}
-						}
-						if (totalPrice1 != 0) {
-							System.out.println("Your total is : $" + totalPrice1);
-							System.out.println("Will you pay your total? Yes or No?");
-							String payed = sc.nextLine();
-							Boolean isPayed = false;
-							if (payed.trim().toLowerCase().equals("y") || payed.trim().toLowerCase().equals("yes")) {
-								isPayed = true;
-							} else {
-								isPayed = false;
-							}
-							if (isPayed) {
-								for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
-									if (all.getB_id() == bd.getById(all.getB_id()).getId()
-											&& bd.getById(all.getB_id()).isAvailable() == true && all.getC_id() == id5
-											&& all.isB_price_accepted()) {
-										Book soldBook = new Book();
-										soldBook = bd.getById(all.getB_id());
-										soldBook.setAvailable(false);
-										soldBook.setNewOwner(cd.getById(id5));
-										bd.edit(soldBook);
-									}
+					try {
+						System.out.println("Please enter your Username: ");
+						String username5 = sc.nextLine();
+						System.out.println("Please enter your Password: ");
+						String password5 = sc.nextLine();
+						id5 = cs.specificCustomer(username5, password5).getId();
+						double totalPrice1 = 0;
+						if (id5 != 0) {
+							for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+								if (all.getC_id() == id5 && bd.getById(all.getB_id()).isAvailable() == true
+										&& all.isB_price_accepted()) {
+									System.out.println("You have : $" + all.getB_price() + " Left to pay for "
+											+ bd.getById(all.getB_id()).getTitle());
+									totalPrice1 += all.getB_price();
 								}
-								System.out.println("Your total has been payed\n");
-							} else {
-								System.out.println("Your total has not been payed\n");
 							}
-						} else {
-							System.out.println("You have no books to pay for!");
+							if (totalPrice1 != 0) {
+								System.out.println("Your total is : $" + totalPrice1);
+								System.out.println("Will you pay your total? Yes or No?");
+								String payed = sc.nextLine();
+								Boolean isPayed = false;
+								if (payed.trim().toLowerCase().equals("y")
+										|| payed.trim().toLowerCase().equals("yes")) {
+									isPayed = true;
+								} else {
+									isPayed = false;
+								}
+								if (isPayed) {
+									for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+										if (all.getB_id() == bd.getById(all.getB_id()).getId()
+												&& bd.getById(all.getB_id()).isAvailable() == true
+												&& all.getC_id() == id5 && all.isB_price_accepted()) {
+											Book soldBook = new Book();
+											soldBook = bd.getById(all.getB_id());
+											soldBook.setAvailable(false);
+											soldBook.setNewOwner(cd.getById(id5));
+											bd.edit(soldBook);
+										}
+									}
+									System.out.println("Your total has been payed\n");
+								} else {
+									System.out.println("Your total has not been payed\n");
+								}
+							} else {
+								System.out.println("You have no books to pay for!");
+							}
 						}
-					} else {
-						System.out.println("Wrong Username or Password");
+					} catch (Exception e) {
+						System.out.println("Wrong Username or Password\n");
 					}
 				} while (id5 == 0);
 				break;
@@ -271,7 +274,7 @@ public class UserMenuController {
 				 * books id, title, vin number, genra, isSoftCover, isAvalible, author and
 				 * expected minimum price with .toString
 				 */
-				System.out.println("Please enter a vinNumber: ");
+				System.out.println("Please enter a book vinNumber: ");
 				Integer vin = Integer.valueOf(sc.nextLine());
 				int i = 0;
 				try {
@@ -328,46 +331,63 @@ public class UserMenuController {
 				 * to look at books with view book or view all books. or set the new offer to be
 				 * available in view book and view all books
 				 */
-				int z = 0;
-				System.out.println();
-				for (Book all : us.viewAllBooks()) {
-					if (all.isAvailable()) {
-						z++;
-						System.out.println("Book # " + z);
-						System.out.println("Book Id# : " + all.getId());
-						System.out.println("Title: " + all.getTitle());
-						System.out.println("Author: " + all.getAuthor());
-						System.out.println("Genre: " + all.getGenre());
-						if (all.isSoftCover()) {
-							System.out.println("It is a soft bound book.");
-						} else {
-							System.out.println("It is a hard bound book.");
+				boolean offerMade = true;
+				while (offerMade) {
+					System.out.println();
+					for (Book all : us.viewAllBooks()) {
+						if (all.isAvailable()) {
+							System.out.println("Book Id# : " + all.getId());
+							System.out.println("Title: " + all.getTitle());
+							System.out.println("Author: " + all.getAuthor());
+							System.out.println("Genre: " + all.getGenre());
+							if (all.isSoftCover()) {
+								System.out.println("It is a soft bound book.");
+							} else {
+								System.out.println("It is a hard bound book.");
+							}
+							System.out.println("Price: $" + all.getPrice());
+							System.out.println("Vin #: " + all.getVinNumber());
+							System.out.println();
 						}
-						System.out.println("Price: $" + all.getPrice());
-						System.out.println("Vin #: " + all.getVinNumber());
-						System.out.println();
 					}
-				}
-
-				System.out.println("\nPlease enter the id of the book desired: ");
-				Integer id1 = Integer.valueOf(sc.nextLine());
-				System.out.println("Please enter the potential price of the book desired: ");
-				Double price1 = Double.valueOf(sc.nextLine());
-				System.out.println("Please enter your Username: ");
-				String username1 = sc.nextLine();
-				System.out.println("Please enter your Password: ");
-				String password1 = sc.nextLine();
+					System.out.println("\nPlease enter the id of the book desired: ");
+					Integer id1 = Integer.valueOf(sc.nextLine());
+					System.out.println("Please enter the potential new price of the book desired for review.\n"
+							+ "The new price can't be much less then the listed price.\n" + "The minimum price is: $"
+							+ bd.getById(id1).getPrice());
+					Double price1 = Double.valueOf(sc.nextLine());
+					while (price1 + 10 < bd.getById(id1).getPrice()) {
+						System.out.println("This is much less then the minimum price please enter a new price!!");
+						price1 = Double.valueOf(sc.nextLine());
+					}
+					System.out.println("Please enter your Username: ");
+					String username1 = sc.nextLine();
+					System.out.println("Please enter your Password: ");
+					String password1 = sc.nextLine();
 //				Customer validCustomer = new Customer(username1, password1);
-				int id2 = 0;
+					int id2 = 0;
 //				for (Customer all : cd.getAll()) {
 //					if (validCustomer.getUsername().equals(all.getUsername())
 //							&& validCustomer.getPassword().equals(all.getPassword())) {
 //						id2 = all.getId();
 //					}
 //				}
-				id2 = cs.specificCustomer(username1, password1).getId();
-				us.newOffer(id1, price1, id2);
-				System.out.println("Your submition has been logged please waight for aproval");
+					id2 = cs.specificCustomer(username1, password1).getId();
+					boolean oldOffer = true;
+
+					for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+						if (all.getC_id() == id2 && all.getB_id() == id1) {
+							oldOffer = false;
+							offerMade = false;
+							System.out.println("You already made an offer for this book of " + all.getB_price());
+						}
+					}
+					if (offerMade && oldOffer) {
+						offerMade = false;
+						us.newOffer(id1, price1, id2);
+						System.out.println("Your submition has been logged please waight for aproval");
+					}
+				}
 				break;
 			case "5":
 				/*
@@ -391,7 +411,11 @@ public class UserMenuController {
 								totalPrice += all.getB_price();
 							}
 						}
-						System.out.println("Your total is : $" + totalPrice);
+						if (totalPrice != 0) {
+							System.out.println("Your total is : $" + totalPrice);
+						} else {
+							System.out.println("There are no books you need to pay for!!\n");
+						}
 					} else {
 						System.out.println("Wrong Username or Password");
 					}
@@ -401,18 +425,27 @@ public class UserMenuController {
 			case "6":
 				int id6 = 0;
 				do {
-					System.out.println("Please enter your Username: ");
-					String username6 = sc.nextLine();
-					System.out.println("Please enter your Password: ");
-					String password6 = sc.nextLine();
-					id6 = cs.specificCustomer(username6, password6).getId();
-					if (id6 != 0) {
-						for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
-							if (all.getC_id() == id6 && bd.getById(all.getB_id()).isAvailable() == false
-									&& all.isB_price_accepted()) {
-								System.out.println("You own " + bd.getById(all.getB_id()).getTitle());
+					try {
+						System.out.println("Please enter your Username: ");
+						String username6 = sc.nextLine();
+						System.out.println("Please enter your Password: ");
+						String password6 = sc.nextLine();
+						id6 = cs.specificCustomer(username6, password6).getId();
+						boolean doOwn = false;
+						if (id6 != 0) {
+							for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+								if (all.getC_id() == id6 && bd.getById(all.getB_id()).isAvailable() == false
+										&& all.isB_price_accepted()) {
+									System.out.println("You own " + bd.getById(all.getB_id()).getTitle());
+									doOwn = true;
+								}
+							}
+							if (!doOwn) {
+								System.out.println("You don't own any books!\n");
 							}
 						}
+					} catch (Exception e) {
+						System.out.println("Wrong username or password please try agin!!\n");
 					}
 				} while (id6 == 0);
 				break;
@@ -421,24 +454,17 @@ public class UserMenuController {
 				/*
 				 * use a scanner to input the necessary info to make a book.
 				 */
-//				private int vinNumber;       !
-//				private String title;        !
-//				private Genre genre;         ---
-//				private boolean isSoftCover; !
-//				private boolean isAvailable; --- set to true in user service 
-//				private String author;       !
-//				private double price;        !
-
 				System.out.println("Please enter a vinNumber: ");
 				String vin1 = sc.nextLine();
 				int vinNumber = Integer.parseInt(vin1);
 				System.out.println("Please enter a title: ");
 				String title = sc.nextLine();
-				System.out.println("Please chooes a genre please type 1-14: "); // find out how to use an enum
-				System.out.println(" 1. LITERARY_FICTION\n" + " 2. MYSTERY\n" + " 3. THRILLER\n" + " 4. HORRER\n"
-						+ " 5. HISTORICAL\n" + " 6. ROMANCE\n" + " 7. WESTERN\n" + " 8. BILDUNGSROMAN\n"
-						+ " 9. SPECULATIVE_FICTION\n" + "10. SCIENCE_FICTION\n" + "11. FANTASY\n" + "12. DYSTOPIAN\n"
-						+ "13. MAGICAL_REALISM\n" + "14. REALIST_LITERATURE\n");
+				System.out.println("Choose a genre please type a number from 1-14: "); // find out how to use an enum
+																						// correctly
+				System.out.println(" 1. Literary Fiction\n" + " 2. Mystery\n" + " 3. Thriller\n" + " 4. Horrer\n"
+						+ " 5. Historical\n" + " 6. Romance\n" + " 7. Western\n" + " 8. Bildungsroman\n"
+						+ " 9. Speculative Fiction\n" + "10. Science Fiction\n" + "11. Fantasy\n" + "12. Dystopian\n"
+						+ "13. Macical Realism\n" + "14. Realist Literature\n");
 				String tempGenre = sc.nextLine();
 				Genre genre = null;
 				switch (tempGenre) {
@@ -486,10 +512,10 @@ public class UserMenuController {
 					break;
 				}
 
-				System.out.println("Please enter a if soft cover y/n: ");
+				System.out.println("Please type yes if soft cover: ");
 				String SoftCover = sc.nextLine();
 				Boolean isSoftCover;
-				if (SoftCover.trim().toLowerCase() == "y" || SoftCover.trim().toLowerCase() == "yes") {
+				if (SoftCover.trim().toLowerCase().equals("y") || SoftCover.trim().toLowerCase().equals("yes")) {
 					isSoftCover = true;
 				} else {
 					isSoftCover = false;
@@ -501,7 +527,6 @@ public class UserMenuController {
 				String minPrice = sc.nextLine();
 				double price = Double.parseDouble(minPrice);
 				Book newBook = new Book(vinNumber, title, genre, isSoftCover, author, price);
-
 				us.addBook(newBook);
 				break;
 			case "8":
@@ -509,25 +534,24 @@ public class UserMenuController {
 				 * remove a book based on an input id (see if i can figure out how to remove a
 				 * title/vin number and not just a single book) -bonus
 				 */
-				int v = 0;
 				System.out.println();
 				for (Book all : us.viewAllBooks()) {
-					if (all.isAvailable()) {
-						v++;
-						System.out.println("Book # " + v);
-						System.out.println("Book Id# : " + all.getId());
-						System.out.println("Title: " + all.getTitle());
-						System.out.println("Author: " + all.getAuthor());
-						System.out.println("Genre: " + all.getGenre());
-						if (all.isSoftCover()) {
-							System.out.println("It is a soft bound book.");
-						} else {
-							System.out.println("It is a hard bound book.");
+					for (BooksToCustomer next : bd.getAllBooksToCustomer()) {
+						if (all.isAvailable() && !next.isB_price_accepted()) {
+							System.out.println("Book Id# : " + all.getId());
+							System.out.println("Title: " + all.getTitle());
+							System.out.println("Author: " + all.getAuthor());
+							System.out.println("Genre: " + all.getGenre());
+							if (all.isSoftCover()) {
+								System.out.println("It is a soft bound book.");
+							} else {
+								System.out.println("It is a hard bound book.");
+							}
+							System.out.println("Price: $" + all.getPrice());
+							System.out.println("Vin #: " + all.getVinNumber());
+							System.out.println("Please type " + all.getId() + " to delete this book!");
+							System.out.println();
 						}
-						System.out.println("Price: $" + all.getPrice());
-						System.out.println("Vin #: " + all.getVinNumber());
-						System.out.println("Please type " + all.getId() + " to delete this book!");
-						System.out.println();
 					}
 				}
 				System.out.println("Please enter the id number of the book to be deleted: ");
@@ -537,6 +561,7 @@ public class UserMenuController {
 						if (all.getId() == idNumber) {
 							us.removeBook(all);
 							System.out.println("Book Id# : " + all.getId() + "\n was deleted.");
+							System.out.println();
 						}
 					}
 				} catch (Exception e) {
@@ -566,8 +591,9 @@ public class UserMenuController {
 				if (idNumberOfRequest != 0) {
 					us.reviewOffer(idNumberOfRequest);
 					System.out.println("The request has been accepted.");
+				} else {
+					System.out.println("You rejected the request!");
 				}
-				System.out.println("No request has been accepted.");
 				break;
 			case "10":
 				/*
@@ -590,6 +616,12 @@ public class UserMenuController {
 				 * use a scanner to input the necessary info to make a book send in the id of
 				 * the book to be changed and edit it send back true if successful
 				 */
+				for (Book all : bd.getAll()) {
+					if (all.isAvailable()) {
+						System.out.println("Book title: " + all.getTitle());
+						System.out.println("Book id#: " + all.getId());
+					}
+				}
 				System.out.println("Please enter the id of the book you want to edit: ");
 				String newestId = sc.nextLine();
 				int id3 = Integer.parseInt(newestId);
@@ -653,7 +685,7 @@ public class UserMenuController {
 				System.out.println("Please enter a if soft cover y/n: ");
 				String SoftCover1 = sc.nextLine();
 				Boolean isSoftCover1;
-				if (SoftCover1.trim().toLowerCase() == "y" || SoftCover1.trim().toLowerCase() == "yes") {
+				if (SoftCover1.trim().toLowerCase().equals("y") || SoftCover1.trim().toLowerCase().equals("yes")) {
 					isSoftCover1 = true;
 				} else {
 					isSoftCover1 = false;
@@ -661,7 +693,7 @@ public class UserMenuController {
 				System.out.println("Please enter if available: ");
 				String available = sc.nextLine();
 				Boolean isAvailable;
-				if (available.trim().toLowerCase() == "y" || available.trim().toLowerCase() == "yes") {
+				if (available.trim().toLowerCase().equals("y") || available.trim().toLowerCase().equals("yes")) {
 					isAvailable = true;
 				} else {
 					isAvailable = false;
@@ -687,19 +719,32 @@ public class UserMenuController {
 				 * pass in an id number of a Customer object and change the flag of the
 				 * isEmployee boolean to true.
 				 */
+				for (Customer all : cd.getAll()) {
+					if (!all.isEmployee()) {
+						System.out.println("Customer name : " + all.getName());
+						System.out.println("Customer id # : " + all.getId());
+						System.out.println();
+					}
+				}
 				System.out.println("Please enter the id of the customer you want to edit: ");
 				int idToBeEdited = Integer.parseInt(sc.nextLine());
 
 				System.out.println("Is this customer a new employee enter yes or no: ");
 				String testIsEmployee = sc.nextLine();
 				Boolean isEmployee;
-				if (testIsEmployee.trim().toLowerCase() == "y" || testIsEmployee.trim().toLowerCase() == "yes") {
+				if (testIsEmployee.trim().toLowerCase().equals("y")
+						|| testIsEmployee.trim().toLowerCase().equals("yes")) {
 					isEmployee = true;
 				} else {
 					isEmployee = false;
 				}
-				Customer newCustomer = new Customer(idToBeEdited, isEmployee);
-				us.editCustomers(newCustomer);
+				if (isEmployee) {
+					Customer newCustomer = new Customer(idToBeEdited, isEmployee);
+					us.editCustomers(newCustomer);
+					System.out.println(cd.getById(idToBeEdited).getName() + " is now an employee!!\n");
+				} else {
+					System.out.println("You did not add " + cd.getById(idToBeEdited).getName() + " as an employee!\n");
+				}
 				break;
 			case "14":
 				run = false;
@@ -723,15 +768,15 @@ public class UserMenuController {
 		do {
 
 			System.out.println("Please select one of the following options:");
-			System.out.println("1: make payments");
-			System.out.println("2: view item by vin");
-			System.out.println("3: view all items");
-			System.out.println("4: make an offer");
-			System.out.println("5: view remaining payments");
-			System.out.println("6: view owned items");
-			System.out.println("7: add items");
-			System.out.println("8: delete items");
-			System.out.println("9: accept/reject offer");
+			System.out.println(" 1: make payments");
+			System.out.println(" 2: view item by vin");
+			System.out.println(" 3: view all items");
+			System.out.println(" 4: make an offer");
+			System.out.println(" 5: view remaining payments");
+			System.out.println(" 6: view owned items");
+			System.out.println(" 7: add items");
+			System.out.println(" 8: delete items");
+			System.out.println(" 9: accept/reject offer");
 			System.out.println("10: view all payments");
 			System.out.println("11: edit items");
 			System.out.println("12: view sales history");
