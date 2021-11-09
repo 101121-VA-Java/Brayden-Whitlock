@@ -80,7 +80,14 @@ public class UserService {
 	}
 
 	public void reviewAllPayments() { // return list of payments
-
+		double total = 0;
+		for(BooksToCustomer all : bd.getAllBooksToCustomer()) {
+			if(bd.getById(all.getB_id()).isAvailable() == false) {
+				System.out.println(cd.getById(all.getC_id()).getName() + " paid $" + all.getB_price() + " to buy " + bd.getById(all.getB_id()).getTitle());
+				total += all.getB_price();
+			}
+		}
+		System.out.println("The company has made a total of $" + total);
 	}
 
 	public boolean editBook(Book b) {

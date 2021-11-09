@@ -13,7 +13,6 @@ public class Driver{
         // int i = sc.nextInt();
 
         Book test =  new Book("Wonderfull World", "Fantasy", false, 19.99);
-        System.out.println("test2");
         System.out.println("title: " + test.title + " genre: " + test.genre + " For Sale: " +
                              test.forSale + " Price: $" + test.price);
     }
