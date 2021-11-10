@@ -113,7 +113,7 @@ public class UserMenuController {
 							}
 						}
 					} catch (Exception e) {
-						log.error("Wrong Username or Password");
+						log.error("Wrong username or password please try agin!!\n");
 //						System.out.println("Wrong Username or Password\n");
 					}
 				} while (id5 == 0);
@@ -248,18 +248,20 @@ public class UserMenuController {
 				 */
 				int id4 = 0;
 				do {
-					System.out.println("Please enter your Username: ");
-					String username2 = sc.nextLine();
-					System.out.println("Please enter your Password: ");
-					String password2 = sc.nextLine();
-					id4 = cs.specificCustomer(username2, password2).getId();
-					double totalPrice = 0;
-					if (id4 != 0) {
-						for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
-							if (all.getC_id() == id4 && all.isB_price_accepted()) {
-								System.out.println("You have : $" + all.getB_price() + " Left to pay for "
-										+ bd.getById(all.getB_id()).getTitle());
-								totalPrice += all.getB_price();
+					try {
+						System.out.println("Please enter your Username: ");
+						String username2 = sc.nextLine();
+						System.out.println("Please enter your Password: ");
+						String password2 = sc.nextLine();
+						id4 = cs.specificCustomer(username2, password2).getId();
+						double totalPrice = 0;
+						if (id4 != 0) {
+							for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+								if (all.getC_id() == id4 && all.isB_price_accepted()) {
+									System.out.println("You have : $" + all.getB_price() + " Left to pay for "
+											+ bd.getById(all.getB_id()).getTitle());
+									totalPrice += all.getB_price();
+								}
 							}
 						}
 						if (totalPrice != 0) {
@@ -267,8 +269,9 @@ public class UserMenuController {
 						} else {
 							System.out.println("There are no books you need to pay for!!\n");
 						}
-					} else {
-						System.out.println("Wrong Username or Password");
+					} catch (Exception e) {
+//						System.out.println("Wrong Username or Password!");
+						log.error("Wrong Username or Password!");
 					}
 				} while (id4 == 0);
 				break;
@@ -293,7 +296,6 @@ public class UserMenuController {
 							}
 							if (!doOwn) {
 								System.out.println("You don't own any books!\n");
-								log.info("Happenes if you dont own any books yet.");
 							}
 						}
 					} catch (Exception e) {
@@ -302,6 +304,7 @@ public class UserMenuController {
 					}
 				} while (id6 == 0);
 				break;
+
 
 			case "7":
 				run = false;
