@@ -52,257 +52,257 @@ public class UserMenuController {
 
 			switch (choice) {
 			case "1":
-//				/*
-//				 * show a list of all the books that an offer was excepted by the owner on show
-//				 * a list of id, title, isSoftCover, isAvalible and agreed upon balance as well
-//				 * as if the book is owned by the user or not let the user choose a book to
-//				 * lower the balance on by having them input the id for that book make a payment
-//				 * of type double and replace 0 (must be less then or equal to the price of the
-//				 * book) take the id from a specific book above and access the balance of the
-//				 * book and take away the payment from it then save the amount payed to a list
-//				 * and return true or false if it all works. (reference the card number if
-//				 * possible)-extra
-//				 */
-//				int id5 = 0;
-//				do {
-//					try {
-//						System.out.println("Please enter your Username: ");
-//						String username5 = sc.nextLine();
-//						System.out.println("Please enter your Password: ");
-//						String password5 = sc.nextLine();
-//						id5 = cs.specificCustomer(username5, password5).getId();
-//						double totalPrice1 = 0;
-//						if (id5 != 0) {
-//							for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
-//								if (all.getC_id() == id5 && bd.getById(all.getB_id()).isAvailable() == true
-//										&& all.isB_price_accepted()) {
-//									System.out.println("You have : $" + all.getB_price() + " Left to pay for "
-//											+ bd.getById(all.getB_id()).getTitle());
-//									totalPrice1 += all.getB_price();
-//								}
-//							}
-//							if (totalPrice1 != 0) {
-//								System.out.println("Your total is : $" + totalPrice1);
-//								System.out.println("Will you pay your total? Yes or No?");
-//								String payed = sc.nextLine();
-//								Boolean isPayed = false;
-//								if (payed.trim().toLowerCase().equals("y")
-//										|| payed.trim().toLowerCase().equals("yes")) {
-//									isPayed = true;
-//								} else {
-//									isPayed = false;
-//								}
-//								if (isPayed) {
-//									for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
-//										if (all.getB_id() == bd.getById(all.getB_id()).getId()
-//												&& bd.getById(all.getB_id()).isAvailable() == true
-//												&& all.getC_id() == id5 && all.isB_price_accepted()) {
-//											Book soldBook = new Book();
-//											soldBook = bd.getById(all.getB_id());
-//											soldBook.setAvailable(false);
-//											soldBook.setNewOwner(cd.getById(id5));
-//											bd.edit(soldBook);
-//										}
-//									}
-//									System.out.println("Your total has been payed\n");
-//								} else {
-//									System.out.println("Your total has not been payed\n");
-//								}
-//							} else {
-//								System.out.println("You have no books to pay for!");
-//							}
-//						}
-//					} catch (Exception e) {
-//						log.error("Wrong Username or Password");
-////						System.out.println("Wrong Username or Password\n");
-//					}
-//				} while (id5 == 0);
-//				break;
-//			case "2":
-//				/*
-//				 * make an int input of vin number with sanner and replace 0 then print the
-//				 * books id, title, vin number, genra, isSoftCover, isAvalible, author and
-//				 * expected minimum price with .toString
-//				 */
-//				System.out.println("Please enter a book vinNumber: ");
-//				Integer vin = Integer.valueOf(sc.nextLine());
-//				int i = 0;
-//				try {
-//					for (Book all : us.viewAllBooks()) {
-//						i++;
-//						if (all.getVinNumber() == vin && all.isAvailable()) {
-//							System.out.println("\nBook # " + i);
-//							System.out.println("Title: " + all.getTitle());
-//							System.out.println("Author: " + all.getAuthor());
-//							System.out.println("Genre: " + all.getGenre());
-//							if (all.isSoftCover()) {
-//								System.out.println("It is a soft bound book.");
-//							} else {
-//								System.out.println("It is a hard bound book.");
-//							}
-//							System.out.println("Price: $" + all.getPrice());
-//							System.out.println("Vin #: " + all.getVinNumber());
-//							System.out.println();
-//						}
-//
-//					}
-//				} catch (Exception e) {
-//					log.error("This book id dosent exist! Please try agin!");
-//					break;
-//				}
-//				break;
-//			case "3":
-//				/*
-//				 * get a list of all the books and print the book title, vin number, genra,
-//				 * isSoftCover, isAvalible, author and expected minimum price with .toString
-//				 */
-//				int y = 0;
-//				System.out.println();
-//				for (Book all : us.viewAllBooks()) {
-//					if (all.isAvailable()) {
-//						y++;
-//						System.out.println("Book # " + y);
-//						System.out.println("Title: " + all.getTitle());
-//						System.out.println("Author: " + all.getAuthor());
-//						System.out.println("Genre: " + all.getGenre());
-//						if (all.isSoftCover()) {
-//							System.out.println("It is a soft bound book.");
-//						} else {
-//							System.out.println("It is a hard bound book.");
-//						}
-//						System.out.println("Price: $" + all.getPrice());
-//						System.out.println("Vin #: " + all.getVinNumber());
-//						System.out.println();
-//					}
-//				}
-//				break;
-//			case "4":
-//				/*
-//				 * make an offer with scanner for a book and replace 0 possibly allow an option
-//				 * to look at books with view book or view all books. or set the new offer to be
-//				 * available in view book and view all books
-//				 */
-//				boolean offerMade = true;
-//				while (offerMade) {
-//					System.out.println();
-//					for (Book all : us.viewAllBooks()) {
-//						if (all.isAvailable()) {
-//							System.out.println("Book Id# : " + all.getId());
-//							System.out.println("Title: " + all.getTitle());
-//							System.out.println("Author: " + all.getAuthor());
-//							System.out.println("Genre: " + all.getGenre());
-//							if (all.isSoftCover()) {
-//								System.out.println("It is a soft bound book.");
-//							} else {
-//								System.out.println("It is a hard bound book.");
-//							}
-//							System.out.println("Price: $" + all.getPrice());
-//							System.out.println("Vin #: " + all.getVinNumber());
-//							System.out.println();
-//						}
-//					}
-//					System.out.println("\nPlease enter the id of the book desired: ");
-//					Integer id1 = Integer.valueOf(sc.nextLine());
-//					System.out.println("Please enter the potential new price of the book desired for review.\n"
-//							+ "The new price can't be much less then the listed price.\n" + "The minimum price is: $"
-//							+ bd.getById(id1).getPrice());
-//					Double price1 = Double.valueOf(sc.nextLine());
-//					while (price1 + 10 < bd.getById(id1).getPrice()) {
-//						System.out.println("This is much less then the minimum price please enter a new price!!");
-//						price1 = Double.valueOf(sc.nextLine());
-//					}
-//					System.out.println("Please enter your Username: ");
-//					String username1 = sc.nextLine();
-//					System.out.println("Please enter your Password: ");
-//					String password1 = sc.nextLine();
-////				Customer validCustomer = new Customer(username1, password1);
-//					int id2 = 0;
-////				for (Customer all : cd.getAll()) {
-////					if (validCustomer.getUsername().equals(all.getUsername())
-////							&& validCustomer.getPassword().equals(all.getPassword())) {
-////						id2 = all.getId();
-////					}
-////				}
-//					id2 = cs.specificCustomer(username1, password1).getId();
-//					boolean oldOffer = true;
-//
-//					for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
-//						if (all.getC_id() == id2 && all.getB_id() == id1) {
-//							oldOffer = false;
-//							offerMade = false;
-//							System.out.println("You already made an offer for this book of " + all.getB_price());
-//						}
-//					}
-//					if (offerMade && oldOffer) {
-//						offerMade = false;
-//						us.newOffer(id1, price1, id2);
-//						System.out.println("Your submition has been logged please waight for aproval");
+				/*
+				 * show a list of all the books that an offer was excepted by the owner on show
+				 * a list of id, title, isSoftCover, isAvalible and agreed upon balance as well
+				 * as if the book is owned by the user or not let the user choose a book to
+				 * lower the balance on by having them input the id for that book make a payment
+				 * of type double and replace 0 (must be less then or equal to the price of the
+				 * book) take the id from a specific book above and access the balance of the
+				 * book and take away the payment from it then save the amount payed to a list
+				 * and return true or false if it all works. (reference the card number if
+				 * possible)-extra
+				 */
+				int id5 = 0;
+				do {
+					try {
+						System.out.println("Please enter your Username: ");
+						String username5 = sc.nextLine();
+						System.out.println("Please enter your Password: ");
+						String password5 = sc.nextLine();
+						id5 = cs.specificCustomer(username5, password5).getId();
+						double totalPrice1 = 0;
+						if (id5 != 0) {
+							for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+								if (all.getC_id() == id5 && bd.getById(all.getB_id()).isAvailable() == true
+										&& all.isB_price_accepted()) {
+									System.out.println("You have : $" + all.getB_price() + " Left to pay for "
+											+ bd.getById(all.getB_id()).getTitle());
+									totalPrice1 += all.getB_price();
+								}
+							}
+							if (totalPrice1 != 0) {
+								System.out.println("Your total is : $" + totalPrice1);
+								System.out.println("Will you pay your total? Yes or No?");
+								String payed = sc.nextLine();
+								Boolean isPayed = false;
+								if (payed.trim().toLowerCase().equals("y")
+										|| payed.trim().toLowerCase().equals("yes")) {
+									isPayed = true;
+								} else {
+									isPayed = false;
+								}
+								if (isPayed) {
+									for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+										if (all.getB_id() == bd.getById(all.getB_id()).getId()
+												&& bd.getById(all.getB_id()).isAvailable() == true
+												&& all.getC_id() == id5 && all.isB_price_accepted()) {
+											Book soldBook = new Book();
+											soldBook = bd.getById(all.getB_id());
+											soldBook.setAvailable(false);
+											soldBook.setNewOwner(cd.getById(id5));
+											bd.edit(soldBook);
+										}
+									}
+									System.out.println("Your total has been payed\n");
+								} else {
+									System.out.println("Your total has not been payed\n");
+								}
+							} else {
+								System.out.println("You have no books to pay for!");
+							}
+						}
+					} catch (Exception e) {
+						log.error("Wrong Username or Password");
+//						System.out.println("Wrong Username or Password\n");
+					}
+				} while (id5 == 0);
+				break;
+			case "2":
+				/*
+				 * make an int input of vin number with sanner and replace 0 then print the
+				 * books id, title, vin number, genra, isSoftCover, isAvalible, author and
+				 * expected minimum price with .toString
+				 */
+				System.out.println("Please enter a book vinNumber: ");
+				Integer vin = Integer.valueOf(sc.nextLine());
+				int i = 0;
+				try {
+					for (Book all : us.viewAllBooks()) {
+						i++;
+						if (all.getVinNumber() == vin && all.isAvailable()) {
+							System.out.println("\nBook # " + i);
+							System.out.println("Title: " + all.getTitle());
+							System.out.println("Author: " + all.getAuthor());
+							System.out.println("Genre: " + all.getGenre());
+							if (all.isSoftCover()) {
+								System.out.println("It is a soft bound book.");
+							} else {
+								System.out.println("It is a hard bound book.");
+							}
+							System.out.println("Price: $" + all.getPrice());
+							System.out.println("Vin #: " + all.getVinNumber());
+							System.out.println();
+						}
+
+					}
+				} catch (Exception e) {
+					log.error("This book id dosent exist! Please try agin!");
+					break;
+				}
+				break;
+			case "3":
+				/*
+				 * get a list of all the books and print the book title, vin number, genra,
+				 * isSoftCover, isAvalible, author and expected minimum price with .toString
+				 */
+				int y = 0;
+				System.out.println();
+				for (Book all : us.viewAllBooks()) {
+					if (all.isAvailable()) {
+						y++;
+						System.out.println("Book # " + y);
+						System.out.println("Title: " + all.getTitle());
+						System.out.println("Author: " + all.getAuthor());
+						System.out.println("Genre: " + all.getGenre());
+						if (all.isSoftCover()) {
+							System.out.println("It is a soft bound book.");
+						} else {
+							System.out.println("It is a hard bound book.");
+						}
+						System.out.println("Price: $" + all.getPrice());
+						System.out.println("Vin #: " + all.getVinNumber());
+						System.out.println();
+					}
+				}
+				break;
+			case "4":
+				/*
+				 * make an offer with scanner for a book and replace 0 possibly allow an option
+				 * to look at books with view book or view all books. or set the new offer to be
+				 * available in view book and view all books
+				 */
+				boolean offerMade = true;
+				while (offerMade) {
+					System.out.println();
+					for (Book all : us.viewAllBooks()) {
+						if (all.isAvailable()) {
+							System.out.println("Book Id# : " + all.getId());
+							System.out.println("Title: " + all.getTitle());
+							System.out.println("Author: " + all.getAuthor());
+							System.out.println("Genre: " + all.getGenre());
+							if (all.isSoftCover()) {
+								System.out.println("It is a soft bound book.");
+							} else {
+								System.out.println("It is a hard bound book.");
+							}
+							System.out.println("Price: $" + all.getPrice());
+							System.out.println("Vin #: " + all.getVinNumber());
+							System.out.println();
+						}
+					}
+					System.out.println("\nPlease enter the id of the book desired: ");
+					Integer id1 = Integer.valueOf(sc.nextLine());
+					System.out.println("Please enter the potential new price of the book desired for review.\n"
+							+ "The new price can't be much less then the listed price.\n" + "The minimum price is: $"
+							+ bd.getById(id1).getPrice());
+					Double price1 = Double.valueOf(sc.nextLine());
+					while (price1 + 10 < bd.getById(id1).getPrice()) {
+						System.out.println("This is much less then the minimum price please enter a new price!!");
+						price1 = Double.valueOf(sc.nextLine());
+					}
+					System.out.println("Please enter your Username: ");
+					String username1 = sc.nextLine();
+					System.out.println("Please enter your Password: ");
+					String password1 = sc.nextLine();
+//				Customer validCustomer = new Customer(username1, password1);
+					int id2 = 0;
+//				for (Customer all : cd.getAll()) {
+//					if (validCustomer.getUsername().equals(all.getUsername())
+//							&& validCustomer.getPassword().equals(all.getPassword())) {
+//						id2 = all.getId();
 //					}
 //				}
-//				break;
-//			case "5":
-//				/*
-//				 * look at balance of specific id of customer and show all the balances of all
-//				 * the books yet to be payed for display these amounts to the user with
-//				 * .toString
-//				 */
-//				int id4 = 0;
-//				do {
-//					System.out.println("Please enter your Username: ");
-//					String username2 = sc.nextLine();
-//					System.out.println("Please enter your Password: ");
-//					String password2 = sc.nextLine();
-//					id4 = cs.specificCustomer(username2, password2).getId();
-//					double totalPrice = 0;
-//					if (id4 != 0) {
-//						for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
-//							if (all.getC_id() == id4 && all.isB_price_accepted()) {
-//								System.out.println("You have : $" + all.getB_price() + " Left to pay for "
-//										+ bd.getById(all.getB_id()).getTitle());
-//								totalPrice += all.getB_price();
-//							}
-//						}
-//						if (totalPrice != 0) {
-//							System.out.println("Your total is : $" + totalPrice);
-//						} else {
-//							System.out.println("There are no books you need to pay for!!\n");
-//						}
-//					} else {
-//						System.out.println("Wrong Username or Password");
-//					}
-//				} while (id4 == 0);
-//				break;
-//
-//			case "6":
-//				int id6 = 0;
-//				do {
-//					try {
-//						System.out.println("Please enter your Username: ");
-//						String username6 = sc.nextLine();
-//						System.out.println("Please enter your Password: ");
-//						String password6 = sc.nextLine();
-//						id6 = cs.specificCustomer(username6, password6).getId();
-//						boolean doOwn = false;
-//						if (id6 != 0) {
-//							for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
-//								if (all.getC_id() == id6 && bd.getById(all.getB_id()).isAvailable() == false
-//										&& all.isB_price_accepted()) {
-//									System.out.println("You own " + bd.getById(all.getB_id()).getTitle());
-//									doOwn = true;
-//								}
-//							}
-//							if (!doOwn) {
-//								System.out.println("You don't own any books!\n");
-//								log.info("Happenes if you dont own any books yet.");
-//							}
-//						}
-//					} catch (Exception e) {
-//						log.error("Wrong username or password please try agin!!\n");
-////						System.out.println("Wrong username or password please try agin!!\n");
-//					}
-//				} while (id6 == 0);
-//				break;
-//
+					id2 = cs.specificCustomer(username1, password1).getId();
+					boolean oldOffer = true;
+
+					for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+						if (all.getC_id() == id2 && all.getB_id() == id1) {
+							oldOffer = false;
+							offerMade = false;
+							System.out.println("You already made an offer for this book of " + all.getB_price());
+						}
+					}
+					if (offerMade && oldOffer) {
+						offerMade = false;
+						us.newOffer(id1, price1, id2);
+						System.out.println("Your submition has been logged please waight for aproval");
+					}
+				}
+				break;
+			case "5":
+				/*
+				 * look at balance of specific id of customer and show all the balances of all
+				 * the books yet to be payed for display these amounts to the user with
+				 * .toString
+				 */
+				int id4 = 0;
+				do {
+					System.out.println("Please enter your Username: ");
+					String username2 = sc.nextLine();
+					System.out.println("Please enter your Password: ");
+					String password2 = sc.nextLine();
+					id4 = cs.specificCustomer(username2, password2).getId();
+					double totalPrice = 0;
+					if (id4 != 0) {
+						for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+							if (all.getC_id() == id4 && all.isB_price_accepted()) {
+								System.out.println("You have : $" + all.getB_price() + " Left to pay for "
+										+ bd.getById(all.getB_id()).getTitle());
+								totalPrice += all.getB_price();
+							}
+						}
+						if (totalPrice != 0) {
+							System.out.println("Your total is : $" + totalPrice);
+						} else {
+							System.out.println("There are no books you need to pay for!!\n");
+						}
+					} else {
+						System.out.println("Wrong Username or Password");
+					}
+				} while (id4 == 0);
+				break;
+
+			case "6":
+				int id6 = 0;
+				do {
+					try {
+						System.out.println("Please enter your Username: ");
+						String username6 = sc.nextLine();
+						System.out.println("Please enter your Password: ");
+						String password6 = sc.nextLine();
+						id6 = cs.specificCustomer(username6, password6).getId();
+						boolean doOwn = false;
+						if (id6 != 0) {
+							for (BooksToCustomer all : bd.getAllBooksToCustomer()) {
+								if (all.getC_id() == id6 && bd.getById(all.getB_id()).isAvailable() == false
+										&& all.isB_price_accepted()) {
+									System.out.println("You own " + bd.getById(all.getB_id()).getTitle());
+									doOwn = true;
+								}
+							}
+							if (!doOwn) {
+								System.out.println("You don't own any books!\n");
+								log.info("Happenes if you dont own any books yet.");
+							}
+						}
+					} catch (Exception e) {
+						log.error("Wrong username or password please try agin!!\n");
+//						System.out.println("Wrong username or password please try agin!!\n");
+					}
+				} while (id6 == 0);
+				break;
+
 			case "7":
 				run = false;
 				break;
