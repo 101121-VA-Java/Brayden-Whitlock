@@ -22,7 +22,7 @@ create table if not exists customers(
 	c_owner integer references customers(c_id)
 );
 
-insert into customers (c_name, c_username, c_password , c_email, c_cardNumber) values ('name', 'user', 'pass', 'ogarlette0@bravesites.com', '3578903365519546');
+insert into customers (c_name, c_username, c_password , c_email, c_cardNumber) values ('Brayden', 'user', 'pass', 'ogarlette0@bravesites.com', '3578903365519546');
 insert into customers (c_name, c_username, c_password , c_email, c_cardNumber) values ('Laurella', 'customer', 'pass', 'lhaggar1@opera.com', '3536516899323010');
 insert into customers (c_name, c_username, c_password , c_email, c_cardNumber) values ('Byron', 'employee', 'pass', 'bfludder2@ihg.com', '3557554178295439');
 insert into customers (c_name, c_username, c_password , c_email, c_cardNumber) values ('Emlen', 'elachaize3', 'Lachaize', 'elachaize3@live.com', '5602234579897063');
