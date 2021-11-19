@@ -43,8 +43,8 @@ public class CustomerController {
 		User newCustomer = new User(firstName, lastName, username, password, email);
 
 		try {
-			cs.add(newCustomer);
-			if (cs.specificCustomer(username, password).getId() == 1) { // if owner is logged in do this
+			cs.addUser(newCustomer);
+			if (cs.getUserByUAP(username, password).getId() == 1) { // if owner is logged in do this
 				System.out.println("Owner " + username + " has been registered!\n");
 			} else { // if customer is logged in do this
 				System.out.println("Customer " + username + " has been registered!\n");
@@ -65,8 +65,8 @@ public class CustomerController {
 		 * the same index in the array of customer
 		 */
 		boolean isLoggedIn = false;
-		cs.specificCustomer(username, password);
-		if (cs.specificCustomer(username, password) != null) {
+		cs.getUserByUAP(username, password);
+		if (cs.getUserByUAP(username, password) != null) {
 			isLoggedIn = true;
 //			if (cs.specificCustomer(username, password).getId() == 1) { // if owner is logged in do this
 //				System.out.println("Owner " + username + " has been logged in!\n");

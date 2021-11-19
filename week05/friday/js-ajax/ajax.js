@@ -62,17 +62,20 @@ function populateData(response) {
       }
     }
 }
-
-add= function (a,b){
+//hoisting
+add = function (a,b){
     return a+b;
 }
-let x;
-let y;
-x = 5;
-y = 4;
-console.log('test');
+// let x;
+// let y;
+// x = 5;
+// y = 4;
+// console.log('test');
 
-console.log(add(x,y));
+// console.log(add(x,y));
+
+console.log(add(1,2));
+console.log(0.1+0.2==0.3);
 
 /*
   1. get api 

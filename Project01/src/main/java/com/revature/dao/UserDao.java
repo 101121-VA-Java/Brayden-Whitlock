@@ -1,4 +1,4 @@
-package com.revature.repositories;
+package com.revature.dao;
 
 import java.util.List;
 

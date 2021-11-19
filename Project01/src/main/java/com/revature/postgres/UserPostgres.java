@@ -1,4 +1,4 @@
-package com.revature.repositories;
+package com.revature.postgres;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.revature.dao.UserDao;
 import com.revature.models.Role;
 import com.revature.models.User;
 import com.revature.util.ConnectionUtil;
@@ -23,7 +24,8 @@ public class UserPostgres implements UserDao {
 	@Override
 	public List<User> getAll() {
 		List<User> ers_users = new ArrayList<>();
-		String sql = "select * from ers_users;";
+		String sql = "select * from ers_users full join ers_user_roles on user_role_id = ers_user_roles.ers_user_role_id;";
+		
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			Statement s = con.createStatement();
 			ResultSet rs = s.executeQuery(sql);
@@ -36,10 +38,11 @@ public class UserPostgres implements UserDao {
 				String ers_password = rs.getString("ers_password");
 				String user_email = rs.getString("user_email");
 				int user_role_id = rs.getInt("user_role_id");
+				String user_role = rs.getString("user_role");
 
-				User newCustomer = new User(ers_users_id, user_first_name, user_last_name, ers_username, ers_password,
-						user_email, new Role(user_role_id)); // need to add role
-				ers_users.add(newCustomer);
+				User newUser = new User(ers_users_id, user_first_name, user_last_name, ers_username, ers_password,
+						user_email, new Role(user_role_id, user_role)); // need to add role
+				ers_users.add(newUser);
 			}
 		} catch (SQLException | IOException c) {
 			c.printStackTrace();
@@ -49,7 +52,7 @@ public class UserPostgres implements UserDao {
 
 	@Override
 	public User getById(int id) {
-		String sql = "select * from ers_users where ers_users_id = ? ";
+		String sql = "select * from ers_users full join ers_user_roles on user_role_id = ers_user_roles.ers_user_role_id where ers_users_id = ?;";
 		User use = null;
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
@@ -66,9 +69,10 @@ public class UserPostgres implements UserDao {
 				String ers_password = rs.getString("ers_password");
 				String user_email = rs.getString("user_email");
 				int user_role_id = rs.getInt("user_role_id");
+				String user_role = rs.getString("user_role");
 
 				use = new User(ers_users_id, user_first_name, user_last_name, ers_username, ers_password, user_email,
-						new Role(user_role_id)); // add role
+						new Role(user_role_id, user_role)); // add role
 			}
 		} catch (SQLException | IOException c) {
 			// TODO Auto-generated catch block
