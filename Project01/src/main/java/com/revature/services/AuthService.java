@@ -18,13 +18,14 @@ public class AuthService {
 		System.out.println("Auth Service Login");
 
 		String token = null;
-		User principle = null;
+//		User principle = null;
+		User principle = ud.getByUsername(username);
 		// change for statement later to get employee by username
-		for (User all : ud.getAll()) {
-			if (all.getUsername().equals(username)) {
-				principle = all;
-			}
-		}
+//		for (User all : ud.getAll()) {
+//			if (all.getUsername().equals(username)) {
+//				principle = all;
+//			}
+//		}
 		if (principle != null && principle.getPassword().equals(password)) {
 			token = principle.getId() + ":" + principle.getRole().getRoleId();
 		}

@@ -1,0 +1,27 @@
+table{
+    margin-right: auto;
+    margin-left: auto;
+    
+}
+
+th {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+    border-radius: 30%;
+}
+td {
+    padding: 2em;
+    border: 1px solid black;
+    text-align: center;
+}
+
+.truth:hover{
+    background-color: rgb(45, 45, 233);
+    color: white;
+    
+}
+
+.lie:hover{
+    background-color: rgb(255, 36, 36);
+}

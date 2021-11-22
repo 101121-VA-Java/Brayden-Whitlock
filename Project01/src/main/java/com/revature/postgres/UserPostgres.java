@@ -80,6 +80,37 @@ public class UserPostgres implements UserDao {
 		}
 		return use;
 	}
+	
+	public User getByUsername(String username) {
+		String sql = "select * from ers_users full join ers_user_roles on user_role_id = ers_user_roles.ers_user_role_id where ers_username = ?;";
+		User use = null;
+		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
+			PreparedStatement ps = con.prepareStatement(sql);
+
+			ps.setString(1, username); // 1 refers to the first '?'
+
+			ResultSet rs = ps.executeQuery();
+
+			if (rs.next()) {
+				int ers_users_id = rs.getInt("ers_users_id");
+				String user_first_name = rs.getString("user_first_name");
+				String user_last_name = rs.getString("user_last_name");
+				String ers_username = rs.getString("ers_username");
+				String ers_password = rs.getString("ers_password");
+				String user_email = rs.getString("user_email");
+				int user_role_id = rs.getInt("user_role_id");
+				String user_role = rs.getString("user_role");
+
+				use = new User(ers_users_id, user_first_name, user_last_name, ers_username, ers_password, user_email,
+						new Role(user_role_id, user_role)); // add role
+			}
+		} catch (SQLException | IOException c) {
+			// TODO Auto-generated catch block
+			c.printStackTrace();
+		}
+		return use;
+	}
+	
 
 	@Override
 	public int add(User u) {

@@ -19,6 +19,11 @@ public class User {
 		this.id = id;
 	}
 
+	public User(String username) {
+		super();
+		this.username = username;
+	}
+
 	public User(String username, String password) {
 		super();
 		this.username = username;
@@ -34,8 +39,7 @@ public class User {
 		this.email = email;
 	}
 
-	public User(int id, String firstName, String lastName, String username, String password, String email,
-			Role role) {
+	public User(int id, String firstName, String lastName, String username, String password, String email, Role role) {
 		super();
 		this.id = id;
 		this.firstName = firstName;

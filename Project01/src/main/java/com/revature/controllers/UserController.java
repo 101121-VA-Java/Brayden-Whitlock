@@ -17,12 +17,11 @@ public class UserController {
 
 	public static void getUsers(Context ctx) {
 		String token = ctx.header("Authorization");
-		
+
 		if (!as.checkPermission(token, 2)) {
 			ctx.status(HttpCode.UNAUTHORIZED);
 			return;
 		}
-		
 		List<User> users = us.getUsers();
 		ctx.json(users);
 		ctx.status(HttpCode.OK);
@@ -45,6 +44,14 @@ public class UserController {
 
 	public static void getUserById(Context ctx) {
 		// pathParam("nameOfPathParam");
+
+		String token = ctx.header("Authorization");
+
+		if (!as.checkPermission(token, 2)) {
+			ctx.status(HttpCode.UNAUTHORIZED);
+			return;
+		}
+
 		int id = Integer.parseInt(ctx.pathParam("id"));
 
 		User u = us.getUserById(id);
@@ -63,6 +70,28 @@ public class UserController {
 		String token = ctx.header("Authorization");
 
 		if (!as.checkPermission(token, 1, 2)) {
+			ctx.status(HttpCode.UNAUTHORIZED);
+			return;
+		}
+
+		int id = Integer.parseInt(ctx.pathParam("id"));
+
+		User u = ctx.bodyAsClass(User.class);
+
+		u.setId(id);
+
+		if (us.updateUser(u)) {
+			ctx.status(HttpCode.OK);
+		} else {
+			ctx.status(400);
+		}
+	}
+	
+	public static void updateUserInfoManager(Context ctx) {
+
+		String token = ctx.header("Authorization");
+
+		if (!as.checkPermission(token, 2)) {
 			ctx.status(HttpCode.UNAUTHORIZED);
 			return;
 		}
