@@ -144,10 +144,49 @@ function newClaim() {
 }
 
 function getUserProfile() {
-    
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', `http://localhost:8080/users/${sessionStorage.token.split(":")[0]}`);
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.onreadystatechange = function () {
+    document.getElementById("firstName").innerHTML = "testing";
+    if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
+      let user = xhr.response;
+      user = JSON.parse(user);
+      document.getElementById("firstName").innerHTML = user.firstName;
+      document.getElementById("lastName").innerHTML = user.lastName;
+      document.getElementById("username").innerHTML = user.username;
+      // document.getElementById("password").innerHTML = user.password;
+      document.getElementById("email").innerHTML = user.email;
+      document.getElementById("role").innerHTML = user.role.role;
+    } else if (xhr.readyState === 4) {
+      // provide user with feedback of failure to login
+      document.getElementById("error-div").innerHTML = "Unable to find User Profile.";
+    }
+  };
+  xhr.send();
 }
 
 function getAllUsers() {
+  let xhr = new XMLHttpRequest();
+  xhr.open('GET', `http://localhost:8080/users`);
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.onreadystatechange = function () {
+    document.getElementById("firstName").innerHTML = "testing";
+    if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
+      let user = xhr.response;
+      user = JSON.parse(user);
+      document.getElementById("firstName").innerHTML = user.firstName;
+      document.getElementById("lastName").innerHTML = user.lastName;
+      document.getElementById("username").innerHTML = user.username;
+      // document.getElementById("password").innerHTML = user.password;
+      document.getElementById("email").innerHTML = user.email;
+      document.getElementById("role").innerHTML = user.role.role;
+    } else if (xhr.readyState === 4) {
+      // provide user with feedback of failure to login
+      document.getElementById("error-div").innerHTML = "Unable to find User Profile.";
+    }
+  };
+  xhr.send();
 
 }
 

@@ -45,13 +45,6 @@ public class UserController {
 	public static void getUserById(Context ctx) {
 		// pathParam("nameOfPathParam");
 
-		String token = ctx.header("Authorization");
-
-		if (!as.checkPermission(token, 2)) {
-			ctx.status(HttpCode.UNAUTHORIZED);
-			return;
-		}
-
 		int id = Integer.parseInt(ctx.pathParam("id"));
 
 		User u = us.getUserById(id);
