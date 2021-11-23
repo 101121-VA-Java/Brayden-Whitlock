@@ -9,6 +9,11 @@ public class Type {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Type(int typeId) {
+		super();
+		this.typeId = typeId;
+	}
+
 	public Type(int typeId, String type) {
 		super();
 		this.typeId = typeId;

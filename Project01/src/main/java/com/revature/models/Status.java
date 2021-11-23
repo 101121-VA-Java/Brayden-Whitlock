@@ -9,6 +9,11 @@ public class Status {
 		// TODO Auto-generated constructor stub
 	}
 
+	public Status(int statusId) {
+		super();
+		this.statusId = statusId;
+	}
+
 	public Status(int statusId, String status) {
 		super();
 		this.statusId = statusId;

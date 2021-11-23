@@ -43,27 +43,34 @@
         </div>
     </nav>
     Please enter a new Reimbursment claim
-    <form>
+    <form onsubmit="return false">
         <div class="form-group">
             <div class="form-group">
-                <label for="exampleFormControlSelect1">Choose type of claim</label>
-                <select class="form-control" id="exampleFormControlSelect1">
+                <label for="type">Choose type of claim</label>
+                <select class="form-control" id="type">
                   <option>Lodging</option>
                   <option>Travel</option>
                   <option>Food</option>
                   <option>Other</option>
+                  <!-- <option id="1">Lodging</option>
+                  <option id="2">Travel</option>
+                  <option id="3">Food</option>
+                  <option id="4">Other</option> -->
                 </select>
             </div>
         </div>
         <div class="form-group">
-            <label for="claimAmount">Type a claim amount</label>
-            <input type="text" class="form-control" id="claimAmount" placeholder="$00.00">
+            <label for="reimAmount">Type a claim amount</label>
+            <!-- find out how to put in the $ before the writting so that $ stays when claim is written on -->
+            <input type="text" class="form-control" id="reimAmount" placeholder="$00.00">
         </div>
         <div class="form-group">
-            <label for="claimDescrip">Please detale the reason for your claim</label>
-            <input type="text" class="form-control" id="claimDescrip" placeholder="Type reason here...">
+            <label for="descrip">Please detail the reason for your claim</label>
+            <input type="text" class="form-control" id="descrip" placeholder="Type reason here...">
         </div>
+        <button onclick="newClaim()" type="submit" class="btn btn-primary">Submit new Claim</button>
     </form>
+    <div id="error-div"></div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

@@ -179,21 +179,24 @@ public class ReimbursementPostgres implements ReimbursementDao {
 	@Override
 	public int add(Reimbursement r) {
 		Reimbursement newReib = r;
-		String sql = "insert into ers_reimbursement (reimb_amount, reimb_submitted, reimb_resolved,"
-				+ " reimb_description, reimb_author, reimb_resolver, reimb_status_id, reimb_type_id)"
-				+ " values (?, ?, ?, ?, ?, ?, ?, ?) returning reimb_id;";
+		String sql = "insert into ers_reimbursement (reimb_amount, reimb_submitted,"
+				+ " reimb_description, reimb_author, reimb_status_id, reimb_type_id)"
+				+ " values (?, ?, ?, ?, ?, ?) returning reimb_id;";
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 
 			ps.setDouble(1, r.getReimAmount());
-			ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
-			ps.setTimestamp(3, r.getResolve());
-			ps.setString(4, r.getDescrip());
-			ps.setInt(5, r.getAuthor().getId());
-			ps.setInt(6, r.getResolver().getId());
-			ps.setInt(7, r.getStatus().getStatusId());
-			ps.setInt(8, r.getType().getTypeId());
+//			ps.setTimestamp(2, new Timestamp(System.currentTimeMillis()));
+			ps.setTimestamp(2, r.getSubmit());
+//			ps.setTimestamp(3, r.getResolve());
+			ps.setString(3, r.getDescrip());
+			ps.setInt(4, r.getAuthor().getId());
+//			ps.setInt(6, r.getResolver().getId());
+			//no resolver yet take this out 
+//			ps.setInt(6, 0);
+			ps.setInt(5, r.getStatus().getStatusId());
+			ps.setInt(6, r.getType().getTypeId());
 
 			ResultSet rs = ps.executeQuery();
 

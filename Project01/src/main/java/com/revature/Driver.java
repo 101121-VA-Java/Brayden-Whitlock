@@ -49,8 +49,9 @@ public class Driver {
 //     need to add app.get reimbursements	
 		app.routes(() -> {
 			path("users", () -> {
-				get(UserController::getUsers);
 				post(UserController::registerUser);
+				get(UserController::getUsers);
+				
 
 				// use brackets to indicate path param name
 				path("{id}", () -> {
@@ -60,8 +61,8 @@ public class Driver {
 				});
 			});
 			path("reimbursements", () -> {
-				get(ReimbController::getReimbs);
 				post(ReimbController::addReimb);
+				get(ReimbController::getReimbs);
 				// use brackets to indicate path param name
 				path("{id}", () -> {
 					get(ReimbController::getReimbById);
