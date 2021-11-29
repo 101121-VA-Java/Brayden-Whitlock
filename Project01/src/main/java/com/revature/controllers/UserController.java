@@ -18,10 +18,10 @@ public class UserController {
 	public static void getUsers(Context ctx) {
 		String token = ctx.header("Authorization");
 
-		if (!as.checkPermission(token, 2)) {
-			ctx.status(HttpCode.UNAUTHORIZED);
-			return;
-		}
+//		if (!as.checkPermission(token, 2)) {
+//			ctx.status(HttpCode.UNAUTHORIZED);
+//			return;
+//		}
 		List<User> users = us.getUsers();
 		ctx.json(users);
 		ctx.status(HttpCode.OK);
