@@ -60,13 +60,6 @@ public class UserController {
 
 	public static void updateUserInfo(Context ctx) {
 
-		String token = ctx.header("Authorization");
-
-		if (!as.checkPermission(token, 1, 2)) {
-			ctx.status(HttpCode.UNAUTHORIZED);
-			return;
-		}
-
 		int id = Integer.parseInt(ctx.pathParam("id"));
 
 		User u = ctx.bodyAsClass(User.class);

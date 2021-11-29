@@ -71,7 +71,7 @@ function register() {
   // xhr.open("POST", `http://localhost:8080/users/${sessionStorage.token.split(":")[0]}`);
 
   xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
       let authToken = xhr.getResponseHeader("Authorization");
 
       /*
@@ -85,7 +85,6 @@ function register() {
       let x = sessionStorage.token;
       window.location.href = "employeeDash.html";
       console.log("You are in as an employee!!!");
-
     } else if (xhr.readyState === 4) {
       // provide user with feedback of failure to login
       document.getElementById("error-div").innerHTML = "Unable to register.";
@@ -100,56 +99,58 @@ function register() {
 }
 
 function newClaim() {
-    // resetting error div
-    document.getElementById("error-div").innerHTML = "";
-  
-    //retrieving user credentials
-    let reimAmount = document.getElementById("reimAmount").value;
-    let descrip = document.getElementById("descrip").value;
-    let type = document.getElementById("type").value;
-    if(type === "Lodging"){
-        type = 1;
+  // resetting error div
+  document.getElementById("error-div").innerHTML = "";
+
+  //retrieving user credentials
+  let reimAmount = document.getElementById("reimAmount").value;
+  let descrip = document.getElementById("descrip").value;
+  let type = document.getElementById("type").value;
+  if (type === "Lodging") {
+    type = 1;
+  } else if (type === "Travel") {
+    type = 2;
+  } else if (type === "Food") {
+    type = 3;
+  } else {
+    type = 4;
+  }
+
+  let newReim = { reimAmount, descrip, type };
+
+  //add other stuff
+
+  let xhr = new XMLHttpRequest();
+
+  xhr.open("POST", "http://localhost:8080/reimbursements");
+  // xhr.open("POST", `http://localhost:8080/users/${sessionStorage.token.split(":")[0]}`);
+
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+      document.getElementById("error-div").innerHTML =
+        "You have succesfully posted a claim please waight for approval!";
+    } else if (xhr.readyState === 4) {
+      // provide user with feedback of failure to login
+      document.getElementById("error-div").innerHTML =
+        "Unable to make a new claim.";
     }
-    else if (type === "Travel"){
-        type = 2;
-    }
-    else if (type === "Food"){
-        type = 3;
-    }
-    else {
-        type = 4;
-    }
-  
-    let newReim = {reimAmount, descrip, type};
-  
-    //add other stuff
-  
-    let xhr = new XMLHttpRequest();
-  
-    xhr.open("POST", "http://localhost:8080/reimbursements");
-    // xhr.open("POST", `http://localhost:8080/users/${sessionStorage.token.split(":")[0]}`);
-  
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
-        document.getElementById("error-div").innerHTML = "You have succesfully posted a claim please waight for approval!"
-      } else if (xhr.readyState === 4) {
-        // provide user with feedback of failure to login
-        document.getElementById("error-div").innerHTML = "Unable to make a new claim.";
-      }
-    };
-    let requestBody = JSON.stringify(newReim);
-    //set this to send in the token make sure it is after the XMLHttpRequest
-    xhr.setRequestHeader("Authorization", sessionStorage.token);
-    xhr.send(requestBody);
+  };
+  let requestBody = JSON.stringify(newReim);
+  //set this to send in the token make sure it is after the XMLHttpRequest
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.send(requestBody);
 }
 
 function getUserProfile() {
+  document.getElementById("error-div").innerHTML = "";
   let xhr = new XMLHttpRequest();
-  xhr.open('GET', `http://localhost:8080/users/${sessionStorage.token.split(":")[0]}`);
+  xhr.open(
+    "GET",
+    `http://localhost:8080/users/${sessionStorage.token.split(":")[0]}`
+  );
   xhr.setRequestHeader("Authorization", sessionStorage.token);
   xhr.onreadystatechange = function () {
-    document.getElementById("firstName").innerHTML = "testing";
-    if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
       let user = xhr.response;
       user = JSON.parse(user);
       document.getElementById("firstName").innerHTML = user.firstName;
@@ -160,7 +161,8 @@ function getUserProfile() {
       document.getElementById("role").innerHTML = user.role.role;
     } else if (xhr.readyState === 4) {
       // provide user with feedback of failure to login
-      document.getElementById("error-div").innerHTML = "Unable to find User Profile.";
+      document.getElementById("error-div").innerHTML =
+        "Unable to find User Profile.";
     }
   };
   xhr.send();
@@ -168,11 +170,10 @@ function getUserProfile() {
 
 function getAllUsers() {
   let xhr = new XMLHttpRequest();
-  xhr.open('GET', `http://localhost:8080/users`);
+  xhr.open("GET", `http://localhost:8080/users`);
   xhr.setRequestHeader("Authorization", sessionStorage.token);
   xhr.onreadystatechange = function () {
-    document.getElementById("firstName").innerHTML = "testing";
-    if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 300)) {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
       let user = xhr.response;
       user = JSON.parse(user);
       document.getElementById("firstName").innerHTML = user.firstName;
@@ -183,36 +184,87 @@ function getAllUsers() {
       document.getElementById("role").innerHTML = user.role.role;
     } else if (xhr.readyState === 4) {
       // provide user with feedback of failure to login
-      document.getElementById("error-div").innerHTML = "Unable to find User Profile.";
+      document.getElementById("error-div").innerHTML =
+        "Unable to find User Profile.";
     }
   };
   xhr.send();
-
 }
 
-function viewAllRequestsByStatus() {
-    
-}
+function viewAllRequestsByStatus() {}
 
-function viewAllRequestsById() {
-    
-}
+function viewAllRequestByAuthor() {}
 
-function viewAllRequestsByStatusAndId() {
-    
-}
+function viewAllRequestsByStatusAndAuthor() {}
 
 function updateUserProfile() {
-    
+  document.getElementById("error-div").innerHTML = "";
+  let xhr = new XMLHttpRequest();
+  let firstName = document.getElementById("firstName").value;
+  let lastName = document.getElementById("lastName").value;
+  let username = document.getElementById("username").value;
+  let password = document.getElementById("password").value;
+  let email = document.getElementById("email").value;
+  let role = document.getElementById("role").value;
+  if (role === "Finance Manager(FM)") {
+    role = 2;
+  } else {
+    role = 1;
+  }
+  let updatedEmployee = {
+    firstName,
+    lastName,
+    username,
+    password,
+    email,
+    role,
+  };
+  console.log("note here");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+      let x = sessionStorage.token;
+      if (role === 2) {
+        sessionStorage.setItem("token", x.split(":")[0] + ":" + "2");
+      } else if (role === 1) {
+        sessionStorage.setItem("token", x.split(":")[0] + ":" + "1");
+      }
+      document.getElementById("error-div").innerHTML = "Update successfull.";
+    } else {
+      document.getElementById("error-div").innerHTML = "Update failed.";
+    }
+  };
+  xhr.open(
+    "PUT",
+    `http://localhost:8080/users/${sessionStorage.token.split(":")[0]}`
+  );
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.send(JSON.stringify(updatedEmployee));
 }
 
+// needs work
 function updateRequests() {
-
+  document.getElementById("error-div").innerHTML = "";
+  let xhr = new XMLHttpRequest();
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+      document.getElementById("error-div").innerHTML = "Update successfull.";
+    } else {
+      document.getElementById("error-div").innerHTML = "Update failed.";
+    }
+  };
+  xhr.open("PUT", `http://localhost:8080/reimbursements/${reimId}}`);
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.send(JSON.stringify(updatedReim));
 }
 
-
-
-
+function redirect() {
+  let authToken = sessionStorage.getItem("token");
+  if (authToken.split(":")[1] === "1") {
+    window.location.href = "employeeDash.html";
+  } else {
+    window.location.href = "managerDash.html";
+  }
+}
 
 // retrieving token from session storage if it exists
 let token = sessionStorage.getItem("token");
@@ -223,7 +275,7 @@ if (
   !window.location.href.includes("htmlFiles/login.html") &&
   !window.location.href.includes("htmlFiles/register.html")
 ) {
-// window.location.href = "views/login.html";
+  // window.location.href = "views/login.html";
   window.location.href = "login.html";
 }
 

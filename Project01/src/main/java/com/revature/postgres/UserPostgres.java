@@ -143,17 +143,17 @@ public class UserPostgres implements UserDao {
 	@Override
 	public boolean edit(User u) {
 		String sql = "update ers_users set user_first_name = ?, user_last_name = ?, ers_username = ?,"
-				+ " ers_password = ?, user_email = ?, user_role_id = ?, where ers_users_id = ?;"; // add role
+				+ " ers_password = ?, user_email = ?, user_role_id = ? where ers_users_id = ?;"; // add role
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {
 			PreparedStatement ps = con.prepareStatement(sql);
 			int rowsChanged = -1;
 			ps.setString(1, u.getFirstName());
-			ps.setString(1, u.getLastName());
-			ps.setString(2, u.getUsername());
-			ps.setString(3, u.getPassword());
-			ps.setString(4, u.getEmail());
-			ps.setInt(5, u.getRole().getRoleId()); // find out if I added a new role to the edit function correctly
-			ps.setInt(6, u.getId());
+			ps.setString(2, u.getLastName());
+			ps.setString(3, u.getUsername());
+			ps.setString(4, u.getPassword());
+			ps.setString(5, u.getEmail());
+			ps.setInt(6, u.getRole().getRoleId()); // find out if I added a new role to the edit function correctly
+			ps.setInt(7, u.getId());
 			// add role
 
 			rowsChanged = ps.executeUpdate();
