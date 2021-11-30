@@ -12,7 +12,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body onload="getAllUsers()">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
@@ -48,7 +48,7 @@
               Profile
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" onclick="getUserProfile()"
+              <a class="dropdown-item" href="userProfile.html"
                 >See Profile</a
               >
               <!-- <a class="dropdown-item" onclick ="getUserProfile()" href="userProfile.html">See User Profile</a> -->
@@ -112,7 +112,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="../jsFiles/script.js"></script>
-    <script>
+    <script>let tableBody = document.querySelector("#employeeTable > tbody");</script>
+    <!-- <script>
       function getAllUsers() {
         let xhr = new XMLHttpRequest();
         xhr.open("GET", `http://localhost:8080/users`);
@@ -160,6 +161,6 @@
       document.addEventListener("DOMContentLoaded", () => {
         getAllUsers();
       });
-    </script>
+    </script> -->
   </body>
 </html>

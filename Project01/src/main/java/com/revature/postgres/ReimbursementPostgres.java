@@ -144,7 +144,7 @@ public class ReimbursementPostgres implements ReimbursementDao {
 				+ "	from ers_reimbursement R\n" + "	left join ers_users U on R.reimb_author = U.ers_users_id \n"
 				+ "	left join ers_users M on R.reimb_resolver = M.ers_users_id\n"
 				+ "	left join ers_reimbursement_status S on R.reimb_status_id = S.reimb_status_id\n"
-				+ "	left join ers_reimbursement_type T on R.reimb_type_id = T.reimb_type_id where reimb_status_id = ?;";
+				+ "	left join ers_reimbursement_type T on R.reimb_type_id = T.reimb_type_id where R.reimb_status_id = ?;";
 		List<Reimbursement> Reimbs = new ArrayList<>();
 
 		try (Connection con = ConnectionUtil.getConnectionFromFile()) {

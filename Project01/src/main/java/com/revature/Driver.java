@@ -52,7 +52,6 @@ public class Driver {
 				post(UserController::registerUser);
 				get(UserController::getUsers);
 				
-
 				// use brackets to indicate path param name
 				path("{id}", () -> {
 					get(UserController::getUserById);

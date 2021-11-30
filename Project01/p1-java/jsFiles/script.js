@@ -168,6 +168,112 @@ function getUserProfile() {
   xhr.send();
 }
 
+function getAllPReims() {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", `http://localhost:8080/reimbursements/status/1`);
+
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+      let reims = xhr.response;
+      reims = JSON.parse(reims);
+      printReims(reims);
+    } else if (xhr.readyState === 4) {
+      // provide user with feedback of failure to login
+      document.getElementById("error-div").innerHTML =
+        "Unable to find Reimbursements.";
+    }
+  };
+  xhr.send();
+}
+
+function getAllDReims() {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", `http://localhost:8080/reimbursements/status/2`);
+
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+      let reims = xhr.response;
+      reims = JSON.parse(reims);
+      printReims(reims);
+    } else if (xhr.readyState === 4) {
+      // provide user with feedback of failure to login
+      document.getElementById("error-div").innerHTML =
+        "Unable to find Reimbursements.";
+    }
+  };
+  xhr.send();
+}
+
+function getAllAReims() {
+  let xhr = new XMLHttpRequest();
+  xhr.open("GET", `http://localhost:8080/reimbursements/status/3`);
+
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+      let reims = xhr.response;
+      reims = JSON.parse(reims);
+      printReims(reims);
+    } else if (xhr.readyState === 4) {
+      // provide user with feedback of failure to login
+      document.getElementById("error-div").innerHTML =
+        "Unable to find Reimbursements.";
+    }
+  };
+  xhr.send();
+}
+
+function printReims(reims){
+  // while (tableBody.firstChild) {
+  //   tableBody.removeChild(tableBody.firstChild);
+  // }
+  reims.forEach((row) => {
+    const tr = document.createElement("tr");
+    // tr.textContent = row.id;
+    const td1 = document.createElement("td");
+    const td2 = document.createElement("td");
+    const td3 = document.createElement("td");
+    const td4 = document.createElement("td");
+    const td5 = document.createElement("td");
+    const td6 = document.createElement("td");
+    const td7 = document.createElement("td");
+    const td8 = document.createElement("td");
+    const td9 = document.createElement("td");
+
+    td1.textContent = row.reimId;
+    tr.appendChild(td1);
+    td2.textContent = row.reimAmount;
+    tr.appendChild(td2);
+    td3.textContent = timeFix(row.submit);
+    tr.appendChild(td3);
+    td4.textContent = timeFix(row.resolve);
+    tr.appendChild(td4);
+    td5.textContent = row.descrip;
+    tr.appendChild(td5);
+    td6.textContent = row.author.username;
+    tr.appendChild(td6);
+    td7.textContent = row.resolver.username;
+    tr.appendChild(td7);
+    td8.textContent = row.status.status;
+    tr.appendChild(td8);
+    td9.textContent = row.type.type;
+    tr.appendChild(td9);
+    tableBody.appendChild(tr);
+  });
+}
+
+function timeFix(time) {
+  var d = new Date(time);
+var formattedDate = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
+var hours = (d.getHours() < 10) ? "0" + d.getHours() : d.getHours();
+var minutes = (d.getMinutes() < 10) ? "0" + d.getMinutes() : d.getMinutes();
+var formattedTime = hours + ":" + minutes;
+formattedDate = formattedDate + " " + formattedTime;
+return formattedDate;
+}
+
 function getAllUsers() {
   let xhr = new XMLHttpRequest();
   xhr.open("GET", `http://localhost:8080/users`);
@@ -185,8 +291,6 @@ function getAllUsers() {
   };
   xhr.send();
 }
-
-// const tableBody = document.querySelector("#employeeTable > tbody");
 
 function printUsers(users) {
   while (tableBody.firstChild) {
