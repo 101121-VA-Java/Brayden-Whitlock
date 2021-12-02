@@ -1,5 +1,6 @@
 package com.revature.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.revature.models.Reimbursement;
@@ -15,12 +16,13 @@ public class ReimbController {
 	private static AuthService as = new AuthService();
 
 	public static void getReimbs(Context ctx) {
-//		String token = ctx.header("Authorization");
-//
-//		if (!as.checkPermission(token, 2)) {
-//			ctx.status(HttpCode.UNAUTHORIZED);
-//			return;
-//		}
+		String token = ctx.header("Authorization");
+
+		if (!as.checkPermission(token, 2)) {
+			ctx.status(HttpCode.UNAUTHORIZED);
+			return;
+		}
+
 		List<Reimbursement> r = rs.getReimbursements();
 		ctx.json(r);
 		ctx.status(HttpCode.OK);
@@ -30,10 +32,10 @@ public class ReimbController {
 
 		String token = ctx.header("Authorization");
 
-//		if (!as.checkPermission(token, 2)) {
-//			ctx.status(HttpCode.UNAUTHORIZED);
-//			return;
-//		}
+		if (!as.checkPermission(token, 2)) {
+			ctx.status(HttpCode.UNAUTHORIZED);
+			return;
+		}
 
 		int rId = Integer.parseInt(ctx.pathParam("id"));
 		Reimbursement r = rs.getReimbById(rId);
@@ -47,12 +49,6 @@ public class ReimbController {
 	}
 
 	public static void getReimbByAuthorId(Context ctx) {
-		String token = ctx.header("Authorization");
-
-//		if (!as.checkPermission(token, 2)) {
-//			ctx.status(HttpCode.UNAUTHORIZED);
-//			return;
-//		}
 
 		int id = Integer.parseInt(ctx.pathParam("id"));
 		List<Reimbursement> r = rs.getReimbByAuthorId(id);
@@ -66,30 +62,40 @@ public class ReimbController {
 	}
 
 	public static void getReimbByStatusId(Context ctx) {
-		String token = ctx.header("Authorization");
 
-//		if (!as.checkPermission(token, 2)) {
-//			ctx.status(HttpCode.UNAUTHORIZED);
-//			return;
-//		}
-
-		int id = Integer.parseInt(ctx.pathParam("id"));
-		List<Reimbursement> r = rs.getReimbByStatusId(id);
-		if (r != null) {
-			ctx.json(r);
+		String authorId = ctx.queryParam("author_id");
+		List<Reimbursement> r = null;
+		List<Reimbursement> statusAndAuthorList = new ArrayList<>();
+//		System.out.println("this is a test: " + authorId);
+		int statusId = Integer.parseInt(ctx.pathParam("id"));
+		if (authorId != null) {
+			int authorNumber = Integer.parseInt(authorId);
+			r = rs.getReimbByAuthorId(authorNumber);
+			for (Reimbursement statusAndAuthor : r) {
+				if (statusAndAuthor.getStatus().getStatusId() == statusId) {
+					statusAndAuthorList.add(statusAndAuthor);
+				}
+			}
+			ctx.json(statusAndAuthorList);
 			ctx.status(HttpCode.OK);
+//			System.out.println("this is a test2: " + r);
 		} else {
-//			ctx.status(404);
-			ctx.status(HttpCode.NOT_FOUND);
+			r = rs.getReimbByStatusId(statusId);
+			if (r != null) {
+				ctx.json(r);
+				ctx.status(HttpCode.OK);
+			} else {
+				ctx.status(HttpCode.NOT_FOUND);
+			}
 		}
 	}
 
 	public static void addReimb(Context ctx) {
 		String token = ctx.header("Authorization");
 		Reimbursement newReimb = null;
-		
+
 		newReimb = rs.getReimbById(rs.addReimb(token, ctx.bodyAsClass(Reimbursement.class)));
-		
+
 		if (newReimb == null) {
 			ctx.status(HttpCode.BAD_REQUEST);
 		} else {
@@ -100,17 +106,13 @@ public class ReimbController {
 	public static void updateReimb(Context ctx) {
 		String token = ctx.header("Authorization");
 
-//		if (!as.checkPermission(token, 1, 2)) {
-//			ctx.status(HttpCode.UNAUTHORIZED);
-//			return;
-//		}
 		int id = Integer.parseInt(ctx.pathParam("id"));
 
 		Reimbursement r = ctx.bodyAsClass(Reimbursement.class);
 
 		r.setReimId(id);
 
-		if (rs.updateReimb(r)) {
+		if (rs.updateReimb(token, r)) {
 			ctx.status(HttpCode.OK);
 		} else {
 			ctx.status(400);

@@ -12,7 +12,7 @@
       crossorigin="anonymous"
     />
   </head>
-  <body>
+  <body onload="getAllRequestsByStatusAndAuthorP()">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <a class="navbar-brand" href="#">Navbar</a>
       <button
@@ -82,13 +82,14 @@
     </nav>
     Submitted Requests Page
 
-    <table class="table" id="reimTable">
+    <table class="table" id="reTable">
       <thead>
         <tr>
           <th scope="col">id#</th>
           <th scope="col">Amount</th>
           <th scope="col">When Submitted</th>
           <th scope="col">When Resolved</th>
+          <th scope="col">Description</th>
           <th scope="col">Author</th>
           <th scope="col">Resolver</th>
           <th scope="col">Status</th>
@@ -97,15 +98,11 @@
       </thead>
       <tbody></tbody>
     </table>
+    <button class="btn btn-outline-success my-2 my-sm-0" onclick="clearAll(), getAllRequestsByStatusAndAuthorA()">Accepted</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" onclick="clearAll(), getAllRequestsByStatusAndAuthorD()">Denied</button>
+    <button class="btn btn-outline-success my-2 my-sm-0" onclick="clearAll(), getAllRequestsByStatusAndAuthorP()">Pending</button>
     <div id="error-div"></div>
 
-
-    <div>Name: <span id="firstName"></span> <span id="lastName"></span></div>
-    <div>Username: <span id="username"></span></div>
-    <!-- <div>Password: <span id="password"></span></div> -->
-    <div>Email: <span id="email"></span></div>
-    <div>Role: <span id="role"></span></div>
-    <div id="error-div"></div>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
@@ -122,5 +119,6 @@
       crossorigin="anonymous"
     ></script>
     <script src="../jsFiles/script.js"></script>
+    <script>let tableBody = document.querySelector("#reTable > tbody");</script>
   </body>
 </html>

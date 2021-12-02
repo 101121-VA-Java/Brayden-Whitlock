@@ -67,7 +67,10 @@ public class ReimbService {
 		return rd.add(r);
 	}
 	
-	public boolean updateReimb(Reimbursement r) {
+	public boolean updateReimb(String token, Reimbursement r) {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		r.setResolve(timestamp);
+		r.setResolver(new User(Integer.parseInt(token.split(":")[0])));
 		return rd.edit(r);
 	}
 	

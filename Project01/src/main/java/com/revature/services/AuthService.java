@@ -33,7 +33,7 @@ public class AuthService {
 	}
 
 //	@SuppressWarnings("unlikely-arg-type")
-	public boolean checkPermission(String token, int... allowedRoles) {
+	public boolean checkPermission(String token, Integer... allowedRoles) {
 		if (token == null) {
 			return false;
 		}
@@ -45,12 +45,14 @@ public class AuthService {
 
 //		used to check the id of the role of the user witch is stored in the second space of info
 		int token_role = Integer.parseInt(info[1]);
+		System.out.println("token role: " + token_role);
 
 		User principal = ud.getById(token_id);
-
+		System.out.println("principle: " + principal);
 //      may need to do some work on this 
 		if (principal != null && token_role == principal.getRole().getRoleId()
 				&& Arrays.asList(allowedRoles).contains(token_role)) {
+			System.out.println("in if");
 			return true;
 		}
 		return false;

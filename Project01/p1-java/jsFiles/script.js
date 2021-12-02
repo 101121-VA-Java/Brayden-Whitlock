@@ -177,7 +177,7 @@ function getAllPReims() {
     if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
       let reims = xhr.response;
       reims = JSON.parse(reims);
-      printReims(reims);
+      printPReims(reims);
     } else if (xhr.readyState === 4) {
       // provide user with feedback of failure to login
       document.getElementById("error-div").innerHTML =
@@ -225,13 +225,87 @@ function getAllAReims() {
   xhr.send();
 }
 
-function printReims(reims){
-  // while (tableBody.firstChild) {
-  //   tableBody.removeChild(tableBody.firstChild);
-  // }
+function getAllRequestsByStatusAndAuthorP() {
+  let xhr = new XMLHttpRequest();
+  xhr.open(
+    "GET",
+    `http://localhost:8080/reimbursements/status/1?author_id=${
+      sessionStorage.token.split(":")[0]
+    }`
+  );
+
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+      let reims = xhr.response;
+      reims = JSON.parse(reims);
+      printReims(reims);
+    } else if (xhr.readyState === 4) {
+      // provide user with feedback of failure to login
+      document.getElementById("error-div").innerHTML =
+        "Unable to find Reimbursements.";
+    }
+  };
+  xhr.send();
+}
+
+function getAllRequestsByStatusAndAuthorD() {
+  let xhr = new XMLHttpRequest();
+  xhr.open(
+    "GET",
+    `http://localhost:8080/reimbursements/status/3?author_id=${
+      sessionStorage.token.split(":")[0]
+    }`
+  );
+
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+      let reims = xhr.response;
+      reims = JSON.parse(reims);
+      printReims(reims);
+    } else if (xhr.readyState === 4) {
+      // provide user with feedback of failure to login
+      document.getElementById("error-div").innerHTML =
+        "Unable to find Reimbursements.";
+    }
+  };
+  xhr.send();
+}
+
+function getAllRequestsByStatusAndAuthorA() {
+  let xhr = new XMLHttpRequest();
+  xhr.open(
+    "GET",
+    `http://localhost:8080/reimbursements/status/2?author_id=${
+      sessionStorage.token.split(":")[0]
+    }`
+  );
+
+  xhr.setRequestHeader("Authorization", sessionStorage.token);
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+      let reims = xhr.response;
+      reims = JSON.parse(reims);
+      printReims(reims);
+    } else if (xhr.readyState === 4) {
+      // provide user with feedback of failure to login
+      document.getElementById("error-div").innerHTML =
+        "Unable to find Reimbursements.";
+    }
+  };
+  xhr.send();
+}
+
+function clearAll() {
+  while (tableBody.firstChild) {
+    tableBody.removeChild(tableBody.firstChild);
+  }
+}
+
+function printReims(reims) {
   reims.forEach((row) => {
     const tr = document.createElement("tr");
-    // tr.textContent = row.id;
     const td1 = document.createElement("td");
     const td2 = document.createElement("td");
     const td3 = document.createElement("td");
@@ -264,14 +338,53 @@ function printReims(reims){
   });
 }
 
+function printPReims(reims) {
+  reims.forEach((row) => {
+    const tr = document.createElement("tr");
+    const td1 = document.createElement("td");
+    const td2 = document.createElement("td");
+    const td3 = document.createElement("td");
+    const td4 = document.createElement("td");
+    const td5 = document.createElement("td");
+    const td6 = document.createElement("td");
+    const td7 = document.createElement("td");
+
+    td1.textContent = row.reimId;
+    tr.appendChild(td1);
+    td2.textContent = row.reimAmount;
+    tr.appendChild(td2);
+    td3.textContent = timeFix(row.submit);
+    tr.appendChild(td3);
+    td4.textContent = row.descrip;
+    tr.appendChild(td4);
+    td5.textContent = row.author.username;
+    tr.appendChild(td5);
+    td6.textContent = row.status.status;
+    tr.appendChild(td6);
+    td7.textContent = row.type.type;
+    tr.appendChild(td7);
+    $('<td>Select: <input type="checkbox" /></td>').appendTo(tr);
+    tableBody.appendChild(tr);
+  });
+}
+
+// function getSeletedItems(){
+//   var selected = $('tbody tr').has(':checkbox:checked').map(function(index, el){
+//       return $(this).find('td:eq(1)').text()
+//   })
+// }
+
 function timeFix(time) {
-  var d = new Date(time);
-var formattedDate = (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getFullYear();
-var hours = (d.getHours() < 10) ? "0" + d.getHours() : d.getHours();
-var minutes = (d.getMinutes() < 10) ? "0" + d.getMinutes() : d.getMinutes();
-var formattedTime = hours + ":" + minutes;
-formattedDate = formattedDate + " " + formattedTime;
-return formattedDate;
+  if (time != null) {
+    var d = new Date(time);
+    var formattedDate =
+      d.getMonth() + 1 + "/" + d.getDate() + "/" + d.getFullYear();
+    var hours = d.getHours() < 10 ? "0" + d.getHours() : d.getHours();
+    var minutes = d.getMinutes() < 10 ? "0" + d.getMinutes() : d.getMinutes();
+    var formattedTime = hours + ":" + minutes;
+    formattedDate = formattedDate + " " + formattedTime;
+  }
+  return formattedDate;
 }
 
 function getAllUsers() {
@@ -318,11 +431,7 @@ function printUsers(users) {
   });
 }
 
-function viewAllRequestsByStatus() {}
-
 function viewAllRequestByAuthor() {}
-
-function viewAllRequestsByStatusAndAuthor() {}
 
 function updateUserProfile() {
   document.getElementById("error-div").innerHTML = "";
@@ -346,7 +455,6 @@ function updateUserProfile() {
     email,
     role,
   };
-  console.log("note here");
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
       let x = sessionStorage.token;
@@ -372,6 +480,34 @@ function updateUserProfile() {
 function updateRequests() {
   document.getElementById("error-div").innerHTML = "";
   let xhr = new XMLHttpRequest();
+  let amount = document.getElementById("amount").value;
+  let submitted = document.getElementById("submitted").value;
+  let description = document.getElementById("description").value;
+  let author = document.getElementById("author").value;
+  let status = document.getElementById("status").value;
+  if (status === "Approved") {
+    status = 2;
+  } else {
+    status = 3;
+  }
+  let type = document.getElementById("type").value;
+  if (type === "lodging") {
+    type = 1;
+  } else if (type === "travel") {
+    type = 2;
+  } else if (type === "food") {
+    type = 3;
+  } else {
+    type = 4;
+  }
+  let updatedEmployee = {
+    firstName,
+    lastName,
+    username,
+    password,
+    email,
+    role,
+  };
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
       document.getElementById("error-div").innerHTML = "Update successfull.";
