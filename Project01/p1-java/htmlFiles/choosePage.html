@@ -97,8 +97,10 @@
       <tbody></tbody>
     </table>
     <div>Select option and then push button to approve or deny.</div>
-    <button class="btn btn-primary" type="submit">Approve</button>
-    <button class="btn btn-primary" type="submit">Deny</button>
+    <button class="btn btn-primary" type="submit" onclick="approveAllSelectedReimsById()">Approve</button>
+    <button class="btn btn-primary" type="submit" onclick="denyAllSelectedReimsById()">Deny</button>
+    <!-- <input type="button" value="Get Selected" onclick="GetSelected()" /> -->
+    <div id="error-div"></div>
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

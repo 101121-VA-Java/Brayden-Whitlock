@@ -297,12 +297,6 @@ function getAllRequestsByStatusAndAuthorA() {
   xhr.send();
 }
 
-function clearAll() {
-  while (tableBody.firstChild) {
-    tableBody.removeChild(tableBody.firstChild);
-  }
-}
-
 function printReims(reims) {
   reims.forEach((row) => {
     const tr = document.createElement("tr");
@@ -368,11 +362,117 @@ function printPReims(reims) {
   });
 }
 
-// function getSeletedItems(){
-//   var selected = $('tbody tr').has(':checkbox:checked').map(function(index, el){
-//       return $(this).find('td:eq(1)').text()
-//   })
-// }
+function denyAllSelectedReimsById() {
+  let array = GetSelected();
+  let count = 0;
+  array.forEach(function (x) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", `http://localhost:8080/reimbursements/${x}`);
+    xhr.setRequestHeader("Authorization", sessionStorage.token);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+        let reims = xhr.response;
+        reims = JSON.parse(reims);
+        console.log(reims);
+        count++;
+        denySelectedReims(reims, count, array.length);
+      } else if (xhr.readyState === 4) {
+        // provide user with feedback of failure to login
+        document.getElementById("error-div").innerHTML =
+          "Unable to find User Profile.";
+      }
+    };
+    xhr.send();
+  });
+}
+
+function approveAllSelectedReimsById() {
+  let array = GetSelected();
+  let count = 0;
+  console.log(array);
+  array.forEach(async function (x) {
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", `http://localhost:8080/reimbursements/${x}`);
+    xhr.setRequestHeader("Authorization", sessionStorage.token);
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+        let reims = xhr.response;
+        // console.log("test" + reims);
+        reims = JSON.parse(reims);
+        // console.log(reims);
+        count++;
+        acceptSelectedReims(reims, count, array.length);
+        // acceptSelectedReims(reims);
+      } else if (xhr.readyState === 4) {
+        // provide user with feedback of failure to login
+        document.getElementById("error-div").innerHTML =
+          "Unable to find User Profile.";
+      }
+    };
+    xhr.send();
+  });
+}
+
+function acceptSelectedReims(reims, count, numberOfReimb) {
+// function acceptSelectedReims(reims) {
+  document.getElementById("error-div").innerHTML = "";
+  let xhr1 = new XMLHttpRequest();
+  reims.status.statusId = 2;
+  console.log(reims);
+  xhr1.onreadystatechange = function () {
+    if (xhr1.readyState === 4 && xhr1.status >= 200 && xhr1.status < 300) {
+      document.getElementById("error-div").innerHTML = "Update successfull.";
+      if(count === numberOfReimb){
+        location.reload();
+      }
+    } else {
+      console.log(xhr1.readyState + " " + xhr1.status);
+      document.getElementById("error-div").innerHTML = "Update failed.";
+    }
+  };
+  xhr1.open("PUT", `http://localhost:8080/reimbursements/${reims.reimId}`);
+  xhr1.setRequestHeader("Authorization", sessionStorage.token);
+  xhr1.send(JSON.stringify(reims));
+}
+
+function denySelectedReims(reims, count, numberOfReimb) {
+  document.getElementById("error-div").innerHTML = "";
+  let xhr1 = new XMLHttpRequest();
+  reims.status.statusId = 3;
+  console.log(reims);
+  xhr1.onreadystatechange = function () {
+    if (xhr1.readyState === 4 && xhr1.status >= 200 && xhr1.status < 300) {
+      document.getElementById("error-div").innerHTML = "Update successfull.";
+      if(count === numberOfReimb){
+        location.reload();
+      }
+    } else {
+      console.log(xhr1.readyState + " " + xhr1.status);
+      document.getElementById("error-div").innerHTML = "Update failed.";
+    }
+  };
+  xhr1.open("PUT", `http://localhost:8080/reimbursements/${reims.reimId}`);
+  xhr1.setRequestHeader("Authorization", sessionStorage.token);
+  xhr1.send(JSON.stringify(reims));
+}
+
+function GetSelected() {
+  //Reference the Table.
+  var grid = document.getElementById("choiceTable");
+
+  //Reference the CheckBoxes in Table.
+  var checkBoxes = grid.getElementsByTagName("INPUT");
+  let array = [];
+
+  //Loop through the CheckBoxes.
+  for (var i = 0; i < checkBoxes.length; i++) {
+    if (checkBoxes[i].checked) {
+      var row = checkBoxes[i].parentNode.parentNode;
+      array.push(row.cells[0].innerHTML);
+    }
+  }
+  return array;
+}
 
 function timeFix(time) {
   if (time != null) {
@@ -430,8 +530,6 @@ function printUsers(users) {
     tableBody.appendChild(tr);
   });
 }
-
-function viewAllRequestByAuthor() {}
 
 function updateUserProfile() {
   document.getElementById("error-div").innerHTML = "";
@@ -500,13 +598,13 @@ function updateRequests() {
   } else {
     type = 4;
   }
-  let updatedEmployee = {
-    firstName,
-    lastName,
-    username,
-    password,
-    email,
-    role,
+  let updatedReim = {
+    amount,
+    submitted,
+    description,
+    author,
+    status,
+    type,
   };
   xhr.onreadystatechange = function () {
     if (xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
@@ -526,6 +624,12 @@ function redirect() {
     window.location.href = "employeeDash.html";
   } else {
     window.location.href = "managerDash.html";
+  }
+}
+
+function clearAll() {
+  while (tableBody.firstChild) {
+    tableBody.removeChild(tableBody.firstChild);
   }
 }
 

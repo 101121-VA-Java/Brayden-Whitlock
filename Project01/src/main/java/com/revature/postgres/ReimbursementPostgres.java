@@ -237,6 +237,7 @@ public class ReimbursementPostgres implements ReimbursementDao {
 			ps.setInt(6, r.getResolver().getId());
 			ps.setInt(7, r.getStatus().getStatusId());
 			ps.setInt(8, r.getType().getTypeId());
+			ps.setInt(9, r.getReimId());
 
 			rowsChanged = ps.executeUpdate();
 
