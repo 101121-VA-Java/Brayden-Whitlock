@@ -646,9 +646,6 @@ if (
   window.location.href = "login.html";
 }
 
-// targets logout button
-// document.getElementById('logout-button').addEventListener('click', logout);
-
 function logout() {
   sessionStorage.clear();
   window.location.href = "../htmlFiles/login.html";

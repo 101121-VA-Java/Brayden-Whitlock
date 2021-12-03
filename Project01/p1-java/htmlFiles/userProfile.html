@@ -14,7 +14,7 @@
   </head>
   <body onload="getUserProfile()">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">E.R.S.</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -67,26 +67,28 @@
             >
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
       </div>
     </nav>
-    Profile
-    <div>Name: <span id="firstName"></span> <span id="lastName"></span></div>
-    <div>Username: <span id="username"></span></div>
-    <!-- <div>Password: <span id="password"></span></div> -->
-    <div>Email: <span id="email"></span></div>
-    <div>Role: <span id="role"></span></div>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Username</th>
+          <th scope="col">Email</th>
+          <th scope="col">Role</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><div><span id="firstName"></span> <span id="lastName"></div></span></td>
+          <td scope="row"><div><span id="username"></div></span></td>
+          <td scope="row"><div><span id="email"></span></div></td>
+          <td scope="row"><div><span id="role"></span></div></td>
+        </tr>
+      </tbody>
+    </table>
     <div id="error-div"></div>
+
     <script
       src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
       integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

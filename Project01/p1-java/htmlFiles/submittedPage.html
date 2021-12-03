@@ -14,7 +14,7 @@
   </head>
   <body onload="getAllRequestsByStatusAndAuthorP()">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">E.R.S.</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -67,22 +67,11 @@
             >
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
       </div>
     </nav>
     Submitted Requests Page
 
-    <table class="table" id="reTable">
+    <table class="table table-striped" id="reTable">
       <thead>
         <tr>
           <th scope="col">id#</th>
@@ -98,9 +87,24 @@
       </thead>
       <tbody></tbody>
     </table>
-    <button class="btn btn-outline-success my-2 my-sm-0" onclick="clearAll(), getAllRequestsByStatusAndAuthorA()">Accepted</button>
-    <button class="btn btn-outline-success my-2 my-sm-0" onclick="clearAll(), getAllRequestsByStatusAndAuthorD()">Denied</button>
-    <button class="btn btn-outline-success my-2 my-sm-0" onclick="clearAll(), getAllRequestsByStatusAndAuthorP()">Pending</button>
+    <button
+      class="btn btn-outline-success my-2 my-sm-0"
+      onclick="clearAll(), getAllRequestsByStatusAndAuthorA()"
+    >
+      Accepted
+    </button>
+    <button
+      class="btn btn-outline-success my-2 my-sm-0"
+      onclick="clearAll(), getAllRequestsByStatusAndAuthorD()"
+    >
+      Denied
+    </button>
+    <button
+      class="btn btn-outline-success my-2 my-sm-0"
+      onclick="clearAll(), getAllRequestsByStatusAndAuthorP()"
+    >
+      Pending
+    </button>
     <div id="error-div"></div>
 
     <script
@@ -119,6 +123,8 @@
       crossorigin="anonymous"
     ></script>
     <script src="../jsFiles/script.js"></script>
-    <script>let tableBody = document.querySelector("#reTable > tbody");</script>
+    <script>
+      let tableBody = document.querySelector("#reTable > tbody");
+    </script>
   </body>
 </html>

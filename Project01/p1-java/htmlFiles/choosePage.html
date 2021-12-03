@@ -14,7 +14,7 @@
   </head>
   <body onload="clearAll(), getAllPReims()">
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">E.R.S.</a>
       <button
         class="navbar-toggler"
         type="button"
@@ -67,21 +67,10 @@
             >
           </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input
-            class="form-control mr-sm-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-          />
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
-            Search
-          </button>
-        </form>
       </div>
     </nav>
     Make a Choice
-    <table class="table" id="choiceTable">
+    <table class="table table-striped" id="choiceTable">
       <thead>
         <tr>
           <th scope="col">id#</th>
@@ -96,7 +85,7 @@
       </thead>
       <tbody></tbody>
     </table>
-    <div>Select option and then push button to approve or deny.</div>
+    <div>Select a single request to approve or deny.</div>
     <button class="btn btn-primary" type="submit" onclick="approveAllSelectedReimsById()">Approve</button>
     <button class="btn btn-primary" type="submit" onclick="denyAllSelectedReimsById()">Deny</button>
     <!-- <input type="button" value="Get Selected" onclick="GetSelected()" /> -->
