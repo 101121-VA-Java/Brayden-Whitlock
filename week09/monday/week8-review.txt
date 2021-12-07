@@ -199,7 +199,7 @@ Angular
 		to the component (model). For example, clicking a button.
 	- Two-Way Data Binding: Two-way data binding is a combination of both Property and Event binding and it is a continuous synchronization of a data 
 		from view to the component and component to the view, i.e. changes made in the component's data should sync to the view and should immediately 
-		update the model into the corresponding component with view data.
+		update the model into the corresponding component with view data.[()]
 	
 19.	What does Webpack do for your ng project?
 	- Webpack is an open source JavaScript module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of 
