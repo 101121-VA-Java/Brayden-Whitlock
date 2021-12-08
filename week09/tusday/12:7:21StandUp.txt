@@ -1,0 +1,33 @@
+Group name: The B.A.D Boys
+Date: 12/7/21
+Brayden Whitlock, Alex Darvin,  Davey Agrinsoni
+
+Brayden:
+What did you do yesterday?:
+ - project prop 
+What will you work on today?:
+ - project prop finish making ER Diagram.
+Any blockers:
+ - approval
+
+Alex
+What did you do yesterday?:
+ - project prop 
+What will you work on today?:
+ - Test pull request/merging
+Any blockers:
+ - approval
+
+Davey
+What did you do yesterday?:
+ - api search
+What will you work on today?:
+ - repository and application framework creation.
+Any blockers:
+ - approval
+
+
+
+
+
+

@@ -1,0 +1,33 @@
+Group name: The B.A.D Boys
+Date: 12/7/21
+Brayden Whitlock, Alex Darvin,  Davey Agrinsoni
+
+Brayden:
+What did you do yesterday?:
+ - created project prop  and finished making ER Diagram.
+What will you work on today?:
+ - Get front end and back end communication. Remake back end with spring. Make some mock users. Make the global exception handling. Make a model for fruitevice. Figure out how to display from a list inside the online api.
+Any blockers:
+ - none 
+
+Alex
+What did you do yesterday?:
+ - Tested pull request/merging set up front end.
+What will you work on today?:
+ - detailing  all necessary files in front end
+Any blockers:
+ - none 
+
+Davey
+What did you do yesterday?:
+ - repository and application framework were created.
+What will you work on today?:
+ - enable spring handling 
+Any blockers:
+ - none
+
+
+
+
+
+
