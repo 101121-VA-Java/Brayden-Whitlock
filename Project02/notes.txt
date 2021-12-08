@@ -1,0 +1,84 @@
+Our team name is B.A.D.Boys our team lead is Brayden our gitflow maintenance will be done by Alex.
+ 
+We want to make an application called blender buddies that allows the user to input a bunch of fruits/other ingredients into smoothie and return the nutritional values of that smoothie. It would also display some recommendations of smoothies that the user might like based on the ingredients used to make their first smoothie. 
+
+Users
+- log in
+- log out
+- view user homepage
+- select ingredients
+- divide quantity of ingredients
+- show public list
+- submit smoothie to be added to public list
+- view past selected smoothies(extra)
+- add requests for new ingredients 
+- make new personal smoothie
+- save favorite smoothies 
+- select provided smoothies from public list
+
+Admin
+- log in 
+- log out 
+- adds smoothies to list 
+- add new ingredients
+- approve/deny recommended smoothies 
+- approve/deny recommended ingredient
+- update admin info 
+- see all users 
+- update user to admin 
+
+
+Tables 
+
+Roles
+ - role_id       fk
+ - user_role     varchar(20) not null 
+
+New ingredients
+ - ngred_id      fk
+ - name          varchar(50) not null unique
+ - nutritions    number fk
+
+nutritions
+ - carbohydrates number not null 
+ - protein       number not null   
+ - fat           number not null 
+ - calories      number not null 
+ - sugar         number not null 
+ 
+Fruitevice
+ - genus         varchar()
+ - name          varchar()
+ - fruit_id      number 
+ - family        varchar()
+ - order         varchar()
+ - nutritions    number fk
+
+Smoothies
+ - smooth_id     fk
+ - description   varchar(1000)  
+ - name          varchar(30) 
+  
+
+Recipes 
+ - ngred_id      number fk
+ - fruit_id      number fk
+ - smooth_id     number fk
+
+Users
+- user_id        fk
+- username       varchar(20) not null unique
+- password       varchar(20) not null 
+- first_name     varchar(20) not null 
+- last_name      varchar(20) not null 
+- email          varchar(200) not null
+- role_id        number fk
+
+This is the api that we would probably use but we also have a few that we might try underneath. 
+https://www.fruityvice.com/
+
+
+
+https://api.spoonacular.com/food/ingredients/fruits
+https://developer.yummly.com/documentation.html
+https://www.halfyourplate.ca/fruits-and-veggies/fruits-a-z/
