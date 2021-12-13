@@ -1,0 +1,350 @@
+Node.js/npm
+1.	What is Node.js?
+	- an asynchronous event-driven JavaScript runtime, Node.js is designed to build scalable
+		network applications. 
+2.	What is npm?
+	- "Node Package Manager" is a package manager for the JavaScript programming language 
+		maintained by npm, Inc.
+3.	What is the package.json?
+	- The package. json file is the heart of any Node project. It records important metadata 
+		about a project which is required before publishing to NPM, and also defines 
+		functional attributes of a project that npm uses to install dependencies, run scripts,
+		and identify the entry point to our package.
+4.	What is the node_modules folder?
+	- The node_modules folder is used to save all downloaded packages from NPM in your computer 
+		for the JavaScript project that you have. Developers are always recommended to do a 
+		fresh install with npm install each time they downloaded a JavaScript project into their computer.
+
+TypeScript
+1	What is TypeScript?
+	- TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale
+2.	How does TypeScript relate to JavaScript? 
+		- TypeScript is an open source syntactic superset of JavaScript that compiles to JavaScript 
+			(EcmaScript 3+). TypeScript offers type annotations which provide optional, static 
+			type checking at compile time. Since it is a superset of JavaScript, all JavaScript 
+			is syntactically valid TypeScript.
+	- What are the major benefits of using it over JavaScript?
+		- Class and Module Support.
+		- Static Type-checking.
+		- ES6 Feature Support.
+		- Clear Library API Definition.
+		- Build-in Support for JavaScript Packaging.
+		- Syntax Similarity to Our Backend Languages (Java, Scala)
+		- Superset of JavaScript.
+	- Can I run TypeScript in my browser?
+		- To run TypeScript in a browser, it needs to be transpiled into JavaScript with the TypeScript 
+			compiler (tsc). In this case, tsc creates a new . js file based on the . ts code, which 
+			you can use any way you could use a JavaScript file
+3.	List the data types of TypeScript
+	- Some common data types in TypeScript are: number, string, boolean, enum, void, null, undefined, 
+		any, never, Array and tuple 
+
+Angular
+1.	What makes a “single page application” (SPA) different from a normal web page?
+	- SPAs are faster than traditional web applications because they execute the logic in the web browser 
+		itself rather than on the server. And after the initial page load, only data is sent back and forth 
+		instead of the entire HTML that reduces the bandwidth.
+2.	Explain the difference between server-side and client-side rendering
+	- Client-side rendering manages the routing dynamically without refreshing the page every time a user requests
+		 a different route. But server-side rendering is able to display a fully populated page on the first 
+		load for any route of the website, whereas client-side rendering displays a blank page first.
+3.	What are some features of the Angular framework?
+	- Cross Platform. Progressive Web Apps. 
+	- Use modern web platform capabilities to deliver app-like experiences. ...
+	- Speed and Performance. Code Generation. ...
+	- Productivity. Templates. ...
+	- Full Development Story. Testing.
+4.	How would you create a new Angular project?
+	- ng new [name of project]
+5.	What is a component? How would you create one? List some other commands using the Angular CLI
+	- Components are the most basic UI building block of an Angular app. An Angular app contains a 
+		tree of Angular components. Angular components are a subset of directives, always associated 
+		with a template. Unlike other directives, only one component can be instantiated for a given element 
+		in a template.
+	- ng g c [name of component]
+	- ng serve -o 
+		opens project in web-brouser
+	- ng test 
+		runs test
+6.	What files make up a component? What is the “spec” file used for?
+	- files in a component 
+		- An HTML template that declares what renders on the page.
+		- A Typescript class that defines behavior.
+		- A CSS selector that defines how the component is used in a template.
+		- Optionally, CSS styles applied to the template.
+	- The spec files are unit tests for your source files.
+7.	Explain the relevance of npm to Angular projects. Which file does npm use to track dependencies?
+	- The Angular Framework, Angular CLI, and components used by Angular applications are packaged as npm packages and 
+		distributed using the npm registry.
+	- All npm packages contain a file, usually in the project root, called package. json - this file holds various metadata 
+		relevant to the project. This file is used to give information to npm that allows it to identify the project as 
+		well as handle the project's dependencies.
+8.	List some decorators for Angular apps
+	- @NgModule.
+	- @Component.
+	- @Injectable.
+	- @Directive.
+	- @Pipe.
+	- @Input.
+	- @Output.
+	- @HostBinding.
+9.	What is the lifecycle of a component? List some lifecycle hooks
+	- lifecycle
+		- Initialization: This is the stage where the component is constructed with the given Props and default state.
+			 This is done in the constructor of a Component Class.
+		- Mounting: Mounting is the stage of rendering the JSX returned by the render method itself.
+		- Updating: Updating is the stage when the state of a component is updated and the application is repainted.
+		- Unmounting: As the name suggests Unmounting is the final step of the component lifecycle where the component
+			 is removed from the page.
+	- There are eight lifecycle hooks in Angular:
+		- ngOnChanges()
+		- ngOnInit()
+		- ngDoCheck()
+		- ngAfterContentInit()
+		- ngAfterContentChecked()
+		- ngAfterViewInit()
+		- ngAfterViewChecked()
+		- ngonDestroy()
+	- Lifecycle hooks are a special functionality in Angular that allow us to “hook into” and run code at a specific lifecycle
+		event of a component or directive.
+10.	What is a directive and what are the different types? How to tell these directives apart with syntax?
+	- There are three kinds of directives in Angular: 
+		- Components—directives with a template. 
+		- Structural-directives change the DOM layout by adding and removing DOM elements. 
+		- Attribute-directives change the appearance or behavior of an element, component, or another directive.
+	- At a high level, directives are markers on a DOM element (such as an attribute, element name, comment or CSS class) that tell 
+		AngularJS's HTML compiler ($compile) to attach a specified behavior to that DOM element (e.g. via event listeners), or 
+		even to transform the DOM element and its children.
+11.	What is the benefit of using a directive like NgClass over the class attribute, or even property binding to the class attribute?
+	- Using [ngClass] you're able to apply multiple classes in a really convenient way. You can even apply a function that will return
+		an object of classes. [class. makes you able to apply only one class (of course you can use class. a few times but it looks 
+		really bad).
+12.	What is a pipe? A service?
+	- Pipes are simple functions to use in template expressions to accept an input value and return a transformed value. Pipes are useful 
+		because you can use them throughout your application, while only declaring each pipe once.
+	- An Angular service is a stateless object and provides some very useful functions. These functions can be invoked from any component 
+		of Angular, like Controllers, Directives, etc. This helps in dividing the web application into small, different logical units 
+		which can be reused.
+13.	How would you create a custom pipe? What about a service?
+	- Creating Custom Pipes
+		- Create a TypeScript Class with an export keyword.
+		- Decorate it with the @Pipe decorator and pass the name property to it.
+		- Implement the pipe transform interface in the class.
+		- Implement the transform method imposed due to the interface.
+		- Return the transformed data with the pipe.
+	- To create our own service first create angular.js module then connect the custom service to the angular module.
+14.	How does dependency injection work in Angular?
+	- For Services, Angular creates the tokens by itself. 
+	- For objects, we need to create the tokens. When a dependency is injected into another block (viz., a component, directive or service),
+		the injector resolves the object from its list of dependencies using the token.
+15.	What is an Angular module? What properties should you set inside it?
+	- Module in Angular refers to a place where you can group the components, directives, pipes, and services, which are related to the application. 
+		In case you are developing a website, the header, footer, left, center and the right section become part of a module. To define module,
+		 we can use the NgModule.
+	- In short, when using a Core Module :
+		- DO import modules that should be instantiated once in your app.
+		- DO place services in the module, but do not provide them.
+		- DO NOT declare components, pipes, directives.
+		- DO NOT import the CoreModule into any modules other than the AppModule .
+16.	How have you used the HttpClient? What methods does it have and what do they return?
+	- The general process for using HttpClient consists of a number of steps:
+		- Create an instance of HttpClient .
+		- Create an instance of one of the methods (GetMethod in this case). ...
+		- Tell HttpClient to execute the method.
+		- Read the response.
+		- Release the connection.
+		- Deal with the response.
+	- Options	
+		- The OPTIONS method represents a request for information about the communication options available.
+	- Get	
+		- The GET method means retrieve whatever information is identified by the requested URL. Also refer to the tutorial.
+	- Head	
+		- The HEAD method is identical to GET except that the server must not return a message-body in the response. This method can be used for 
+			obtaining metainformation about the document implied by the request without transferring the document itself.
+	- Post	
+		- The POST method is used to request that the origin server accept the data enclosed in the request as a new child of the request URL. 
+			POST is designed to allow a uniform method to cover a variety of functions such as appending to a database, providing data to a 
+			data-handling process or posting to a message board.
+	- Multipart Post	
+		- The multipart post method is identical to the POST method, except that the request body is separated into multiple parts. This method 
+			is generally used when uploading files to the server.
+	- Put	
+		- The PUT method requests that the enclosed document be stored under the supplied URL. This method is generally disabled on publicly
+			 available servers because it is generally undesireable to allow clients to put new files on the server or to replace existing files.
+	- Delete	
+		- The DELETE method requests that the server delete the resource identified by the request URL. This method is generally disabled on publicly
+			 available servers because it is generally undesireable to allow clients to delete files on the server.
+	- Trace	
+		- The TRACE method is used to invoke a remote, application-layer loop-back of the request message. This allows the client to see what is being 
+			received at the other end of the request chain and use that data for testing or diagnostic information.
+17.	What is an Observable? What’s the difference between it and a Promise?
+	- Observables provide support for passing messages between parts of your application. They are used frequently in Angular and are a technique for event 
+		handling, asynchronous programming, and handling multiple values.
+	- Promises deal with one asynchronous event at a time, while observables handle a sequence of asynchronous events over a period of time.
+18.	What forms of data binding does Angular support? Explain the syntax for each
+	- The types of data binding in angular are
+		- Interpolation.
+		- Property binding.
+		- Class binding.
+		- Style binding.
+		- Attribute binding.
+		- Event binding.
+		- Two-way binding.
+	- String Interpolation: The type of one-way data binding where text is between a set of curly braces often uses the name of a component property. 
+		Angular replaces that name with the string value of the corresponding component property. The syntax of string interpolation is to 
+		use double curly braces {{ code }}.
+	- Property Binding: Property Binding allows us to bind the view of the template expression. Property binding in simple term is defined as updating 
+		the value of a certain variable in component (model) and displaying it in view (presentation layer).
+	- Event Binding: Event binding is defined as the updating/sending of the value/information of a certain variable from the presentation layer (view) 
+		to the component (model). For example, clicking a button.
+	- Two-Way Data Binding: Two-way data binding is a combination of both Property and Event binding and it is a continuous synchronization of a data 
+		from view to the component and component to the view, i.e. changes made in the component's data should sync to the view and should immediately 
+		update the model into the corresponding component with view data.[()]
+	
+19.	What does Webpack do for your ng project?
+	- Webpack is an open source JavaScript module bundler. Its main purpose is to bundle JavaScript files for usage in a browser, yet it is also capable of 
+		transforming, bundling, or packaging just about any resource or asset. ... Please note that webpack sees all files and assets in your project 
+		as modules.
+20.	How would you implement routing in your project?
+	- There are three fundamental building blocks to creating a route. 
+		- Import RouterModule and Routes into your routing module. ...
+		- Define your routes in your Routes array. ...
+		- Add your routes to your application.
+21.	What is an EventEmitter and when would you use one?
+	- Event emitters and listeners are crucial to NodeJS development, and many other programming languages development. They are very useful when you have 
+		some function that needs to execute “whenever this other thing happens”, without requiring that function to finish or even work for that matter.
+	- Node. js uses events module to create and handle custom events. The EventEmitter class can be used to create and handle custom events module.
+22.	How would you run your unit tests for an Angular project?
+	- ng test <project> [options]
+	- ng t <project> [options]
+	- Takes the name of the project, as specified in the projects section of the angular.json workspace configuration file. When a project name is not supplied, 
+		it will execute for all projects.
+
+SDLC
+1.	What are the steps in the software development lifecycle?
+	- the 7 steps are 
+		- planning, 
+		- requirements, 
+		- design, 
+		- development, 
+		- testing, 
+		- deployment, 
+		- maintenance
+2.	What is the difference between Waterfall and Agile methodologies? Explain the benefits and drawbacks of each
+	- Agile and waterfall are two distinctive methodologies of processes to complete projects or work items. Agile is an iterative methodology that incorporates 
+		a cyclic and collaborative process. Waterfall is a sequential methodology that can also be collaborative, but tasks are generally handled in a more linear process.
+	- The advantages of the waterfall methodology are that:
+		- Requirements are completed early in the project, enabling the team to define the entire project scope, create a complete schedule, and design the overall application.
+		- It improves resource utilization because tasks can be split to be worked in parallel or grouped to leverage resource skills.
+		- It is a better application design because there is a more complete understanding of all the requirements and deliverables.
+		- The project status is more easily measured based on a complete schedule and resource plan.
+	- The disadvantages of the waterfall methodology are that:
+		- It is often difficult, particularly in BI, to get complete business requirements up front in a project, because business people have not really thought through
+			 in detail what they need, and business requirements can change during the project.
+		- It requires a very detailed breakdown of the tasks and deliverables for the overall BI application, which may be beyond the project team’s capability or experience at 
+			the start of the project.
+		- Although waterfall projects do not inherently have to span lengthy periods of time, it is very common for these projects to span months or quarters because of the emphasis
+			on trying to get everything done at one time, i.e., the “big bang” approach. The likelihood of projects being late, over budget, and failing to meet expectations 
+			rises as the timeframe for an IT project significantly increases.
+	- The advantages of the Agile methodology are that:
+		- Increased Flexibility with a Fast Failure Mindset
+		- Improved Team Collaboration
+		- Quicker & More Efficient Release Cadence
+		- Greater Knowledge Building
+		- More Transparency
+	- The disadvantages of the Agile methodology are that:
+		- Less predictability. For some software deliverables, developers cannot quantify the full extent of required efforts. ...
+		- More time and commitment. ...
+		- Greater demands on developers and clients. ...
+		- Lack of necessary documentation. ...
+		- Project easily falls off track.
+3.	List some of the principles declared in the Agile manifesto
+	- The four core values of Agile software development as stated by the Agile Manifesto are:
+		- individuals and interactions over processes and tools;
+		- working software over comprehensive documentation;
+		- customer collaboration over contract negotiation; and.
+		- responding to change over following a plan.
+4.	What specific Agile frameworks exist? What are the main features of each?
+	- there are six main frameworks for scaling your agile adoption.
+		- Scaled Agile Framework (SAFe) ...
+			- combines Lean, Agile, and DevOps practices for business agility.
+		- Scrum@Scale (SaS) ...
+			-  guides you in scaling agile for product delivery. It seeks to do at scale what Scrum does for a single team: keep the what (product) and the how (process)
+				separate. To that end, it defines two distinct but overlapping cycles: the Scrum Master Cycle for product delivery and the Product Owner Cycle for
+				product discovery and definition aligned with your company’s strategic vision and goals.
+		- Large Scale Scrum (LeSS) ...
+			- LeSS is a framework for scaling agile product delivery. The idea driving everything in Large Scale Scrum is to (let you)
+				- do more with less.
+				- avoid overhead and avoid local optimizations
+				- adopt a whole product focus by organizing your teams around the diverse ways your product brings value to your customers. For example, a team 
+					focusing on voice features and another on texting.
+		- Nexus. ...
+			- a framework for scaled agile product delivery. It strives to reduce complexity and cross-team dependencies with opportunities to change the process, 
+				product structure, and communication structure. The Nexus framework defines a Nexus as a group of 3 to 9 scrum teams with a single product owner 
+				and a single product backlog, similar to Scrum@Scale.
+		- Disciplined Agile (DA) ...
+			- started as Disciplined Agile Delivery (DAD), with a focus on product delivery. It evolved from there and was renamed Disciplined Agile to reflect
+				its widening scope. As of 2017, DA shows how business functions work together and what they should address for agile at scale in what it calls a
+				 Disciplined Agile Enterprise.
+		- Enterprise Kanban, aka Portfolio Kanban
+			- Its four principles and six practices guide you in optimizing workflow, focusing on customer needs and expectations, encouraging leadership at every
+				level, and continually learning and improving.
+5.	What is the Scrum process? Explain each of the Scrum ceremonies.
+	- Initiate 
+		- This phase includes the processes related to initiation of a project: Create Project Vision, Identify Scrum Master and Stakeholder(s), Form Scrum Team, 
+			Develop Epic(s), Create Prioritized Product Backlog, and Conduct Release Planning.
+	- Plan and Estimate 
+		- This phase consists of processes related to planning and estimating tasks, which include Create User Stories, Approve, Estimate, and Commit User Stories,
+			 Create Tasks, Estimate Tasks, and Create Sprint Backlog. 
+	- Implement 
+		- This phase is related to the execution of the tasks and activities to create a project's product. These activities include creating the various deliverables,
+			 conducting Daily Standup Meetings, and grooming (i.e., reviewing, fine-tuning, and regularly updating) the Product Backlog at regular intervals. More
+	- Review and Retrospect 
+		- This phase is concerned with reviewing the deliverables and the work that has been done and determining ways to improve the practices and methods used to do project work.
+	- Release 
+		- This phase emphasizes on delivering the Accepted Deliverables to the customer and identifying, documenting, and internalizing the lessons learned during the project.
+6.	How long is a typical sprint?
+	- Most of the time one sprint lasts from one week to 4 weeks, but in some exceptional cases sprint might take up to two months. 
+7.	What is a “standup” and what should you report about your work?
+	- Stand Up Report is your daily meeting tool which asks three questions What you did yesterday, What you will do today and What are your obstacles in the StandUp meeting 
+		which should not generally exceed 15 minutes.
+8.	What is the role of a “Scrum master” in a project? What about the “Product owner”?
+	- A Scrum Master leads the Agile development team and supports the Product Owner by relaying updates to relevant employees. 
+	- Product Owners manage the product backlog and ensure the company gains maximum value from the product.
+9.	Explain the following metrics/charts: sprint velocity, burndown chart
+	- The burndown is a chart that shows how quickly you and your team are burning through your customer's user stories. It shows the total effort against the amount of work 
+		we deliver each iteration.
+	- The velocity chart is used to measure the amount of work that teams can complete in a typical sprint. Velocity is measured from one sprint to the next one and 
+		the history of each sprint is maintained.
+10.	What is a Scrum board?
+	- A Scrum board is the face of your process, a visual status of your sprint, showing your work split across different stages of your workflow.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
