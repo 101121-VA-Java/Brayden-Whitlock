@@ -10,6 +10,7 @@ JDBC,
 PostgreSQL
 Features
 
+---
 List of features ready and TODOs for future development
 
 Employee User Stories
@@ -34,17 +35,15 @@ Manager User Stories
 - A Manager can view all resolved requests from all employees and see which manager resolved it
 - A Manager can view all Employees
 - A Manager can view reimbursement requests from a single Employee
-
+---
 To-do list:
 
 I want to put together a few of the features that I did and make them more abstract. 
+---
+use this to clone into my repo
+git clone https://github.com/101121-VA-Java/Brayden-Whitlock.git 
+---
 
-(include git clone command) (include all environment setup steps)
-
-Be sure to include BOTH Windows and Unix command
-Be sure to mention if the commands only work on a specific platform (eg. AWS, GCP)
-
-All the code required to get started
 Images of what it should look like
 Usage
 
