@@ -37,9 +37,7 @@ Manager User Stories
 
 To-do list:
 
-Wow improvement to be done 1
-Wow improvement to be done 2
-Getting Started
+I want to put together a few of the features that I did and make them more abstract. 
 
 (include git clone command) (include all environment setup steps)
 
