@@ -43,8 +43,4 @@ I want to put together a few of the features that I did and make them more abstr
 use this to clone into my repo
 git clone https://github.com/101121-VA-Java/Brayden-Whitlock.git 
 ---
-
-Images of what it should look like
-Usage
-
-Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
+go to project one and use that to run the project
