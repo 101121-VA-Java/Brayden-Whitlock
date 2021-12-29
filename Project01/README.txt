@@ -12,9 +12,29 @@ Features
 
 List of features ready and TODOs for future development
 
-Awesome feature 1
-Awesome feature 2
-Awesome feature 3
+Employee User Stories
+- An Employee can login
+- An Employee can view the Employee Homepage
+- An Employee can logout
+- An Employee can submit a reimbursement request
+- An Employee can upload an image of his/her receipt as part of the reimbursement request (extra credit)
+- An Employee can view their pending reimbursement requests
+- An Employee can view their resolved reimbursement requests
+- An Employee can view their information
+- An Employee can update their information
+- An Employee receives an email when one of their reimbursement requests is resolved (optional)
+
+Manager User Stories
+- A Manager can login
+- A Manager can view the Manager Homepage
+- A Manager can logout
+- A Manager can approve/deny pending reimbursement requests
+- A Manager can view all pending requests from all employees
+- A Manager can view images of the receipts from reimbursement requests (extra credit)
+- A Manager can view all resolved requests from all employees and see which manager resolved it
+- A Manager can view all Employees
+- A Manager can view reimbursement requests from a single Employee
+
 To-do list:
 
 Wow improvement to be done 1
@@ -31,9 +51,3 @@ Images of what it should look like
 Usage
 
 Here, you instruct other people on how to use your project after they’ve installed it. This would also be a good place to include screenshots of your project in action.
-Contributors
-
-Here list the people who have contributed to this project. (ignore this section, if its a solo project)
-License
-
-This project uses the following license: <license_name>.
